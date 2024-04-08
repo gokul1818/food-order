@@ -75,6 +75,7 @@
   position: relative;
   margin-top: 70px;
 }
+
 .food-list-img {
   width: 100px;
   height: 100px;
@@ -94,32 +95,87 @@
   margin-right: 10px;
   border-radius: 5px;
   width: 150px;
-  height: 168px;
+  height: 178px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   border-radius: 10%;
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
 }
+.selected-food-list-img {
+  width: 160px;
+  height: 100px;
+  object-fit: cover;
+  /* border-radius: 50%; */
+  margin-left: auto;
+  margin-right: 12px;
+  display: flex;
+  align-self: center;
+  background-color: #000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.selected-food-data-item-container {
+  display: flex;
+  background-color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 160px;
+  height: auto;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
+  /* border-radius: 10%; */
+  box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+}
+.selected-food-list-dish-name {
+  color: #000;
+  margin-top: auto;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 126px;
+  text-align: center;
+  height: auto;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
 
 .food-list-dish-name {
-    color: #000;
-    margin-top: 50px;
-    margin-bottom: 0px;
-    font-size: 16px;
-    font-weight: 600;
-    overflow: hidden;
-    width: 106px;
-    text-align: center;
-    height: 50px;
-    text-overflow: ellipsis;
-    white-space: normal; /* Corrected property value */
-  }
-  
+  color: #000;
+  margin-top: auto;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 106px;
+  text-align: center;
+  height: 50px;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
 
 .food-list-dish-price {
   color: #fa4a0c;
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
+  align-self: flex-end;
+}
+
+.food-list-cart-btn {
+  background-color: #fa4a0c;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 17px;
+  color: #f2f2f2;
 }

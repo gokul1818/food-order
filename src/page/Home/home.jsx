@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import Navbar from "../../components/navBar";
 import "./style.css";
+import { FaShoppingCart } from "react-icons/fa";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function Home() {
-  const [selectedList, setSelectedList] = useState(0); // Initialize with -1 to indicate no selection
+  const [selectedList, setSelectedList] = useState(0);
+
+  const [selectedFoodList, setSelectedFoodList] = useState(null);
+
   // Define an array of food items
   const foodItems = [
     "Foods",
@@ -21,23 +26,23 @@ function Home() {
   ];
   const foodData = [
     {
-      dishName: "Veg maggie with samosa",
-      price: "₹400",
+      dishName: "Idli with Sambar and Chutney",
+      price: "₹120",
       img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
     },
     {
-      dishName: "Veg maggie with tomoto and onion",
-      price: "₹400",
+      dishName: "Dosa with Tomato and Onion Chutney",
+      price: "₹150",
       img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
     },
     {
-      dishName: "Veg maggie",
-      price: "₹400",
+      dishName: "Masala Dosa",
+      price: "₹180",
       img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
     },
     {
-      dishName: "Veg maggie",
-      price: "₹400",
+      dishName: "Uttapam",
+      price: "₹130",
       img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
     },
   ];
@@ -80,21 +85,52 @@ function Home() {
         </div>
       </div>
       <div className="horizontal-scroll">
-        <div className="d-flex mb-5 ">
+        <div className="d-flex mb-5">
           {foodData.map((item, index) => (
-            <div key={index} className="food-data-item">
+            <div
+              key={index}
+              className="food-data-item"
+              onClick={() => setSelectedFoodList(index)}
+            >
               <div className="">
                 <div className="food-list-img-container">
-                  {/* Apply box shadow to the image */}
-                  <img className="food-list-img" src={item?.img} alt="img" />
+                  <img
+                    className={
+                      selectedFoodList === index
+                        ? "selected-food-list-img"
+                        : "food-list-img"
+                    }
+                    src={item?.img}
+                    alt="img"
+                  />
                 </div>
-                <div className="food-data-item-container">
-                  <p className="food-list-dish-name">
-                    {item?.dishName.length > 20
-                      ? item?.dishName.slice(0,20) + "..."
+                <div
+                  className={
+                    selectedFoodList === index
+                      ? "selected-food-data-item-container"
+                      : "food-data-item-container"
+                  }
+                >
+                  <p
+                    className={
+                      selectedFoodList === index
+                        ? "selected-food-list-dish-name"
+                        : "food-list-dish-name"
+                    }
+                  >
+                    {item?.dishName.length > 20 && selectedFoodList !== index
+                      ? item?.dishName.slice(0, 20) + "..."
                       : item?.dishName}
                   </p>
                   <p className="food-list-dish-price">{item?.price}</p>
+                  {selectedFoodList === index && (
+                    <div className="d-flex my-3">
+                      <button className="food-list-cart-btn">
+                        Add to Cart
+                      </button>
+                      {/* <ShoppingCartIcon className="cart-icon" /> */}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
