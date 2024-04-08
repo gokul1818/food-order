@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../../components/navBar";
 import "./style.css";
-import { FaShoppingCart } from "react-icons/fa";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function Home() {
   const [selectedList, setSelectedList] = useState(0);
