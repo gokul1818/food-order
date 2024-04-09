@@ -26,9 +26,8 @@
 
 .horizontal-scroll {
   overflow-x: auto;
-  white-space: nowrap;
+  white-space: wrap;
   height: auto;
-  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -36,6 +35,13 @@
 .food-list {
   display: inline-block;
   padding: 10px;
+  white-space: nowrap;
+}
+.food-Data-list {
+  display: flex;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .food-item {
@@ -45,6 +51,7 @@
   padding-right: 10px;
   margin-right: 10px;
   border-radius: 5px;
+  justify-content: center;
 }
 
 .selected {
@@ -71,21 +78,12 @@
   border-radius: 5px;
   width: 150px;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   position: relative;
   margin-top: 70px;
 }
 
-.food-list-img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 60%;
-  right: 19%;
-  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
-}
+
 
 .food-data-item-container {
   display: flex;
@@ -100,7 +98,20 @@
   flex-direction: column;
   align-items: center;
   border-radius: 10%;
+  position: relative;
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+}
+.food-list-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 63%;
+  right: 19%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
 }
 .selected-food-list-img {
   width: 160px;
@@ -110,6 +121,7 @@
   margin-left: auto;
   margin-right: 12px;
   display: flex;
+  z-index: 10;
   align-self: center;
   background-color: #000;
   border-top-left-radius: 10px;
@@ -126,6 +138,7 @@
   border-bottom-right-radius: 10px;
   width: 160px;
   height: auto;
+  position: relative;
   justify-content: end;
   flex-direction: column;
   align-items: center;
@@ -165,7 +178,8 @@
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
-  align-self: flex-end;
+  align-self: center;
+  margin-bottom: 5px;
 }
 
 .food-list-cart-btn {

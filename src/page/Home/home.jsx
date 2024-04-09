@@ -9,39 +9,79 @@ function Home() {
 
   // Define an array of food items
   const foodItems = [
+    "South Indian",
+    "Main Courses",
     "Foods",
     "Drinks",
     "Snacks",
-    "Foods",
-    "Drinks",
-    "Snacks",
-    "Foods",
-    "Drinks",
-    "Snacks",
-    "Foods",
-    "Drinks",
-    "Snacks",
+    "Desserts",
+    "Appetizers",
+    "Side Dishes",
+    "Salads",
+    "Soups",
+    "Beverages",
   ];
+
   const foodData = [
     {
       dishName: "Idli with Sambar and Chutney",
       price: "₹120",
-      img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
+      img: "https://m.economictimes.com/thumb/msid-99118050,width-1200,height-900,resizemode-4,imgsize-64776/idli_istock.jpg",
+      category: "South Indian",
     },
     {
       dishName: "Dosa with Tomato and Onion Chutney",
       price: "₹150",
-      img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
     },
     {
       dishName: "Masala Dosa",
       price: "₹180",
-      img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
     },
     {
       dishName: "Uttapam",
       price: "₹130",
-      img: "https://www.healthifyme.com/blog/wp-content/uploads/2021/10/All-About-The-Right-Food-Plate-Method.jpg",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Pongal",
+      price: "₹140",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/01/pongal-ven-pongal-500x500.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Vada with Sambar",
+      price: "₹110",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Rava Dosa",
+      price: "₹160",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Bisi Bele Bath",
+      price: "₹170",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Puliyogare",
+      price: "₹150",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
+    },
+    {
+      dishName: "Mysore Masala Dosa",
+      price: "₹200",
+      img: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+      category: "South Indian",
     },
   ];
 
@@ -67,15 +107,15 @@ function Home() {
           />
         </div>
       </div>
-      <div className="horizontal-scroll">
+      <div className="horizontal-scroll mt-4">
         <div className="food-list">
           {foodItems.map((item, index) => (
             <div
               key={index}
               className="food-item"
-              onClick={() => handleFoodItemClick(index)}
+              onClick={() => handleFoodItemClick(item)}
             >
-              <p className={selectedList === index ? "selected" : "unselected"}>
+              <p className={selectedList === item ? "selected" : "unselected"}>
                 {item}
               </p>
             </div>
@@ -83,15 +123,17 @@ function Home() {
         </div>
       </div>
       <div className="horizontal-scroll">
-        <div className="d-flex mb-5">
-          {foodData.map((item, index) => (
-            <div
-              key={index}
-              className="food-data-item"
-              onClick={() => setSelectedFoodList(index)}
-            >
-              <div className="">
-                <div className="food-list-img-container">
+        <div className="food-Data-list  mb-5">
+        {console.log(selectedList)}
+          {foodData
+            .filter((item) => item?.category === selectedList) // Filter based on selectedList
+            .map((item, index) => (
+              <div
+                key={index}
+                className="food-data-item"
+                onClick={() => setSelectedFoodList(index)}
+              >
+                <div className="position-relative">
                   <img
                     className={
                       selectedFoodList === index
@@ -101,38 +143,37 @@ function Home() {
                     src={item?.img}
                     alt="img"
                   />
-                </div>
-                <div
-                  className={
-                    selectedFoodList === index
-                      ? "selected-food-data-item-container"
-                      : "food-data-item-container"
-                  }
-                >
-                  <p
+                  <div
                     className={
                       selectedFoodList === index
-                        ? "selected-food-list-dish-name"
-                        : "food-list-dish-name"
+                        ? "selected-food-data-item-container"
+                        : "food-data-item-container"
                     }
                   >
-                    {item?.dishName.length > 20 && selectedFoodList !== index
-                      ? item?.dishName.slice(0, 20) + "..."
-                      : item?.dishName}
-                  </p>
-                  <p className="food-list-dish-price">{item?.price}</p>
-                  {selectedFoodList === index && (
-                    <div className="d-flex my-3">
-                      <button className="food-list-cart-btn">
-                        Add to Cart
-                      </button>
-                      {/* <ShoppingCartIcon className="cart-icon" /> */}
-                    </div>
-                  )}
+                    <p
+                      className={
+                        selectedFoodList === index
+                          ? "selected-food-list-dish-name"
+                          : "food-list-dish-name"
+                      }
+                    >
+                      {item?.dishName.length > 20 && selectedFoodList !== index
+                        ? item?.dishName.slice(0, 20) + "..."
+                        : item?.dishName}
+                    </p>
+                    <p className="food-list-dish-price">{item?.price}</p>
+                    {selectedFoodList === index && (
+                      <div className="d-flex my-3">
+                        <button className="food-list-cart-btn">
+                          Add to Cart
+                        </button>
+                        {/* <ShoppingCartIcon className="cart-icon" /> */}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
