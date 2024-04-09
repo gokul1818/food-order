@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import Navbar from "../../components/navBar";
 import "./style.css";
+import { useDispatch ,useSelector } from "react-redux";
+import { addCartItem } from "../../redux/reducers/cartSlice";
+const foodItems = [
+  "South Indian",
+  "Main Courses",
+  "Foods",
+  "Drinks",
+  "Snacks",
+  "Desserts",
+  "Appetizers",
+  "Side Dishes",
+  "Salads",
+  "Soups",
+  "Beverages",
+];
 
 function Home() {
-  const [selectedList, setSelectedList] = useState(0);
+  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart.cart);
+  
+  const [selectedList, setSelectedList] = useState(foodItems[0]);
 
   const [selectedFoodList, setSelectedFoodList] = useState(null);
 
   // Define an array of food items
-  const foodItems = [
-    "South Indian",
-    "Main Courses",
-    "Foods",
-    "Drinks",
-    "Snacks",
-    "Desserts",
-    "Appetizers",
-    "Side Dishes",
-    "Salads",
-    "Soups",
-    "Beverages",
-  ];
 
   const foodData = [
     {
@@ -90,11 +95,15 @@ function Home() {
     setSelectedList(index); // Set selected index
   };
 
+  const addToCart = (item) => {
+    dispatch(addCartItem(item));
+  };
+
   return (
     <div>
       <Navbar />
       <div className="mt-5 pt-3">
-        <p className="nav-label">Delicious food for you</p>
+        <p className="nav-label">Delicious food for you  {cart.length}</p>
       </div>
       {/* Search Input with search icon */}
       <div className="d-flex justify-content-center align-items-center mt-3">
@@ -124,7 +133,7 @@ function Home() {
       </div>
       <div className="horizontal-scroll">
         <div className="food-Data-list  mb-5">
-        {console.log(selectedList)}
+          {console.log(selectedList)}
           {foodData
             .filter((item) => item?.category === selectedList) // Filter based on selectedList
             .map((item, index) => (
@@ -164,7 +173,10 @@ function Home() {
                     <p className="food-list-dish-price">{item?.price}</p>
                     {selectedFoodList === index && (
                       <div className="d-flex my-3">
-                        <button className="food-list-cart-btn">
+                        <button
+                          className="food-list-cart-btn"
+                          onClick={() => addToCart(item)}
+                        >
                           Add to Cart
                         </button>
                         {/* <ShoppingCartIcon className="cart-icon" /> */}

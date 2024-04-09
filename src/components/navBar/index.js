@@ -1,7 +1,8 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, useScrollTrigger } from '@mui/material';
+import { AppBar, Toolbar, IconButton, useScrollTrigger, Badge } from '@mui/material';
 import MenuIcon from "../../assets/icon/menu.svg";
 import ShoppingCartIcon from "../../assets/icon/shopping-cart.svg";
+import { useDispatch, useSelector } from "react-redux";
 
 function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
@@ -15,6 +16,7 @@ function ElevationScroll({ children }) {
 }
 
 function Navbar() {
+    const cart = useSelector(state => state.cart.cart);
     return (
         <ElevationScroll>
             <AppBar style={{ backgroundColor: '#F2F2F2', boxShadow: 'none' }}>
@@ -41,8 +43,11 @@ function Navbar() {
                                 // Handle cart icon click event
                             }}
                         >
-                            <img src={ShoppingCartIcon} alt="Shopping Cart" />
+                            <Badge badgeContent={cart.length} color="warning">
+                                <img src={ShoppingCartIcon} alt="Shopping Cart" />
+                            </Badge>
                         </IconButton>
+
                     </div>
                 </Toolbar>
             </AppBar>
