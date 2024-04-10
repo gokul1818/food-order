@@ -38,7 +38,7 @@ function Navbar() {
                             edge="end"
                             color="inherit"
                             aria-label="shopping cart"
-                            sx={{ ml: 1 }}
+                            sx={{ mr: 0 }}
                             onClick={() => {
                                 // Handle cart icon click event
                             }}

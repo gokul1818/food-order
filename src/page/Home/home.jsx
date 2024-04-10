@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Navbar from "../../components/navBar";
 import "./style.css";
-import { useDispatch ,useSelector } from "react-redux";
-import { addCartItem } from "../../redux/reducers/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 const foodItems = [
   "South Indian",
   "Main Courses",
@@ -19,11 +19,18 @@ const foodItems = [
 
 function Home() {
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.cart);
-  
+  const cart = useSelector((state) => state.cart.cart);
+
   const [selectedList, setSelectedList] = useState(foodItems[0]);
 
   const [selectedFoodList, setSelectedFoodList] = useState(null);
+  const [addToCartBtnLabels, setAddToCartBtnLabels] = useState(
+    Array(foodItems.length).fill("Add to Cart")
+  );
+
+  const [itemQuantities, setItemQuantities] = useState(
+    Array(foodItems.length).fill(0)
+  );
 
   // Define an array of food items
 
@@ -90,22 +97,40 @@ function Home() {
     },
   ];
 
-  // Function to handle food item click
   const handleFoodItemClick = (index) => {
-    setSelectedList(index); // Set selected index
+    setSelectedList(index);
   };
 
-  const addToCart = (item) => {
+  const addToCart = (item, index) => {
     dispatch(addCartItem(item));
+    const newLabels = [...addToCartBtnLabels];
+    newLabels[index] = "Plus";
+    setAddToCartBtnLabels(newLabels);
+
+    const newQuantities = [...itemQuantities];
+    newQuantities[index]++;
+    setItemQuantities(newQuantities);
+  };
+
+  const removeFromCart = (item, index) => {
+    dispatch(removeCartItem(item));
+    const newQuantities = [...itemQuantities];
+    newQuantities[index]--;
+    setItemQuantities(newQuantities);
+
+    if (newQuantities[index] === 0) {
+      const newLabels = [...addToCartBtnLabels];
+      newLabels[index] = "Add to Cart";
+      setAddToCartBtnLabels(newLabels);
+    }
   };
 
   return (
     <div>
       <Navbar />
       <div className="mt-5 pt-3">
-        <p className="nav-label">Delicious food for you  {cart.length}</p>
+        <p className="nav-label">Delicious food for you </p>
       </div>
-      {/* Search Input with search icon */}
       <div className="d-flex justify-content-center align-items-center mt-3">
         <div className="search-container">
           <i className="search-icon fas fa-search"></i>
@@ -133,9 +158,8 @@ function Home() {
       </div>
       <div className="horizontal-scroll">
         <div className="food-Data-list  mb-5">
-          {console.log(selectedList)}
           {foodData
-            .filter((item) => item?.category === selectedList) // Filter based on selectedList
+            .filter((item) => item?.category === selectedList)
             .map((item, index) => (
               <div
                 key={index}
@@ -171,15 +195,34 @@ function Home() {
                         : item?.dishName}
                     </p>
                     <p className="food-list-dish-price">{item?.price}</p>
-                    {selectedFoodList === index && (
+                    {selectedFoodList == index && (
                       <div className="d-flex my-3">
-                        <button
-                          className="food-list-cart-btn"
-                          onClick={() => addToCart(item)}
-                        >
-                          Add to Cart
-                        </button>
-                        {/* <ShoppingCartIcon className="cart-icon" /> */}
+                        {addToCartBtnLabels[index] === "Add to Cart" ? (
+                          <button
+                            className="food-list-cart-btn"
+                            onClick={() => addToCart(item, index)}
+                          >
+                            {addToCartBtnLabels[index]}
+                          </button>
+                        ) : (
+                          <div className="d-flex align-items-center justify-content-between">
+                            <button
+                              className="food-list-cart-btn"
+                              onClick={() => removeFromCart(item, index)}
+                            >
+                              -
+                            </button>
+                            <span className="food-list-quantity mx-3">
+                              {itemQuantities[index]}
+                            </span>
+                            <button
+                              className="food-list-cart-btn"
+                              onClick={() => addToCart(item, index)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
