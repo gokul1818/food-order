@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, useScrollTrigger, Badge } from '@mui/mater
 import MenuIcon from "../../assets/icon/menu.svg";
 import ShoppingCartIcon from "../../assets/icon/shopping-cart.svg";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
@@ -43,9 +44,13 @@ function Navbar() {
                                 // Handle cart icon click event
                             }}
                         >
-                            <Badge badgeContent={cart.length} color="warning">
-                                <img src={ShoppingCartIcon} alt="Shopping Cart" />
-                            </Badge>
+                            <Link to="/cart">
+
+                                <Badge badgeContent={cart.length} color="warning">
+                                    <img src={ShoppingCartIcon} alt="Shopping Cart" />
+                                </Badge>
+                            </Link>
+
                         </IconButton>
 
                     </div>

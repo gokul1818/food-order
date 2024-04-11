@@ -102,7 +102,8 @@ function Home() {
   };
 
   const addToCart = (item, index) => {
-    dispatch(addCartItem(item));
+    dispatch(addCartItem({ item, quantity: 1 }));
+
     const newLabels = [...addToCartBtnLabels];
     newLabels[index] = "Plus";
     setAddToCartBtnLabels(newLabels);
@@ -113,7 +114,7 @@ function Home() {
   };
 
   const removeFromCart = (item, index) => {
-    dispatch(removeCartItem(item));
+    dispatch(removeCartItem({ item, quantity: 1 }));
     const newQuantities = [...itemQuantities];
     newQuantities[index]--;
     setItemQuantities(newQuantities);
@@ -196,7 +197,7 @@ function Home() {
                     </p>
                     <p className="food-list-dish-price">{item?.price}</p>
                     {selectedFoodList == index && (
-                      <div className="d-flex my-3">
+                      <div className="d-flex justify-content-evenly my-3 w-100 ">
                         {addToCartBtnLabels[index] === "Add to Cart" ? (
                           <button
                             className="food-list-cart-btn"
@@ -205,14 +206,14 @@ function Home() {
                             {addToCartBtnLabels[index]}
                           </button>
                         ) : (
-                          <div className="d-flex align-items-center justify-content-between">
+                          <div className="d-flex align-items-center justify-content-evenly w-100">
                             <button
                               className="food-list-cart-btn"
                               onClick={() => removeFromCart(item, index)}
                             >
                               -
                             </button>
-                            <span className="food-list-quantity mx-3">
+                            <span className="food-list-quantity mx-3 ">
                               {itemQuantities[index]}
                             </span>
                             <button

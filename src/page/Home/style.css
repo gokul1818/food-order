@@ -83,8 +83,6 @@
   margin-top: 50px;
 }
 
-
-
 .food-data-item-container {
   display: flex;
   background-color: #fff;
@@ -192,4 +190,9 @@
   padding-right: 10px;
   font-size: 17px;
   color: #f2f2f2;
+}
+.food-list-quantity {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
 }

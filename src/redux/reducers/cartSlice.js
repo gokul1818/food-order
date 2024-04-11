@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
@@ -8,15 +7,30 @@ const cartSlice = createSlice({
     },
     reducers: {
         addCartItem: (state, action) => {
-            console.log(action)
-            state.cart.push(action.payload);
-        },
-        removeCartItem: (state, action) => {
-            const indexToRemove = state.cart.findIndex(item => item.id === action.payload.id);
-            if (indexToRemove !== -1) {
-                state.cart.splice(indexToRemove, 1);
+            const { item, quantity } = action.payload;
+            const existingItemIndex = state.cart.findIndex(cartItem => cartItem.dishName === item.dishName);
+
+            if (existingItemIndex !== -1) {
+                // If item already exists in cart, update its quantity
+                state.cart[existingItemIndex].quantity += quantity;
+            } else {
+                // If item doesn't exist in cart, add it with the given quantity
+                state.cart.push({ ...item, quantity });
             }
         },
+        removeCartItem: (state, action) => {
+            const { item,quantity } = action.payload;
+            const existingItemIndex = state.cart.findIndex(cartItem => cartItem?.dishName === item.dishName);
+
+            if (existingItemIndex !== -1) {
+                if (state.cart[existingItemIndex].quantity === 1) {
+                    state.cart.splice(existingItemIndex, 1);
+                } else {
+                    state.cart[existingItemIndex].quantity -= quantity;
+                }
+            }
+        },
+
         // You can define other reducers here as needed
     },
 });
