@@ -1,0 +1,198 @@
+.nav-label {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+  font-size: 36px;
+  font-weight: bolder;
+  width: 70%;
+  margin-left: 7%;
+}
+.search-container {
+  border-radius: 20px; /* Set border radius */
+  padding: 10px; /* Optional: Add padding for better appearance */
+  border: 1px solid #ccc; /* Optional: Add border */
+  outline: none; /* Optional: Remove default focus outline */
+  width: 80%;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  /* justify-content: center; */
+}
+.search-input {
+  background: "transparent";
+  margin-left: 10px;
+  border: none; /* Optional: Add border */
+  outline: none; /* Optional: Remove default focus outline */
+}
+
+.horizontal-scroll {
+  overflow-x: auto;
+  white-space: wrap;
+  height: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.food-list {
+  display: inline-block;
+  padding: 10px;
+  white-space: nowrap;
+}
+.food-Data-list {
+  display: flex;
+  /* padding: 10px; */
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.food-item {
+  display: inline-block;
+  background-color: #f2f2f2;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+.selected {
+  color: #fa4a0c;
+  border-bottom: 2px solid #fa4a0c;
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.unselected {
+  color: #6e6e6e;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+.food-data-item {
+  display: flex;
+  background-color: #f2f2f2;
+  /* padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  margin-left: 10px; */
+  border-radius: 5px;
+  width: 150px;
+  justify-content: center;
+  align-items: end;
+  position: relative;
+  margin-top: 50px;
+}
+
+.food-data-item-container {
+  display: flex;
+  background-color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  width: 150px;
+  height: 178px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10%;
+  position: relative;
+  box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+}
+.food-list-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 63%;
+  right: 19%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
+}
+.selected-food-list-img {
+  width: 160px;
+  height: 100px;
+  object-fit: cover;
+  /* border-radius: 50%; */
+  margin-left: auto;
+  margin-right: 12px;
+  display: flex;
+  z-index: 10;
+  align-self: center;
+  background-color: #000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.selected-food-data-item-container {
+  display: flex;
+  background-color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 160px;
+  height: auto;
+  position: relative;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
+  /* border-radius: 10%; */
+  box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+}
+.selected-food-list-dish-name {
+  color: #000;
+  margin-top: auto;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 126px;
+  text-align: center;
+  height: auto;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.food-list-dish-name {
+  color: #000;
+  margin-top: auto;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 106px;
+  text-align: center;
+  height: 50px;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.food-list-dish-price {
+  color: #fa4a0c;
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: 600;
+  align-self: center;
+  margin-bottom: 5px;
+}
+
+.food-list-cart-btn {
+  background-color: #fa4a0c;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 17px;
+  color: #f2f2f2;
+}
+.food-list-quantity {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}

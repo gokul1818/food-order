@@ -1,0 +1,62 @@
+[
+  {
+    "dishName": "Idli with Sambar and Chutney",
+    "price": "₹120",
+    "img": "https://m.economictimes.com/thumb/msid-99118050,width-1200,height-900,resizemode-4,imgsize-64776/idli_istock.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Dosa with Tomato and Onion Chutney",
+    "price": "₹150",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Masala Dosa",
+    "price": "₹180",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Uttapam",
+    "price": "₹130",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Pongal",
+    "price": "₹140",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/01/pongal-ven-pongal-500x500.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Vada with Sambar",
+    "price": "₹110",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Rava Dosa",
+    "price": "₹160",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Bisi Bele Bath",
+    "price": "₹170",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Puliyogare",
+    "price": "₹150",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  },
+  {
+    "dishName": "Mysore Masala Dosa",
+    "price": "₹200",
+    "img": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "category": "South Indian"
+  }
+]
