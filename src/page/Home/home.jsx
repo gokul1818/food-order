@@ -214,7 +214,7 @@ function Home() {
                               -
                             </button>
                             <span className="food-list-quantity mx-3 ">
-                              {itemQuantities[index]}
+                              {/* {cart[index].quantity} */}
                             </span>
                             <button
                               className="food-list-cart-btn"
