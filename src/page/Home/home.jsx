@@ -4,6 +4,7 @@ import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import foodData from "../../foodData.json";
+import NormalBtn from "../../components/normalButton";
 const foodItems = [
   "South Indian",
   "Main Courses",
@@ -62,8 +63,8 @@ function Home() {
   };
 
   const itemQuantity = (item) => {
-    const quantity = cart.filter((x) => x.dishName == item.dishName);
-    return quantity[0].quantity;
+    const quantity = cart.filter((x) => x?.dishName == item?.dishName);
+    return quantity[0]?.quantity;
   };
 
   return (
@@ -138,31 +139,40 @@ function Home() {
                     <p className="food-list-dish-price">{item?.price}</p>
                     {selectedFoodList == index && (
                       <div className="d-flex justify-content-evenly my-3 w-100 ">
-                        {addToCartBtnLabels[index] === "Add to Cart" ? (
-                          <button
-                            className="food-list-cart-btn"
-                            onClick={() => addToCart(item, index)}
-                          >
-                            {addToCartBtnLabels[index]}
-                          </button>
+                        {itemQuantity(item) === undefined ? (
+                          <NormalBtn
+                            btnlabel={"Add To Cart "}
+                            className={"food-list-cart-btn"}
+                            onClick={() => {
+                              setTimeout(() => {
+                                addToCart(item, index);
+                              }, 500);
+                            }}
+                          />
                         ) : (
-                          <div className="d-flex align-items-center justify-content-evenly w-100">
-                            <button
-                              className="food-list-cart-btn"
-                              onClick={() => removeFromCart(item, index)}
-                            >
-                              -
-                            </button>
+                          <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
+                            <NormalBtn
+                              btnlabel={"-"}
+                              className={"food-list-cart-btn"}
+                              onClick={() => {
+                                setTimeout(() => {
+                                  removeFromCart(item, index);
+                                }, 500);
+                              }}
+                            />
                             <span className="food-list-quantity mx-3">
                               {/* {cart[index].quantity} */}
                               {itemQuantity(item)}
                             </span>
-                            <button
-                              className="food-list-cart-btn"
-                              onClick={() => addToCart(item, index)}
-                            >
-                              +
-                            </button>
+                            <NormalBtn
+                              btnlabel={"+"}
+                              className={"food-list-cart-btn"}
+                              onClick={() => {
+                                setTimeout(() => {
+                                  addToCart(item, index);
+                                }, 500);
+                              }}
+                            />
                           </div>
                         )}
                       </div>

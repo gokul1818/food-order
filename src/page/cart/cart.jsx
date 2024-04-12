@@ -1,15 +1,17 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./style.css";
-import { Link } from "react-router-dom";
-import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
+import { Link, createBrowserRouter, useN } from "react-router-dom";
 import CartIcon from "../../assets/icon/cartIcon.svg";
+import NormalBtn from "../../components/normalButton";
+import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
+import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
-
   const addToCart = (item, index) => {
     dispatch(addCartItem({ item, quantity: 1 }));
 
@@ -85,9 +87,15 @@ function Cart() {
           </div>
           <div className="total-price-container fixed-bottom">
             <p className="cart-list-price"> ₹{totalPrice.toFixed(2)}</p>
-            <Link to="/payment" className="proceed-btn">
-              <button class="btn-proceed"> Proceed</button>
-            </Link>
+            <NormalBtn
+              btnlabel="Proceed"
+              className={"btn-proceed"}
+              onClick={() => {
+                setTimeout(() => {
+                  navigate("/cart/checkout");
+                }, 500);
+              }}
+            />
           </div>
         </>
       ) : (
@@ -95,9 +103,15 @@ function Cart() {
           <img src={CartIcon} className="pe-3" alt="cartIcon" />
           <p className="no-cart-list mt-3"> No cart yet</p>
           <div>
-            <Link to={"/"} style={{ textDecoration: "none" }}>
-              <p className="start-order-btn mt-3">Start to Order</p>
-            </Link>
+            <NormalBtn
+              btnlabel="Start To Order"
+              className={"start-order-btn mt-3"}
+              onClick={() => {
+                setTimeout(() => {
+                  navigate("/");
+                }, 500);
+              }}
+            />
           </div>
         </div>
       )}
