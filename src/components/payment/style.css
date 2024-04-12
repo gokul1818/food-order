@@ -19,7 +19,7 @@
   }
   
   .left-side {
-    background-color: #5de2a3;
+    background-color: #fa4a0c;
     width: 130px;
     height: 120px;
     border-radius: 4px;
@@ -42,6 +42,8 @@
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+    color: #000;
+
   }
   
   .right-side:hover {
@@ -63,22 +65,22 @@
   .card {
     width: 70px;
     height: 46px;
-    background-color: #c7ffbc;
+    background-color: #fa4b0c;
     border-radius: 6px;
     position: absolute;
     display: flex;
     z-index: 10;
     flex-direction: column;
     align-items: center;
-    -webkit-box-shadow: 9px 9px 9px -2px rgba(77, 200, 143, 0.72);
-    -moz-box-shadow: 9px 9px 9px -2px rgba(77, 200, 143, 0.72);
-    -webkit-box-shadow: 9px 9px 9px -2px rgba(77, 200, 143, 0.72);
+    -webkit-box-shadow: 9px 9px 9px -2px #ffffff6b;
+    -moz-box-shadow: 9px 9px 9px -2px #ffffff6b;
+    -webkit-box-shadow: 9px 9px 9px -2px #3939396a;
   }
   
   .card-line {
     width: 65px;
     height: 13px;
-    background-color: #80ea69;
+    background-color: #fa4b0c;
     border-radius: 2px;
     margin-top: 7px;
   }
@@ -101,10 +103,10 @@
   .buttons {
     width: 8px;
     height: 8px;
-    background-color: #379e1f;
-    box-shadow: 0 -10px 0 0 #26850e, 0 10px 0 0 #56be3e;
+    background-color: #fa4b0c;
+    box-shadow: 0 -10px 0 0 #fa4b0c, 0 10px 0 0 #fa4b0c;
     border-radius: 50%;
-    margin-top: 5px;
+    margin-top: 2px;
     transform: rotate(90deg);
     margin: 10px 0 0 -30px;
   }
@@ -223,7 +225,7 @@
     width: 100%;
     left: 0;
     top: 0;
-    color: #4b953b;
+    color: #fa4a0c;
     text-align: center;
   }
   

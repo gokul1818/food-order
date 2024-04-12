@@ -1,11 +1,292 @@
 .cart-label {
-    font-size: 24px;
-    font-weight: 400;
-    color: black;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0px;
-  }
-  
+  font-size: 24px;
+  font-weight: 400;
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+}
+.tables-container {
+  display: flex;
+  width: 100% !important;
+  overflow-x: scroll;
+  /* align-items: center;
+  justify-content: center; */
+}
+.table-container {
+  display: flex;
+  width: 200px !important;
+  height: 100px;
+  border-radius: 10px;
+  background-color: #fff;
+  align-items: center;
+  color: #fa4a0c;
 
-  
+  justify-content: center;
+  box-shadow: 20px 11px 20px 0px rgb(0, 0, 0, 0.1);
+}
+
+.selected-table-container {
+  display: flex;
+  width: 200px !important;
+  height: 100px;
+  border-radius: 10px;
+  background-color: #fa4a0c;
+  align-items: center;
+  border: 1px solid #fa4a0c;
+  color: #fff;
+  justify-content: center;
+  box-shadow: 20px 11px 20px 0px rgba(245, 17, 5, 0.35);
+}
+
+.select-label {
+  font-size: 23px;
+  font-weight: 600;
+  color: #000;
+  margin-left: 28px;
+  margin-top: 20px;
+  letter-spacing: 1px;
+}
+.booking-container {
+  width: 90%;
+  align-self: center;
+  background-color: #fff;
+  border-radius: 20px;
+  min-height: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 200px;
+}
+.details-label {
+  margin-bottom: 0px;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+.table-container-img {
+  width: 50px;
+  height: 50px;
+
+}
+
+/* radio Btn  style */
+.radio-form {
+  display: block;
+  /* margin: auto; */
+  max-width: 10em;
+  position: relative;
+}
+
+.radio-form input {
+  position: fixed;
+  top: -1.5em;
+  left: -1.5em;
+}
+
+.radio-form label {
+  cursor: pointer;
+  display: block;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.2);
+  transition: color 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.radio-form label:not(:last-of-type) {
+  margin-bottom: 1.5em;
+}
+
+.radio-form label span {
+  box-shadow: 0 0 0 0.2em currentColor inset, 0 0.2em 0.2em rgba(0, 0, 0, 0.2),
+    0 0.3em 0.2em rgba(0, 0, 0, 0.2) inset;
+  display: inline-block;
+  margin-right: 0.5em;
+  vertical-align: bottom;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  color: #0000007a;
+  transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 2),
+    box-shadow 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+    color 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.radio-form input:checked + label,
+.radio-form input:checked + label span {
+  color: #fa4a0c;
+}
+
+.radio-form input:checked + label,
+.radio-form input:checked + label span {
+  transition-delay: 0.4s;
+}
+
+.radio-form label span {
+  transform: scale(1.2);
+}
+
+.radio-form .worm {
+  top: 0.375em;
+  left: 0.375em;
+  position: absolute;
+}
+
+.radio-form .worm__segment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.radio-form .worm__segment:before {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  background: currentColor;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.radio-form .worm__segment:first-child:before,
+.radio-form .worm__segment:last-child:before {
+  box-shadow: 0 0 1em 0 currentColor;
+}
+
+@keyframes hop1 {
+  from,
+  to {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-1.5em);
+  }
+}
+
+@keyframes hop2 {
+  from,
+  to {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-1.5em);
+  }
+}
+
+@keyframes hop3 {
+  from,
+  to {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-1.5em);
+  }
+}
+
+.radio-form input:nth-of-type(1):checked ~ .worm .worm__segment {
+  transform: translateY(0);
+}
+
+.radio-form input:nth-of-type(1):checked ~ .worm .worm__segment:before {
+  animation-name: hop1;
+}
+
+.radio-form input:nth-of-type(2):checked ~ .worm .worm__segment {
+  transform: translateY(3em);
+}
+
+.radio-form input:nth-of-type(2):checked ~ .worm .worm__segment:before {
+  animation-name: hop2;
+}
+
+.radio-form input:nth-of-type(3):checked ~ .worm .worm__segment {
+  transform: translateY(6em);
+}
+
+.radio-form input:nth-of-type(3):checked ~ .worm .worm__segment:before {
+  animation-name: hop3;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  body {
+    background: #17181c;
+    color: #e3e4e8;
+  }
+
+  .radio-form input:checked + label,
+  .radio-form input:checked + label span,
+  .radio-form .worm__segment:before {
+    color: #fa4a0c;
+  }
+}
+
+/* input field  */
+.inputbox {
+  position: relative;
+  width: 100%;
+}
+
+.inputbox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 10px 10px;
+  font-size: 1em;
+  color: #5f5f5f;
+  letter-spacing: 00.05em;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.inputbox input:valid ~ span,
+.inputbox input:focus ~ span {
+  color: #fa4a0c;
+  transform: translateX(-10px) translateY(-34px);
+  font-size: 0, 75em;
+}
+
+.inputbox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: hsl(16, 96%, 51%);
+  border-radius: 4px;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.inputbox input:valid ~ i,
+.inputbox input:focus ~ i {
+  height: 44px;
+}
+
+.error{
+  color: red;
+  margin-bottom: 0;
+}

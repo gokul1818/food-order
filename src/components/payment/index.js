@@ -1,10 +1,12 @@
 import React from "react";
 import "./style.css"
 
-const PaymentBtn = () => {
+const PaymentBtn = ({
+    onClick
+}) => {
 
     return (
-        <div className="container">
+        <div className="container" onClick={onClick} >
             <div className="left-side">
                 <div className="card">
                     <div className="card-line"></div>
