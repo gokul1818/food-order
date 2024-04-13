@@ -1,26 +1,19 @@
 .button {
-  --hover-shadows: 1px 7px 20px 0px #fa4a0c, 1px -4px 33px #fa4a0c; 
-  --accent: #fa4a0c;
+  --hover-shadows: 1px 7px 20px 0px #b97d45, 1px -4px 33px #b97d45;
+  --accent: #b97d45;
   font-weight: bold;
   letter-spacing: 0.1px;
   border: none;
   border-radius: 10px;
   background-color: #d7d7d7;
   cursor: pointer;
-  color: #fa4a0c;
-  /* padding: 1em 2em; */
+  color: #b97d45;
   transition: box-shadow ease-in-out 0.3s, background-color ease-in-out 0.1s,
     letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-  /* box-shadow: 13px 13px 10px #fa4a0c, -13px -13px 10px #fa4a0c;
-   */
-  /* box-shadow: 1px 7px 20px 0px #fa4a0c, 1px -4px 33px #fa4a0c; */
 }
 
-
-
 .button:active {
-  box-shadow: var(--hover-shadows), var(--accent) 0px 0px 30px 5px;
-  /* background-color: var(--accent); */
+  box-shadow: 0px 1px 5px 0px #b97d45, -1px -2px 33px #b97d45;
   transform: scale(0.95);
   /* color: #d7d7d7; */
 }

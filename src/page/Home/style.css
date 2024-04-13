@@ -55,8 +55,8 @@
 }
 
 .selected {
-  color: #fa4a0c;
-  border-bottom: 2px solid #fa4a0c;
+  color: #875034;
+  border-bottom: 2px solid #875034;
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
@@ -188,7 +188,7 @@
 }
 
 .food-list-dish-price {
-  color: #fa4a0c;
+  color: #875034;
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
@@ -197,7 +197,7 @@
 }
 
 .food-list-cart-btn {
-  background-color: #fa4a0c !important;
+  background-color: #b97d45 !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
