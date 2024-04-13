@@ -41,7 +41,7 @@
 .dine-table {
   position: relative;
   display: flex;
-  min-width: 100px !important;
+  width: 100px !important;
   min-height: 70px;
   border-radius: 10px;
   background-color: #ffe1a0;
@@ -49,7 +49,7 @@
   border: 1px solid #ffe1a0;
   color: #fff;
   justify-content: center;
-  box-shadow: 20px 11px 20px 0px rgba(255, 225, 160, 0.434);
+  box-shadow: 20px 11px 20px 0px rgba(255, 225, 160, 0.241);
 }
 .table-number {
   position: absolute;
@@ -59,20 +59,12 @@
   font-weight: 600;
 }
 .table-plate {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
   background-color: #e8e8e897;
   border-radius: 50%;
 }
-.table-plate-bg {
-  width: 21px;
-  height: 21px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 50%;
-}
+
 .table-chair-container {
   display: flex;
   justify-content: space-evenly;
@@ -112,9 +104,9 @@
 }
 
 .select-label {
-  font-size: 23px;
-  font-weight: 600;
-  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  color: #4f4f4f;
   margin-left: 28px;
   margin-top: 20px;
   letter-spacing: 1px;

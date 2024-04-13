@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import PayButton from "../../components/payButton";
 import PaymentBtn from "../../components/payment";
 import TableIcon from "../../assets/images/table.png";
+import foodOnPlate from "../../assets/images/plateOnfood.png";
+import foodOnPlate1 from "../../assets/images/plateOnfood1.png";
+import emptyPlate from "../../assets/images/emptyPlate.png";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -100,11 +103,11 @@ function Checkout() {
         </Link>
         <p className="cart-label pe-5 ">Checkout</p>
       </div>
-      <p className="select-label mb-0">Select Your Table</p>
+      <p className="select-label mb-0">Select your chairs / plates</p>
       <div className="d-flex tables-container px-3">
-        {tables.map((table) => (
+        {tables.map((table, index) => (
           <div
-            key={table.id}
+            key={index}
             className="table-container mx-3 my-3 mb-4 d-flex flex-column"
           >
             <div className="table-chair-container w-100 px-4">
@@ -119,21 +122,27 @@ function Checkout() {
               ))}
             </div>
             <div className="dine-table flex-column  justify-content-evenly">
-              <div className="d-flex justify-content-evenly w-100">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <div key={index} className="table-plate-bg">
-                    <div className="table-plate"></div>
+              <div className="d-flex justify-content-evenly w-100 flex-wrap">
+                {table.chairs.slice(0, 4).map((chair, index) => (
+                  <div
+                    key={index}
+                    className="mx-1 my-1"
+                    onClick={() => handleChairClick(table.table, index)}
+                  >
+                    <img
+                      src={
+                        chair.booked
+                          ? index % 2 == 0
+                            ? foodOnPlate1
+                            : foodOnPlate
+                          : emptyPlate
+                      }
+                      className="table-plate"
+                    />
                   </div>
                 ))}
               </div>
               <p className="table-number">{table.table}</p>
-              <div className="d-flex justify-content-evenly w-100">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <div key={index} className="table-plate-bg">
-                    <div className="table-plate"></div>
-                  </div>
-                ))}
-              </div>
             </div>
             <div className="table-chair-container w-100 px-4">
               {table.chairs.slice(2, 4).map((chair, index) => (
