@@ -15,28 +15,100 @@
 }
 .table-container {
   display: flex;
-  width: 200px !important;
-  height: 100px;
+  min-width: 150px !important;
+  min-height: 90px;
   border-radius: 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   align-items: center;
   color: #fa4a0c;
 
   justify-content: center;
-  box-shadow: 20px 11px 20px 0px rgb(0, 0, 0, 0.1);
+  /* box-shadow: 20px 11px 20px 0px rgb(0, 0, 0, 0.1); */
 }
 
 .selected-table-container {
   display: flex;
-  width: 200px !important;
-  height: 100px;
+  min-width: 150px !important;
+  min-height: 90px;
   border-radius: 10px;
   background-color: #fa4a0c;
   align-items: center;
   border: 1px solid #fa4a0c;
   color: #fff;
   justify-content: center;
-  box-shadow: 20px 11px 20px 0px rgba(245, 17, 5, 0.35);
+  /* box-shadow: 20px 11px 20px 0px rgba(245, 17, 5, 0.35); */
+}
+.dine-table {
+  position: relative;
+  display: flex;
+  min-width: 100px !important;
+  min-height: 70px;
+  border-radius: 10px;
+  background-color: #ffe1a0;
+  align-items: center;
+  border: 1px solid #ffe1a0;
+  color: #fff;
+  justify-content: center;
+  box-shadow: 20px 11px 20px 0px rgba(255, 225, 160, 0.434);
+}
+.table-number {
+  position: absolute;
+  top: 33%;
+  color: #464646;
+  font-size: 15px;
+  font-weight: 600;
+}
+.table-plate {
+  width: 15px;
+  height: 15px;
+  background-color: #e8e8e897;
+  border-radius: 50%;
+}
+.table-plate-bg {
+  width: 21px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+.table-chair-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.table-chair {
+  width: 20px;
+  height: 10px;
+  background-color: #d6d6d6;
+  border: 1px solid #754428;
+  border-bottom: 0px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.table-chair-booked {
+  width: 20px;
+  height: 10px;
+  background-color: #754428;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.table-chair-bottom {
+  width: 20px;
+  height: 10px;
+  background-color: #d6d6d6;
+  border: 1px solid #754428;
+  border-top: 0px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.table-chair-bottom-booked {
+  width: 20px;
+  height: 10px;
+  background-color: #754428;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .select-label {
@@ -68,7 +140,6 @@
 .table-container-img {
   width: 50px;
   height: 50px;
-
 }
 
 /* radio Btn  style */
@@ -286,7 +357,7 @@
   height: 44px;
 }
 
-.error{
+.error {
   color: red;
   margin-bottom: 0;
 }

@@ -11,11 +11,14 @@ function Checkout() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const [tableSelect, setTableSelect] = useState([]);
-  const [deliveryMethod, setDeliveryMethod] = useState("Dine-In"); // State to track selected delivery method
+  const [deliveryMethod, setDeliveryMethod] = useState("Dine-In");
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [nameError, setNameError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [tables, setTables] = useState([]);
 
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => {
@@ -24,11 +27,31 @@ function Checkout() {
     return total + itemPrice * itemQuantity;
   }, 0);
 
-  const table = [];
+  // Initialize tables
+  useState(() => {
+    const initialTables = [];
+    for (let i = 1; i <= 10; i++) {
+      const table = {
+        table: i,
+        chairs: [],
+      };
+      for (let j = 1; j <= 4; j++) {
+        table.chairs.push({ id: j, booked: false }); // Added booked property
+      }
+      initialTables.push(table);
+    }
+    setTables(initialTables);
+  }, []); // Empty dependency array ensures this runs only once
 
-  for (let i = 1; i <= 10; i++) {
-    table.push(i);
-  }
+  const handleChairClick = (tableId, chairIndex) => {
+    setTables((prevTables) => {
+      const updatedTables = [...prevTables];
+      const tableIndex = updatedTables.findIndex((x) => x.table === tableId);
+      const chair = updatedTables[tableIndex].chairs[chairIndex];
+      chair.booked = !chair.booked;
+      return updatedTables;
+    });
+  };
 
   const handleCheckout = () => {
     if (!name.trim()) {
@@ -67,6 +90,8 @@ function Checkout() {
     }
   };
 
+  console.log(tables, "tables");
+
   return (
     <div className="bg-color ">
       <div className=" d-flex justify-content-start mt-4 ms-4 align-items-center">
@@ -75,32 +100,59 @@ function Checkout() {
         </Link>
         <p className="cart-label pe-5 ">Checkout</p>
       </div>
-      <p className="select-label">Select Your Table</p>
-      <div className="d-flex tables-container px-3 ">
-        {table.map((x, index) => (
+      <p className="select-label mb-0">Select Your Table</p>
+      <div className="d-flex tables-container px-3">
+        {tables.map((table) => (
           <div
-            key={index}
-            className={
-              tableSelect.includes(index)
-                ? "selected-table-container mx-3 my-3 mb-4 d-flex flex-column"
-                : "table-container mx-3 my-3 mb-4 d-flex flex-column"
-            }
-            onClick={() =>
-              setTableSelect((prev) => {
-                if (prev.includes(index)) {
-                  return prev.filter((i) => i !== index);
-                } else {
-                  return [...prev, index];
-                }
-              })
-            }
+            key={table.id}
+            className="table-container mx-3 my-3 mb-4 d-flex flex-column"
           >
-            <p className="mx-5 mb-0 fw-bold fs-2">{x}</p>
-            <img src={TableIcon} className="table-container-img" />
+            <div className="table-chair-container w-100 px-4">
+              {table.chairs.slice(0, 2).map((chair, index) => (
+                <div
+                  key={index}
+                  className={
+                    chair.booked ? "table-chair-booked" : "table-chair"
+                  }
+                  onClick={() => handleChairClick(table.table, index)}
+                ></div>
+              ))}
+            </div>
+            <div className="dine-table flex-column  justify-content-evenly">
+              <div className="d-flex justify-content-evenly w-100">
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <div key={index} className="table-plate-bg">
+                    <div className="table-plate"></div>
+                  </div>
+                ))}
+              </div>
+              <p className="table-number">{table.table}</p>
+              <div className="d-flex justify-content-evenly w-100">
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <div key={index} className="table-plate-bg">
+                    <div className="table-plate"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="table-chair-container w-100 px-4">
+              {table.chairs.slice(2, 4).map((chair, index) => (
+                <div
+                  key={index}
+                  className={
+                    chair.booked
+                      ? "table-chair-bottom-booked"
+                      : "table-chair-bottom"
+                  }
+                  onClick={() => handleChairClick(table.table, index + 2)}
+                ></div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-      <p className="select-label">Booking Details</p>
+
+      <p className="select-label mt-0">Booking Details</p>
       <div className="d-flex justify-content-center">
         <div className="booking-container">
           <div className="inputbox mt-2 mb-1">
@@ -161,10 +213,40 @@ function Checkout() {
               <div className="worm__segment"></div>
             </div>
           </form>
+          <p className="details-label mt-3">Payment method</p>
+          <form className="radio-form mt-3 mb-3">
+            <input
+              value="cash"
+              name="Payment method"
+              type="radio"
+              id="cash"
+              checked={paymentMethod === "cash"}
+              onChange={() => setPaymentMethod("cash")}
+            />
+            <label htmlFor="cash">
+              <span></span> Cash
+            </label>
+
+            <input
+              value="online"
+              name="Payment method"
+              type="radio"
+              id="online"
+              checked={paymentMethod === "online"}
+              onChange={() => setPaymentMethod("online")}
+            />
+            <label htmlFor="online">
+              <span></span> UPI/Card
+            </label>
+
+            <div className={deliveryMethod ? "worm" : "d-none"}>
+              <div className="worm__segment"></div>
+            </div>
+          </form>
         </div>
       </div>
 
-      <div className="fixed-bottom mx-auto mb-5 ">
+      <div className="fixed-bottom mx-auto  bg-white ">
         <PaymentBtn onClick={handleCheckout} />
       </div>
     </div>
