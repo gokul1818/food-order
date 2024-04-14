@@ -2,16 +2,16 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, createBrowserRouter, useN } from "react-router-dom";
-import CartIcon from "../../assets/icon/cartIcon.svg";
+import historyIcon from "../../assets/icon/history.svg";
 import NormalBtn from "../../components/normalButton";
 import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navBar";
 import Lottie from "react-lottie";
-import animationData from "../../assets/emptyCart.json";
+import animationData from "../../assets/emptyOrder.json";
 
-function Cart() {
+function Orders() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
@@ -104,7 +104,7 @@ function Cart() {
         </>
       ) : (
         <div className="cart-nofound-container ">
-          <Lottie
+             <Lottie
             options={{
               animationData: animationData,
               loop: true, // Optional
@@ -119,8 +119,8 @@ function Cart() {
             height={300} // Optional
             width={300} // Optional
           />
-          {/* <img src={CartIcon} className="pe-3" alt="cartIcon" /> */}
-          <p className="no-cart-list mt-3"> No cart yet</p>
+          {/* <img src={historyIcon} className="pe-3" alt="cartIcon" /> */}
+          <p className="no-cart-list mt-3"> No history yet</p>
           <div>
             <NormalBtn
               btnlabel="Start To Order"
@@ -132,10 +132,11 @@ function Cart() {
               }}
             />
           </div>
+       
         </div>
       )}
     </div>
   );
 }
 
-export default Cart;
+export default Orders;

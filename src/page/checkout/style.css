@@ -101,7 +101,20 @@
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-
+.chairBooked-bottom-already {
+  width: 20px;
+  height: 10px;
+  background-color: grey;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.chairBooked-already {
+  width: 20px;
+  height: 10px;
+  background-color: grey;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
 .select-label {
   font-size: 20px;
   font-weight: 500;
@@ -336,7 +349,7 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  border:1px solid #b97d45 ;
+  border: 1px solid #b97d45;
   /* background: #b97d45; */
   border-radius: 4px;
   transition: 0.5s;
@@ -352,4 +365,11 @@
 .error {
   color: red;
   margin-bottom: 0;
+}
+.small-dec{
+  font-size: 14px;
+  color: #464646;
+  font-weight: 400;
+  margin-bottom: 0px;
+  margin-left: 10px;
 }

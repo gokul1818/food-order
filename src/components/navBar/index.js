@@ -1,12 +1,13 @@
-import React from 'react';
-import { AppBar, Toolbar, IconButton, useScrollTrigger, Badge } from '@mui/material';
-import MenuIcon from "../../assets/icon/menu.svg";
-import ShoppingCartIcon from "../../assets/icon/shopping-cart.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
-import "./style.css"
+import { Badge, useScrollTrigger } from '@mui/material';
 import { styled } from '@mui/system';
+import React from 'react';
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
+import Paperout from "../../assets/icon/Paper.svg"
+import Percent from "../../assets/icon/Percent.svg"
+
+
 
 function ElevationScroll({ children }) {
     const trigger = useScrollTrigger({
@@ -33,7 +34,15 @@ function Navbar() {
     const cart = useSelector(state => state.cart.cart);
     return (
         <div className="button-container fixed-top">
-            <button className="nav-button">
+            <button className="nav-button "
+                onClick={() => {
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 100);
+                }}
+            >
+
+
                 <svg
                     className="icon"
                     stroke="currentColor"
@@ -50,46 +59,23 @@ function Navbar() {
                 </svg>
             </button>
             <button className="nav-button">
-                <svg
-                    className="icon"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    ></path>
-                </svg>
+                <img src={Percent} />
             </button>
-            <button className="nav-button">
-                <svg
-                    className="icon"
-                    stroke="currentColor"
-                    fill="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 24 24"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
-                    ></path>
-                </svg>
+
+            <button className="nav-button"
+                onClick={() => {
+                    setTimeout(() => {
+                        navigate("/orders");
+                    }, 100);
+                }} >
+                <img src={Paperout} />
             </button>
 
             <button className="nav-button"
                 onClick={() => {
                     setTimeout(() => {
                         navigate("/cart");
-                    }, 500);
+                    }, 100);
                 }} >
                 <CustomBadge badgeContent={cart.length} >
 
