@@ -120,7 +120,7 @@ function Orders() {
             width={300} // Optional
           />
           {/* <img src={historyIcon} className="pe-3" alt="cartIcon" /> */}
-          <p className="no-cart-list mt-3"> No history yet</p>
+          <p className="no-cart-list mt-3"> No History Yet</p>
           <div>
             <NormalBtn
               btnlabel="Start To Order"

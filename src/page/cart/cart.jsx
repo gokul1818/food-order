@@ -120,7 +120,7 @@ function Cart() {
             width={300} // Optional
           />
           {/* <img src={CartIcon} className="pe-3" alt="cartIcon" /> */}
-          <p className="no-cart-list mt-3"> No cart yet</p>
+          <p className="no-cart-list mt-3"> No Cart Added Yet</p>
           <div>
             <NormalBtn
               btnlabel="Start To Order"

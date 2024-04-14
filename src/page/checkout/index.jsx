@@ -413,7 +413,7 @@ function Checkout() {
             width={300} // Optional
           />
           <p
-            className="select-label position-absolute m-0"
+            className="select-label m-0"
             style={{ top: "60%" }}
           >
             Your food is begin prepared{" "}
