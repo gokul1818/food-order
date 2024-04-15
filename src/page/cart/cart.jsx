@@ -1,5 +1,5 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, createBrowserRouter, useN } from "react-router-dom";
 import CartIcon from "../../assets/icon/cartIcon.svg";
@@ -10,10 +10,13 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navBar";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyCart.json";
+import animationData1 from "../../assets/orderConfirm.json";
+
 
 function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [proceedDone, setProceed] = useState(false);
   const cart = useSelector((state) => state.cart.cart);
   const addToCart = (item, index) => {
     dispatch(addCartItem({ item, quantity: 1 }));
@@ -57,7 +60,7 @@ function Cart() {
       </div> */}
       <Navbar />
 
-      {cart.length > 0 ? (
+      {cart.length > 0 && !proceedDone ? (
         <>
           <div className="mt-5 pt-5 d-flex justify-content-center  flex-wrap">
             {cart.map((item, index) => (
@@ -90,18 +93,37 @@ function Cart() {
             ))}
           </div>
           <div className="total-price-container fixed-bottom">
-            <p className="cart-list-price"> ₹{totalPrice.toFixed(2)}</p>
+            <p className="cart-list-price"> Total ₹{totalPrice.toFixed(2)}</p>
             <NormalBtn
               btnlabel="Proceed"
               className={"btn-proceed"}
               onClick={() => {
+                setProceed(true);
                 setTimeout(() => {
                   navigate("/cart/checkout");
-                }, 500);
+                }, 2600);
               }}
             />
           </div>
         </>
+      ) : proceedDone ? (
+        <div className="cart-nofound-container ">
+          <Lottie
+            options={{
+              animationData: animationData1,
+              loop: false, // Optional
+              autoplay: true,
+            }}
+            eventListeners={[
+              {
+                eventName: "complete",
+                callback: () => navigate("/"),
+              },
+            ]}
+            height={300} // Optional
+            width={300} // Optional
+          />
+        </div>
       ) : (
         <div className="cart-nofound-container ">
           <Lottie
