@@ -16,6 +16,7 @@ const cartSlice = createSlice({
                 state.cart.push({ ...item, quantity });
             }
         },
+        
         removeCartItem: (state, action) => {
             const { item,quantity } = action.payload;
             const existingItemIndex = state.cart.findIndex(cartItem => cartItem?.dishName === item?.dishName);

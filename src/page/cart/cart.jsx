@@ -1,8 +1,9 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, createBrowserRouter, useN } from "react-router-dom";
 import CartIcon from "../../assets/icon/cartIcon.svg";
+import DeleteOutline from "../../assets/icon/delete.svg";
+
 import NormalBtn from "../../components/normalButton";
 import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import "./style.css";
@@ -11,7 +12,6 @@ import Navbar from "../../components/navBar";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyCart.json";
 import animationData1 from "../../assets/orderConfirm.json";
-
 
 function Cart() {
   const navigate = useNavigate();
@@ -66,25 +66,34 @@ function Cart() {
             {cart.map((item, index) => (
               <div key={index} className="cart-container-width mb-4 ">
                 <div className="cart-container">
+                  <img
+                    src={DeleteOutline}
+                    className="delete-icon"
+                    alt="deleteIcon"
+                  />
                   <img src={item?.img} className="cart-img" />
                   <div className="d-block w-75">
                     <p className="cart-dishName"> {item?.dishName}</p>
                     <div className="d-flex justify-content-between">
                       <p className="cart-list-price"> {item?.price}</p>
-                      <div className="d-flex cart-add-container px-2 py-3">
-                        <p
-                          className="cart-price"
-                          onClick={() => removeFromCart(item, index)}
-                        >
-                          -
-                        </p>
-                        <p className="cart-price"> {item?.quantity}</p>
-                        <p
-                          className="cart-price"
-                          onClick={() => addToCart(item, index)}
-                        >
-                          +
-                        </p>
+                      <div className="d-flex  cart-inc-container px-2 py-3">
+                        <div className="cart-add-container">
+                          <p
+                            className="cart-price"
+                            onClick={() => removeFromCart(item, index)}
+                          >
+                            -
+                          </p>
+                        </div>
+                        <p className="cart-qty mx-2"> {item?.quantity}</p>
+                        <div className="cart-add-container">
+                          <p
+                            className="cart-price "
+                            onClick={() => addToCart(item, index)}
+                          >
+                            +
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -99,15 +108,12 @@ function Cart() {
               className={"btn-proceed"}
               onClick={() => {
                 setProceed(true);
-                setTimeout(() => {
-                  navigate("/cart/checkout");
-                }, 2600);
               }}
             />
           </div>
         </>
       ) : proceedDone ? (
-        <div className="cart-nofound-container ">
+        <div className="cart-nofound-container px-5  py-5">
           <Lottie
             options={{
               animationData: animationData1,
@@ -117,11 +123,11 @@ function Cart() {
             eventListeners={[
               {
                 eventName: "complete",
-                callback: () => navigate("/"),
+                callback: () => navigate("/cart/checkout"),
               },
             ]}
-            height={300} // Optional
-            width={300} // Optional
+            height={200} // Optional
+            width={200} // Optional
           />
         </div>
       ) : (

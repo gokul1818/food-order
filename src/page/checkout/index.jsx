@@ -14,6 +14,7 @@ import pointer from "../../assets/icon/pointer.svg";
 import Navbar from "../../components/navBar";
 import animationData from "../../assets/foodprepare.json";
 import { useNavigate } from "react-router-dom";
+import { updateOrder } from "../../redux/reducers/ordersSlice";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -176,7 +177,20 @@ function Checkout() {
     // Proceed with checkout if all fields are valid and at least one chair is selected
     if (name && phoneNumber && !phoneNumberError && isAnyChairSelected) {
       // Your checkout logic here
-      setSubmited(true);
+      setTimeout(() => {
+        setSubmited(true);
+      }, 1500);
+      let payload = {
+        phoneNumber: phoneNumber,
+        name: name,
+        isAnyChairSelected: isAnyChairSelected,
+        paymentMethod: paymentMethod,
+        deliveryMethod: deliveryMethod,
+        cartItems: cart,
+        totalPrice: totalPrice,
+        orderStatus: "processing",
+      };
+      dispatch(updateOrder(payload));
     } else {
       if (!isAnyChairSelected) {
         setchairError(true);
@@ -204,14 +218,6 @@ function Checkout() {
       setPhoneNumberError("");
     }
   };
-
-  useEffect(() => {
-    if (submited) {
-      setTimeout(() => {
-        navigate("/");
-      }, 8000);
-    }
-  }, [submited]);
 
   return (
     <div className="bg-color ">
@@ -411,11 +417,14 @@ function Checkout() {
             }}
             height={300} // Optional
             width={300} // Optional
+            eventListeners={[
+              {
+                eventName: "complete",
+                callback: () => navigate("/orders"),
+              },
+            ]}
           />
-          <p
-            className="select-label m-0"
-            style={{ top: "60%" }}
-          >
+          <p className="select-label m-0" style={{ top: "60%" }}>
             Your food is begin prepared{" "}
           </p>
         </div>

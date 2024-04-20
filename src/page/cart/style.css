@@ -9,11 +9,18 @@
 .cart-container-width {
   width: 85%;
 }
+.delete-icon {
+  position: absolute;
+  right: 24px;
+  top: 5px;
+  z-index: 10;
+}
 .cart-container {
   border-radius: 22px;
   background-color: #fff;
   width: 100%;
   align-self: center;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -30,10 +37,10 @@
 .cart-dishName {
   margin-left: 10px;
   margin-bottom: 0px;
-  font-size: 20px;
+  font-size: 16px !important;
   font-weight: 600;
   color: black;
-  /* width: 60%; */
+  width: 70%;
 }
 .cart-list-price {
   color: #875034;
@@ -42,23 +49,42 @@
   font-weight: 600;
   align-self: center;
   margin-bottom: 5px;
-  margin-left: 10px;
+  margin-left:10px;
 }
 .cart-price {
   color: #fff;
   margin-bottom: 0px;
+  margin-bottom: 0px;
   font-size: 18px;
   font-weight: 700;
   align-self: center;
+  /* margin-left: 10px; */
+}
+.cart-qty {
+  color: #333333;
   margin-bottom: 0px;
-  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  align-self: center;
+  margin-bottom: 0px;
+}
+.cart-inc-container {
+  min-width: 95px;
+  height: 25px;
+  /* background-color: #757575; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 20px;
 }
 .cart-add-container {
-  min-width: 85px;
+  min-width: 25px;
   height: 25px;
   background-color: #b97d45;
-
-  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
 }
 .cart-nofound-container {
   display: flex;
