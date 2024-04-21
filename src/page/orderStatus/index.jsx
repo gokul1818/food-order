@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/navBar/index";
 import Tracker from "../../components/tracker/index";
@@ -7,27 +7,38 @@ import NormalBtn from "../../components/normalButton";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyOrder.json";
 
+// initial stages
+const initialStages = [
+  "Order Placed",
+  "Food Preparing",
+  "Preparation Done",
+  "Ready To Serve",
+  "Out Of Kitchen",
+  "Reached Table",
+];
+
+const cancel = ["Cancel Initiated", "Order Cancelled"];
+
 function OrderStatus() {
   const navigate = useNavigate();
 
   // const orderedFood = useSelector((state) => state.order.order);
   const orderedFood = useSelector((state) => state.cart.cart);
 
-  const orderStatusStages = [
-    "Order Placed",
-    "Food Preparing",
-    "Preparation Done",
-    "Ready To Serve",
-    "Out Of Kitchen",
-    "Reached Table",
-  ];
-  const currentOrderStatusIndex = 2;
+  const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
+  const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
 
+  const handleCancelOrder = () => {
+    const updatedStages = [...orderStatusStages.slice(0, currentOrderStatusIndex + 1), ...cancel];
+    setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+    setOrderStatusStages(updatedStages);
+  };
+  
   return (
     <div className="bg-color p-5">
       <Navbar />
       {orderedFood.length > 0 ? (
-       <div>
+        <div>
           <div className="mt-5 pt-5 justify-content-center">
             <h2 className="pl-5">Your Order Status</h2>
             <Tracker
@@ -35,6 +46,11 @@ function OrderStatus() {
               currentStage={currentOrderStatusIndex}
             />
           </div>
+          <NormalBtn
+            btnlabel="Cancel Order"
+            className={"cancel-order-btn mt-3"}
+            onClick={handleCancelOrder}
+          />
         </div>
       ) : (
         <div className="cart-nofound-container ">
@@ -44,8 +60,8 @@ function OrderStatus() {
               loop: true,
               autoplay: true,
             }}
-            height={300} 
-            width={300} 
+            height={300}
+            width={300}
           />
           <p className="no-cart-list mt-3"> No Orders To Track</p>
           <div>
@@ -67,8 +83,7 @@ function OrderStatus() {
 
 export default OrderStatus;
 
-
-          {/*    <div className="mt-5 pt-5 justify-content-center">
+{ /*    <div className="mt-5 pt-5 justify-content-center">
           <h2>Your Orders</h2>
             <ul>
               {orderedFood.map((food, index) => (
@@ -83,4 +98,5 @@ export default OrderStatus;
                 />
               ))}
             </ul>
-          </div> */}
+          </div> */
+}
