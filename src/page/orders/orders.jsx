@@ -18,15 +18,10 @@ function Orders() {
 
   return (
     <div className="bg-color">
- 
       <Navbar />
 
       {order.length > 0 ? (
-
-        <>
-
-
-        </>
+        <> </>
       ) : (
         <div className="cart-nofound-container ">
           <Lottie

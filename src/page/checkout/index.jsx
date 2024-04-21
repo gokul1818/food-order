@@ -15,6 +15,7 @@ import Navbar from "../../components/navBar";
 import animationData from "../../assets/foodprepare.json";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../redux/reducers/ordersSlice";
+import { clearCart } from "../../redux/reducers/cartSlice";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -191,6 +192,7 @@ function Checkout() {
         orderStatus: "processing",
       };
       dispatch(updateOrder(payload));
+      dispatch(clearCart());
     } else {
       if (!isAnyChairSelected) {
         setchairError(true);

@@ -1,0 +1,56 @@
+.tracker {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.tracker-item {
+  display: flex;
+  flex-direction: column; 
+}
+
+.dot-and-connector {
+  display: flex;
+  position: relative;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  position: absolute;
+}
+
+.dot.active {
+  background-color: #af8d02;
+}
+
+.connector {
+  height: 50px; 
+  width: 2px; 
+  background-color: #ccc; 
+  margin-top: 1px;
+  margin-left: 4px;
+  margin-right: 0;
+}
+
+.dot.active ~ .connector,
+.dot.active {
+  background-color: #af8d02; 
+}
+
+.dot:not(.active) ~ .connector {
+  background-color: #e5e5e5; 
+}
+.dot.active ~ .stage,
+.dot.active + .stage {
+  color: #000000;
+  margin-left: 10px;
+}
+
+.dot:not(.active)  ~ .stage {
+  color: #b6b6b6; 
+  margin-left: 10px;
+}
