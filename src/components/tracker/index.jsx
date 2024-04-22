@@ -10,16 +10,16 @@ function Tracker({ stages, currentStage }) {
             <div
               className={`dot ${index <= currentStage ? "active" : ""}`}
             ></div>
-            {index < stages.length - 1 && (
-              <div
-                className="connector"
-                style={{
-                  backgroundColor: index < currentStage ? "#af8d02" : "#e5e5e5",
-                }}
-              ></div>
-            )}
             <span className="stage">{stage}</span>
           </div>
+          {index < stages.length - 1 && (
+            <div
+              className="connector"
+              style={{
+                backgroundColor: index < currentStage ? "#af8d02" : "#e5e5e5",
+              }}
+            ></div>
+          )}
         </div>
       ))}
     </div>

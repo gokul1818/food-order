@@ -67,7 +67,7 @@ function Navbar() {
         className="nav-button"
         onClick={() => {
           setTimeout(() => {
-            navigate("/orders");
+            navigate("/order-status");
           }, 100);
         }}
       >

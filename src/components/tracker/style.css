@@ -13,6 +13,7 @@
 .dot-and-connector {
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .dot {
@@ -28,7 +29,7 @@
 }
 
 .connector {
-  height: 50px; 
+  height: 20px; 
   width: 2px; 
   background-color: #ccc; 
   margin-top: 1px;
@@ -47,10 +48,10 @@
 .dot.active ~ .stage,
 .dot.active + .stage {
   color: #000000;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .dot:not(.active)  ~ .stage {
   color: #b6b6b6; 
-  margin-left: 10px;
+  margin-left: 20px;
 }
