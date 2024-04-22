@@ -62,15 +62,18 @@ function Cart() {
       <div className="ease-in">
         {cart.length > 0 && !proceedDone ? (
           <>
-            <div className="mt-5 pt-5 d-flex justify-content-center  flex-wrap">
+            <p className="category-label mt-5  pt-5">Your Cart </p>
+            <div className="mt-3 d-flex justify-content-center  flex-wrap">
               {cart.map((item, index) => (
                 <div key={index} className="cart-container-width mb-4 ">
                   <div className="cart-container">
-                    <img
-                      src={DeleteOutline}
-                      className="delete-icon"
-                      alt="deleteIcon"
-                    />
+                    <div onClick={() => removeFromCart(item, index)}>
+                      <img
+                        src={DeleteOutline}
+                        className="delete-icon"
+                        alt="deleteIcon"
+                      />
+                    </div>
                     <img src={item?.img} className="cart-img" />
                     <div className="d-block w-75">
                       <p className="cart-dishName"> {item?.dishName}</p>

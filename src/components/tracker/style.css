@@ -2,12 +2,21 @@
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  padding: 20px;
+  background: #fff;
+  width: 90%;
+  border-radius: 10px;
+}
+.Arrives-label {
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #616161;
 }
 
 .tracker-item {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 .dot-and-connector {
@@ -17,41 +26,67 @@
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background-color: #ccc;
   position: absolute;
 }
 
 .dot.active {
-  background-color: #af8d02;
+  background-color: #b97d45;
 }
 
 .connector {
-  height: 20px; 
-  width: 2px; 
-  background-color: #ccc; 
+  height: 20px;
+  width: 2px;
+  background-color: #ccc;
   margin-top: 1px;
-  margin-left: 4px;
+  margin-left: 7px;
   margin-right: 0;
 }
 
 .dot.active ~ .connector,
 .dot.active {
-  background-color: #af8d02; 
+  background-color: #b97d45;
 }
 
 .dot:not(.active) ~ .connector {
-  background-color: #e5e5e5; 
+  background-color: #e5e5e5;
 }
 .dot.active ~ .stage,
 .dot.active + .stage {
   color: #000000;
   margin-left: 20px;
+  letter-spacing: 0.5px;
 }
 
-.dot:not(.active)  ~ .stage {
-  color: #b6b6b6; 
+.dot:not(.active) ~ .stage {
+  color: #b6b6b6;
   margin-left: 20px;
+  letter-spacing: 0.5px;
+}
+.cancel-order-btn {
+  background-color: #b97d45;
+  color: aliceblue;
+  height: 40px;
+}
+.view-more-btn {
+  background-color: transparent;
+  color: #b97d45;
+  height: 30px;
+  width: 90px;
+  padding: 0%;
+  font-weight: 400;
+}
+.order-list-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.order-dishName-label{
+  font-size: 16px;
+  letter-spacing: 0.5px;
+
 }

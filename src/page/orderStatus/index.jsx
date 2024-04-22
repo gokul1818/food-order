@@ -38,24 +38,21 @@ function OrderStatus() {
   };
 
   return (
-    <div className="bg-color p-5">
+    <div className="bg-color ">
       <Navbar />
-      <div className="ease-in">
+      <div className="ease-in  ps-4">
+        <h2 className="mt-5 pt-5 pl-5">Your Order Status</h2>
         {orderedFood.length > 0 ? (
-          <div>
-            <div className="mt-5 pt-5 justify-content-center">
-              <h2 className="pl-5">Your Order Status</h2>
+          orderedFood.map((item, index) => (
+            <div className="" key={index}>
               <Tracker
+                orderItem={item}
                 stages={orderStatusStages}
                 currentStage={currentOrderStatusIndex}
+                handleCancelOrder={handleCancelOrder}
               />
             </div>
-            <NormalBtn
-              btnlabel="Cancel Order"
-              className={"cancel-order-btn mt-3"}
-              onClick={handleCancelOrder}
-            />
-          </div>
+          ))
         ) : (
           <div className="cart-nofound-container ">
             <Lottie

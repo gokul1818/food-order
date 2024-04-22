@@ -110,9 +110,9 @@
 }
 
 .no-cart-list {
-  color: black;
+  color: rgb(110, 110, 110);
   margin-bottom: 0px;
-  font-size: 28px;
+  font-size: 23px;
   font-weight: 700;
   align-self: center;
   margin-bottom: 5px;
