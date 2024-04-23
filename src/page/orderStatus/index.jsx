@@ -24,15 +24,11 @@ function OrderStatus() {
 
   const orderedFood = useSelector((state) => state.order.order);
   // const orderedFood = useSelector((state) => state.cart.cart);
-
-  const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(1);
+  const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
   const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
 
   const handleCancelOrder = () => {
-    const updatedStages = [
-      ...orderStatusStages.slice(0, currentOrderStatusIndex + 1),
-      ...cancel,
-    ];
+    const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
     setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
     setOrderStatusStages(updatedStages);
   };
@@ -41,14 +37,16 @@ function OrderStatus() {
     <div className="bg-color ">
       <Navbar />
       <div className="ease-in  ps-4">
-        <h2 className="mt-5 pt-5 pl-5">Your Order Status</h2>
+        {orderedFood.length > 0 && (
+          <h2 className="mt-5 pt-5 pl-5">Your Order Status</h2>
+        )}
         {orderedFood.length > 0 ? (
           orderedFood.map((item, index) => (
             <div className="" key={index}>
               <Tracker
                 orderItem={item}
                 stages={orderStatusStages}
-                currentStage={currentOrderStatusIndex}
+                currentStage={item.orderStatus}
                 handleCancelOrder={handleCancelOrder}
               />
             </div>

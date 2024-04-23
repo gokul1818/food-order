@@ -189,7 +189,7 @@ function Checkout() {
         deliveryMethod: deliveryMethod,
         cartItems: cart,
         totalPrice: totalPrice,
-        orderStatus: "processing",
+        orderStatus: 1,
       };
       dispatch(updateOrder(payload));
       dispatch(clearCart());

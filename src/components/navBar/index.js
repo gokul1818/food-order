@@ -28,6 +28,9 @@ const CustomBadge = styled(Badge)(({ theme }) => ({
 function Navbar() {
   const navigate = useNavigate();
 
+  const orderedFood = useSelector((state) => state.order.order);
+  console.log(orderedFood,"orderStatus")
+
   const cart = useSelector((state) => state.cart.cart);
   return (
     <div className="button-container fixed-top">
@@ -71,7 +74,10 @@ function Navbar() {
           }, 100);
         }}
       >
-        <img src={Paperout} />
+        <CustomBadge badgeContent={orderedFood.length}>
+
+          <img src={Paperout} />
+        </CustomBadge>
       </button>
 
       <button
@@ -82,7 +88,7 @@ function Navbar() {
           }, 100);
         }}
       >
-        <CustomBadge badgeContent={cart.length}>
+        <CustomBadge badgeContent={cart?.length}>
           <svg
             className="icon"
             stroke="currentColor"
