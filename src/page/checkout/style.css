@@ -20,7 +20,7 @@
   border-radius: 10px;
   /* background-color: #fff; */
   align-items: center;
-  color: #b97d45;
+  color: black;
 
   justify-content: center;
   /* box-shadow: 20px 11px 20px 0px rgb(0, 0, 0, 0.1); */
@@ -31,9 +31,9 @@
   min-width: 150px !important;
   min-height: 90px;
   border-radius: 10px;
-  background-color: #b97d45;
+  background-color: black;
   align-items: center;
-  border: 1px solid #b97d45;
+  border: 1px solid black;
   color: #fff;
   justify-content: center;
 }
@@ -118,7 +118,7 @@
 .select-label {
   font-size: 20px;
   font-weight: 500;
-  color: #4f4f4f;
+  color: #ffffff;
   margin-left: 28px;
   margin-top: 20px;
   letter-spacing: 1px;
@@ -164,6 +164,7 @@
   cursor: pointer;
   display: block;
   font-weight: 500;
+  color: grey;
   letter-spacing: 1px;
   text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.2);
   transition: color 0.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
@@ -190,7 +191,7 @@
 
 .radio-form input:checked + label,
 .radio-form input:checked + label span {
-  color: #b97d45;
+  color: black;
 }
 
 .radio-form input:checked + label,
@@ -300,7 +301,7 @@
   .radio-form input:checked + label,
   .radio-form input:checked + label span,
   .radio-form .worm__segment:before {
-    color: #b97d45;
+    color: black;
   }
 }
 
@@ -338,7 +339,7 @@
 
 .inputbox input:valid ~ span,
 .inputbox input:focus ~ span {
-  color: #b97d45;
+  color: black;
   transform: translateX(-10px) translateY(-34px);
   font-size: 0, 75em;
 }
@@ -349,8 +350,8 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  border: 1px solid #b97d45;
-  /* background: #b97d45; */
+  border: 1px solid black;
+  /* background: black; */
   border-radius: 4px;
   transition: 0.5s;
   pointer-events: none;
@@ -368,7 +369,7 @@
 }
 .small-dec{
   font-size: 14px;
-  color: #464646;
+  color: #cbcbcb;
   font-weight: 400;
   margin-bottom: 0px;
   margin-left: 10px;

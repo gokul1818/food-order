@@ -35,7 +35,7 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
             <div
               className="connector"
               style={{
-                backgroundColor: index < currentStage ? "#b97d45" : "#e5e5e5",
+                backgroundColor: index < currentStage ? "black" : "#e5e5e5",
               }}
             ></div>
           )}

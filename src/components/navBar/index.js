@@ -4,8 +4,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import Paperout from "../../assets/icon/Paper.svg";
-import Percent from "../../assets/icon/Percent.svg";
+import home from "../../assets/images/home.png";
+import offer from "../../assets/images/offer.png";
+import cartIcon from "../../assets/images/cart.png";
+import history from "../../assets/images/history.png";
 
 function ElevationScroll({ children }) {
   const trigger = useScrollTrigger({
@@ -20,8 +22,8 @@ function ElevationScroll({ children }) {
 
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#fff",
-    color: "#000", // Set your custom background color here
+    backgroundColor: "rgb(15, 155, 10)",
+    color: "#fff", // Set your custom background color here
   },
 }));
 
@@ -29,7 +31,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const orderedFood = useSelector((state) => state.order.order);
-  console.log(orderedFood,"orderStatus")
+  console.log(orderedFood, "orderStatus");
 
   const cart = useSelector((state) => state.cart.cart);
   return (
@@ -42,18 +44,7 @@ function Navbar() {
           }, 100);
         }}
       >
-        <svg
-          className="icon"
-          stroke="currentColor"
-          fill="currentColor"
-          stroke-width="0"
-          viewBox="0 0 1024 1024"
-          height="1em"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>
-        </svg>
+        <img src={home} className="nav-icon" />
       </button>
       <button
         className="nav-button"
@@ -63,7 +54,7 @@ function Navbar() {
           }, 100);
         }}
       >
-        <img src={Percent} />
+        <img src={offer} className="nav-icon" />
       </button>
 
       <button
@@ -75,8 +66,7 @@ function Navbar() {
         }}
       >
         <CustomBadge badgeContent={orderedFood.length}>
-
-          <img src={Paperout} />
+          <img src={history} className="nav-icon" />
         </CustomBadge>
       </button>
 
@@ -89,22 +79,7 @@ function Navbar() {
         }}
       >
         <CustomBadge badgeContent={cart?.length}>
-          <svg
-            className="icon"
-            stroke="currentColor"
-            fill="none"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
+          <img src={cartIcon} className="nav-icon" />
         </CustomBadge>
       </button>
     </div>

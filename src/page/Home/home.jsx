@@ -108,18 +108,21 @@ function Home() {
       <Navbar />
       <div className="ease-in">
         <div className="mt-5 pt-3">
-          <p className="nav-label">Delicious food for you </p>
+          <p className="nav-label mb-0">Delicious food for you </p>
         </div>
-        <div className="d-flex justify-content-center align-items-center mt-3">
-          <div className="search-container">
-            <i className="search-icon fas fa-search"></i>
-            <input
-              type="text"
-              placeholder="Search for delicious food..."
-              className="search-input"
-            />
+        <div className="sticky-top pt-2">
+          <div className=" d-flex justify-content-center align-items-center mt-3 ">
+            <div className="search-container">
+              <i className="search-icon fas fa-search"></i>
+              <input
+                type="text"
+                placeholder="Search for delicious food..."
+                className="search-input"
+              />
+            </div>
           </div>
         </div>
+
         <p className="category-label mt-4"> Top categories </p>
         <div className="horizontal-scroll ">
           <div className="food-list">
@@ -127,7 +130,7 @@ function Home() {
               <div
                 key={index}
                 className={
-                  selectedList === item.name
+                  selectedList !== item.name
                     ? "food-item-selected"
                     : "food-item"
                 }
@@ -136,7 +139,7 @@ function Home() {
                 <img className="food-item-img " src={item.imgSrc} />
                 <p
                   className={
-                    selectedList === item.name ? "selected" : "unselected"
+                    selectedList !== item.name ? "selected" : "unselected"
                   }
                 >
                   {item.name}

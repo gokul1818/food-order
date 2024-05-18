@@ -1,25 +1,31 @@
 .nav-label {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
+  color: white;
   font-size: 36px;
   font-weight: bolder;
   width: 70%;
   margin-left: 7%;
 }
+.sticky-top {
+  position: sticky;
+  top: 50px;
+  background-color: #000;
+  box-shadow: 0px 5px 20px 0px #101010;
+}
 .category-label {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
+  color: rgb(255, 255, 255);
   font-size: 22px;
   font-weight: 600;
   margin-left: 7%;
   margin-bottom: 0%;
 }
 .search-container {
-  border-radius: 20px; /* Set border radius */
+  border-radius: 10px; /* Set border radius */
   padding: 10px; /* Optional: Add padding for better appearance */
   border: 1px solid #ccc; /* Optional: Add border */
   outline: none; /* Optional: Remove default focus outline */
-  width: 80%;
+  width: 90%;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -77,13 +83,13 @@
 }
 .food-item-selected {
   display: inline-block;
-  background-color: #b97d45;
+  background-color: black;
   /* padding-left: 5px;
   padding-right: 5px; */
   margin-right: 15px;
   border-radius: 10px;
   justify-content: center;
-  /* border: 1px solid #875034; */
+  /* border: 1px solid black; */
   width: 110px;
 }
 .food-item {
@@ -94,7 +100,7 @@
   margin-right: 15px;
   border-radius: 10px;
   justify-content: center;
-  /* border: 1px solid #875034; */
+  /* border: 1px solid black; */
   width: 110px;
 }
 .food-item-img {
@@ -106,7 +112,7 @@
 
 .selected {
   color: #ffffff;
-  /* border-bottom: 2px solid #875034; */
+  /* border-bottom: 2px solid black; */
   margin-bottom: 0px;
   font-size: 16px;
   /* font-weight: 600; */
@@ -126,7 +132,7 @@
 
 .food-data-item {
   display: flex;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   /* padding-left: 10px;
   padding-right: 10px;
   margin-right: 10px;
@@ -244,7 +250,7 @@
 }
 
 .food-list-dish-price {
-  color: #875034;
+  color: black;
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
@@ -253,7 +259,7 @@
 }
 
 .food-list-cart-btn {
-  background-color: #b97d45 !important;
+  background-color: black !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
