@@ -8,55 +8,6 @@ import NormalBtn from "../../components/normalButton";
 import { db } from "../../firebaseConfig";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
-// const foodItems = [
-//   {
-//     name: "South Indian",
-//     imgSrc:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC_quaq3okgk1XPVzQp7BfdDQnMsABMEugW9XJxYxWX_lvpAi5LOOKrZZAzI8KtcOokx4&usqp=CAU",
-//   },
-//   {
-//     name: "Main Courses",
-//     imgSrc:
-//       "https://media.istockphoto.com/id/1403973419/photo/table-top-of-food-spread-on-table.jpg?s=612x612&w=0&k=20&c=2cROUMurZUtuvqF-bp8lViZ0wDXBNkZBcIjQj2QQlec=",
-//   },
-
-//   {
-//     name: "Drinks",
-//     imgSrc:
-//       "https://img.freepik.com/free-photo/fresh-cocktails-with-ice-lemon-lime-fruits-generative-ai_188544-12370.jpg",
-//   },
-
-//   {
-//     name: "Desserts",
-//     imgSrc:
-//       "https://t3.ftcdn.net/jpg/01/76/33/14/360_F_176331484_nLHY9EoW0ETwPZaS9OBXPGbCJhT70GZe.jpg",
-//   },
-//   {
-//     name: "Appetizers",
-//     imgSrc:
-//       "https://media.istockphoto.com/id/174987545/photo/canapes-for-party.jpg?s=612x612&w=0&k=20&c=RtZXWZtOVWK3J5xKERls-o74EWdAXLP3y7S0IChfqOg=",
-//   },
-//   {
-//     name: "Side Dishes",
-//     imgSrc:
-//       "https://insanelygoodrecipes.com/wp-content/uploads/2020/10/Homemade-Tater-Tot-Casserole.png",
-//   },
-//   {
-//     name: "Salads",
-//     imgSrc:
-//       "https://images.immediate.co.uk/production/volatile/sites/30/2022/06/Epic-summer-salad-3aeb697.jpg",
-//   },
-//   {
-//     name: "Soups",
-//     imgSrc:
-//       "https://www.allrecipes.com/thmb/p4F_knUDCrUNusNOTyjY_dCp8d4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/13338-quick-and-easy-vegetable-soup-DDMFS-4x3-402702f59e7a41519515cecccaba1b80.jpg",
-//   },
-//   {
-//     name: "Beverages",
-//     imgSrc:
-//       "https://static.vecteezy.com/system/resources/thumbnails/026/500/574/small_2x/summer-refreshing-beverages-photo.jpg",
-//   },
-// ];
 
 function Home() {
   // const handleSubmit = async (e) => {
@@ -375,3 +326,53 @@ function Home() {
 }
 
 export default Home;
+
+// const foodItems = [
+//   {
+//     name: "South Indian",
+//     imgSrc:
+//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC_quaq3okgk1XPVzQp7BfdDQnMsABMEugW9XJxYxWX_lvpAi5LOOKrZZAzI8KtcOokx4&usqp=CAU",
+//   },
+//   {
+//     name: "Main Courses",
+//     imgSrc:
+//       "https://media.istockphoto.com/id/1403973419/photo/table-top-of-food-spread-on-table.jpg?s=612x612&w=0&k=20&c=2cROUMurZUtuvqF-bp8lViZ0wDXBNkZBcIjQj2QQlec=",
+//   },
+
+//   {
+//     name: "Drinks",
+//     imgSrc:
+//       "https://img.freepik.com/free-photo/fresh-cocktails-with-ice-lemon-lime-fruits-generative-ai_188544-12370.jpg",
+//   },
+
+//   {
+//     name: "Desserts",
+//     imgSrc:
+//       "https://t3.ftcdn.net/jpg/01/76/33/14/360_F_176331484_nLHY9EoW0ETwPZaS9OBXPGbCJhT70GZe.jpg",
+//   },
+//   {
+//     name: "Appetizers",
+//     imgSrc:
+//       "https://media.istockphoto.com/id/174987545/photo/canapes-for-party.jpg?s=612x612&w=0&k=20&c=RtZXWZtOVWK3J5xKERls-o74EWdAXLP3y7S0IChfqOg=",
+//   },
+//   {
+//     name: "Side Dishes",
+//     imgSrc:
+//       "https://insanelygoodrecipes.com/wp-content/uploads/2020/10/Homemade-Tater-Tot-Casserole.png",
+//   },
+//   {
+//     name: "Salads",
+//     imgSrc:
+//       "https://images.immediate.co.uk/production/volatile/sites/30/2022/06/Epic-summer-salad-3aeb697.jpg",
+//   },
+//   {
+//     name: "Soups",
+//     imgSrc:
+//       "https://www.allrecipes.com/thmb/p4F_knUDCrUNusNOTyjY_dCp8d4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/13338-quick-and-easy-vegetable-soup-DDMFS-4x3-402702f59e7a41519515cecccaba1b80.jpg",
+//   },
+//   {
+//     name: "Beverages",
+//     imgSrc:
+//       "https://static.vecteezy.com/system/resources/thumbnails/026/500/574/small_2x/summer-refreshing-beverages-photo.jpg",
+//   },
+// ];
