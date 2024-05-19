@@ -7,7 +7,7 @@ const authSlice = createSlice({
   },
   reducers: {
     updateDeviceID: (state, action) => {
-      state.order.push({ ...action.payload });
+      state.deviceID = action;
     },
   },
 });
