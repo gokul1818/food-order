@@ -1,11 +1,29 @@
-import React from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Home from './page/Home/home';
-import Cart from './page/cart/cart';
-import Checkout from './page/checkout';
-import OrderStatus from './page/orderStatus/index.jsx'
+import React, { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./page/Home/home";
+import Cart from "./page/cart/cart";
+import Checkout from "./page/checkout";
+import OrderStatus from "./page/orderStatus/index.jsx";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import { deviceDetect } from "react-device-detect";
+import { updateDeviceID } from "./redux/reducers/authSlice.js";
+const navigator_info = window.navigator;
+const screen_info = window.screen;
+let uid = navigator_info.mimeTypes.length;
+uid += navigator_info.userAgent.replace(/\D+/g, "");
+uid += navigator_info.plugins.length;
+uid += screen_info.height + "";
+uid += screen_info.width + "";
+uid += screen_info.pixelDepth || "";
 
 function App() {
+  const dispatch = useDispatch();
+  const deviceInfo = deviceDetect();
+  uid += deviceInfo.model;
+  console.log(uid, "UUUUID");
+  dispatch(updateDeviceID(uid));
+
   return (
     <Router>
       <Routes>

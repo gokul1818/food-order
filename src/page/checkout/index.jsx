@@ -75,6 +75,69 @@ function Checkout() {
         },
       ],
     },
+    {
+      table: 3,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
+    {
+      table: 4,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
+    {
+      table: 5,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
   ]);
   const [tablesBooked, setTablesBooked] = useState([
     {
@@ -108,6 +171,69 @@ function Checkout() {
         {
           id: 2,
           booked: true,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
+    {
+      table: 3,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
+    {
+      table: 4,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
+        },
+        {
+          id: 3,
+          booked: false,
+        },
+        {
+          id: 4,
+          booked: false,
+        },
+      ],
+    },
+    {
+      table: 5,
+      chairs: [
+        {
+          id: 1,
+          booked: false,
+        },
+        {
+          id: 2,
+          booked: false,
         },
         {
           id: 3,
@@ -190,6 +316,7 @@ function Checkout() {
         cartItems: cart,
         totalPrice: totalPrice,
         orderStatus: 1,
+        // orderID:
       };
       dispatch(updateOrder(payload));
       dispatch(clearCart());

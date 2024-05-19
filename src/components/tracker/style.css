@@ -86,10 +86,8 @@
   border-radius: 50%;
   object-fit: cover;
 }
-.order-dishName-label{
+.order-dishName-label {
   font-size: 16px;
   letter-spacing: 0.5px;
-  color: black  
-  \;
-
+  color: black;
 }

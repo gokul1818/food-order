@@ -48,7 +48,7 @@
   border: 1px solid #ffe1a0;
   color: #fff;
   justify-content: center;
-  box-shadow: 20px 11px 20px 0px rgba(255, 225, 160, 0.241);
+  box-shadow: 20px 11px 20px 0px rgba(127, 127, 126, 0.241);
 }
 .table-number {
   position: absolute;
@@ -72,8 +72,8 @@
 .table-chair {
   width: 20px;
   height: 10px;
-  background-color: #d6d6d6;
-  border: 1px solid #754428;
+  background-color: #ffffff;
+  border: 1px solid green;
   border-bottom: 0px;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -81,15 +81,15 @@
 .table-chair-booked {
   width: 20px;
   height: 10px;
-  background-color: #754428;
+  background-color: green;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 .table-chair-bottom {
   width: 20px;
   height: 10px;
-  background-color: #d6d6d6;
-  border: 1px solid #754428;
+  background-color: #ffffff;
+  border: 1px solid green;
   border-top: 0px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -97,7 +97,7 @@
 .table-chair-bottom-booked {
   width: 20px;
   height: 10px;
-  background-color: #754428;
+  background-color: green;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
