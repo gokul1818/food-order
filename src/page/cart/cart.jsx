@@ -105,7 +105,7 @@ function Cart() {
               ))}
             </div>
             <div className="total-price-container fixed-bottom">
-              <p className="cart-list-price"> Total ₹{totalPrice.toFixed(2)}</p>
+              <p className="cart-list-price fw-bold" style={{color:"#000"}}> Total ₹{totalPrice.toFixed(2)}</p>
               <NormalBtn
                 btnlabel="Proceed"
                 className={"btn-proceed"}

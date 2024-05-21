@@ -1,5 +1,5 @@
 .container {
-  background-color: #ffffff;
+  background-color: #ffffff2e;
   display: flex;
   width: 100% !important;
   height: 120px;
@@ -22,7 +22,8 @@
   background-color: black;
   width: 130px;
   height: 120px;
-  border-radius: 4px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -75,8 +76,8 @@
   z-index: 10;
   flex-direction: column;
   align-items: center;
-  -webkit-box-shadow: 9px 9px 9px -2px #ffffff6b;
-  -moz-box-shadow: 9px 9px 9px -2px #ffffff6b;
+  -webkit-box-shadow: 9px 9px 9px -2px #ffffff2e;
+  -moz-box-shadow: 9px 9px 9px -2px #ffffff2e;
   -webkit-box-shadow: 9px 9px 9px -2px #3939396a;
 }
 
@@ -178,7 +179,7 @@
 .screen {
   width: 47px;
   height: 23px;
-  background-color: #ffffff;
+  background-color: #ffffff2e;
   position: absolute;
   top: 22px;
   right: 8px;

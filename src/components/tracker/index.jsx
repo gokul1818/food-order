@@ -39,7 +39,19 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
           onClick={() => setViewMore(!viewMore)}
         />
       )}
-      <p className="Arrives-label mt-2">Arrives with in (20 mins) </p>
+      <div className="d-flex justify-content-between">
+        <p className="Arrives-label mt-2">Track Order </p>
+        <p
+          className="order-dishName-label fw-bold px-2 py-1 mt-2"
+          style={{
+            color: orderItem?.paymentMethod == "cash" ? "red" : "green",
+            background: "#acabab",
+            borderRadius: "10px",
+          }}
+        >
+          {orderItem?.paymentMethod == "cash" ? "UnPaid" : "Paid"}
+        </p>
+      </div>
       {stages.map((stage, index) => (
         <div key={index} className="tracker-item">
           <div className="dot-and-connector">
@@ -52,7 +64,7 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
             <div
               className="connector"
               style={{
-                backgroundColor: index < currentStage ? "black" : "#e5e5e5",
+                backgroundColor: index < currentStage ? "#ffffff" : "grey",
               }}
             ></div>
           )}
@@ -60,22 +72,13 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
       ))}
       {viewMoreDetails && (
         <>
-          <div className="d-flex justify-content-between mt-3">
-            <p className=" order-dishName-label fs-5  ">Payments Status</p>
-            <p
-              className="order-dishName-label  fw-bold pt-1"
-              style={{
-                color: orderItem?.paymentMethod == "cash" ? "red" : "green",
-              }}
-            >
-              {orderItem?.paymentMethod == "cash" ? "UnPaid" : "Paid"}
+          <div className="d-flex justify-content-between  mt-4">
+            <p className=" order-dishName-label fs-6  ">
+              {"Total Price *(inc all GST)"}
             </p>
-          </div>
-          <div className="d-flex justify-content-between ">
-            <p className=" order-dishName-label fs-5  ">Total Price</p>
-            <p className="order-dishName-label fs-5 fw-bold ">
+            <p className="order-dishName-label fs-6 fw-bold ">
               {" "}
-              ₹{orderItem?.totalPrice} -/-
+              ₹{orderItem?.totalPrice}
             </p>
           </div>
           {stages[stages.length - 1] == "Reached Table" &&
@@ -88,13 +91,16 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
             )}
         </>
       )}
-
       <div className="d-flex justify-content-center mt-4">
         <div
           className="viewMore-btn "
           onClick={() => setViewMoreDetails(!viewMoreDetails)}
         >
-          {!viewMoreDetails ? <FaAngleDown /> : <FaAngleUp />}
+          {!viewMoreDetails ? (
+            <FaAngleDown color="white" />
+          ) : (
+            <FaAngleUp color="white" />
+          )}
         </div>
       </div>
     </div>

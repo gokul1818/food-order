@@ -122,7 +122,7 @@
 }
 
 .unselected {
-  color: #6e6e6e;
+  color: #000000;
   margin-bottom: 0px;
   font-size: 16px;
   text-overflow: ellipsis;
@@ -147,7 +147,7 @@
 
 .food-data-item-container {
   display: flex;
-  background-color: #fff;
+  background-color: #ffffff2e;
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 10px;
@@ -206,7 +206,7 @@
 }
 .selected-food-data-item-container {
   display: flex;
-  background-color: #fff;
+  background-color: #ffffff2e;
   padding-left: 10px;
   padding-right: 10px;
   margin-right: 10px;
@@ -222,7 +222,7 @@
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
 }
 .selected-food-list-dish-name {
-  color: #000;
+  color: #ffffff;
   margin-top: auto;
   margin-bottom: 10px;
   font-size: 16px;
@@ -236,7 +236,7 @@
 }
 
 .food-list-dish-name {
-  color: #000;
+  color: #ffffff;
   margin-top: auto;
   margin-bottom: 5px;
   font-size: 16px;
@@ -250,7 +250,7 @@
 }
 
 .food-list-dish-price {
-  color: black;
+  color: #ffffff;
   margin-bottom: 0px;
   font-size: 18px;
   font-weight: 600;
@@ -272,5 +272,5 @@
 .food-list-quantity {
   font-size: 14px;
   font-weight: 500;
-  color: #000;
+  color: #ffffff;
 }
