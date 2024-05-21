@@ -7,7 +7,7 @@ import NormalBtn from "../../components/normalButton";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyOrder.json";
 import "./style.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
 import {
@@ -40,21 +40,29 @@ function OrderStatus() {
     setOrderStatusStages(updatedStages);
   };
 
-  const fetchOrders = async () => {
-    const ordersCollection = collection(db, "orders");
-    const ordersSnapshot = await getDocs(ordersCollection);
-    const ordersList = ordersSnapshot.docs.map((doc) => ({
-      OrderId: doc.id,
-      ...doc.data(),
-    }));
-    dispatch(updateOrderLength(ordersList.length));
-    setOrderedFood(ordersList);
-
-    console.log(ordersList);
-  };
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    const ordersCollection = collection(db, "orders");
+
+    // Set up a real-time listener
+    const unsubscribe = onSnapshot(
+      ordersCollection,
+      (ordersSnapshot) => {
+        const ordersList = ordersSnapshot.docs.map((doc) => ({
+          OrderId: doc.id,
+          ...doc.data(),
+        }));
+        setOrderedFood(ordersList);
+        console.log(ordersList);
+      },
+      (error) => {
+        console.error("Error fetching orders:", error);
+      }
+    );
+
+    // Cleanup function to unsubscribe from the listener
+    return () => unsubscribe();
+  }, [dispatch]);
+
   return (
     <div className="bg-color ">
       <Navbar />

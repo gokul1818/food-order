@@ -1,15 +1,16 @@
 import { Badge, useScrollTrigger } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
 import cartIcon from "../../assets/images/cart.png";
 import history from "../../assets/images/history.png";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 
 function ElevationScroll({ children }) {
   const trigger = useScrollTrigger({
@@ -31,6 +32,30 @@ const CustomBadge = styled(Badge)(({ theme }) => ({
 
 function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const ordersCollection = collection(db, "orders");
+
+    // Set up a real-time listener
+    const unsubscribe = onSnapshot(
+      ordersCollection,
+      (ordersSnapshot) => {
+        const ordersList = ordersSnapshot.docs.map((doc) => ({
+          OrderId: doc.id,
+          ...doc.data(),
+        }));
+        dispatch(updateOrderLength(ordersList.length));
+        console.log(ordersList);
+      },
+      (error) => {
+        console.error("Error fetching orders:", error);
+      }
+    );
+
+    // Cleanup function to unsubscribe from the listener
+    return () => unsubscribe();
+  }, [dispatch]);
 
   const orderedFood = useSelector((state) => state.order.orderLength);
   console.log(orderedFood, "orderStatus");
