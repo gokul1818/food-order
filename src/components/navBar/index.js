@@ -1,6 +1,6 @@
 import { Badge, useScrollTrigger } from "@mui/material";
 import { styled } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
@@ -8,6 +8,8 @@ import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
 import cartIcon from "../../assets/images/cart.png";
 import history from "../../assets/images/history.png";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 function ElevationScroll({ children }) {
   const trigger = useScrollTrigger({
@@ -30,7 +32,7 @@ const CustomBadge = styled(Badge)(({ theme }) => ({
 function Navbar() {
   const navigate = useNavigate();
 
-  const orderedFood = useSelector((state) => state.order.order);
+  const orderedFood = useSelector((state) => state.order.orderLength);
   console.log(orderedFood, "orderStatus");
 
   const cart = useSelector((state) => state.cart.cart);
@@ -65,7 +67,7 @@ function Navbar() {
           }, 100);
         }}
       >
-        <CustomBadge badgeContent={orderedFood.length}>
+        <CustomBadge badgeContent={orderedFood}>
           <img src={history} className="nav-icon" />
         </CustomBadge>
       </button>

@@ -16,6 +16,9 @@ import animationData from "../../assets/foodprepare.json";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../redux/reducers/ordersSlice";
 import { clearCart } from "../../redux/reducers/cartSlice";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
+import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -252,8 +255,8 @@ function Checkout() {
     const itemQuantity = parseInt(item.quantity);
     return total + itemPrice * itemQuantity;
   }, 0);
+
   const handleChairClick = (tableId, chairIndex) => {
-    // Check if the chair is not already booked in tablesBooked
     if (!tablesBooked[tableId - 1].chairs[chairIndex].booked) {
       setTables((prevTables) => {
         const updatedTables = [...prevTables];
@@ -278,8 +281,23 @@ function Checkout() {
       setchairError(false);
     }
   };
+  const addOrder = async (orderData) => {
+    try {
+      const orderId = await generateOrderId();
+      const orderDocRef = doc(collection(db, "orders"), orderId);
 
-  const handleCheckout = () => {
+      await setDoc(orderDocRef, {
+        ...orderData,
+        orderID: orderId,
+      });
+
+      console.log("Order added with ID: ", orderId);
+    } catch (e) {
+      console.error("Error adding order: ", e);
+    }
+  };
+
+  const handleCheckout = async () => {
     // Check if any chair is selected
     const isAnyChairSelected = tables.some((table) =>
       table.chairs.some((chair) => chair.booked)
@@ -310,14 +328,14 @@ function Checkout() {
       let payload = {
         phoneNumber: phoneNumber,
         name: name,
-        isAnyChairSelected: isAnyChairSelected,
+        tablesSelected: tables,
         paymentMethod: paymentMethod,
         deliveryMethod: deliveryMethod,
         cartItems: cart,
         totalPrice: totalPrice,
         orderStatus: 1,
-        // orderID:
       };
+      await addOrder(payload);
       dispatch(updateOrder(payload));
       dispatch(clearCart());
     } else {

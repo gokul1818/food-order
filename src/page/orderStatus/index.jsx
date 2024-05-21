@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../components/navBar/index";
 import Tracker from "../../components/tracker/index";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,13 @@ import NormalBtn from "../../components/normalButton";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyOrder.json";
 import "./style.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
+import { useEffect } from "react";
+import {
+  updateOrder,
+  updateOrderLength,
+} from "../../redux/reducers/ordersSlice";
 // initial stages
 const initialStages = [
   "Order Placed",
@@ -21,28 +28,48 @@ const cancel = ["Cancel Initiated", "Order Cancelled"];
 
 function OrderStatus() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const orderedFood = useSelector((state) => state.order.order);
-  // const orderedFood = useSelector((state) => state.cart.cart);
+  // const orderedFood = useSelector((state) => state.order.order);
   const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
   const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
-
+  const [orderedFood, setOrderedFood] = useState([]);
   const handleCancelOrder = () => {
     const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
     setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
     setOrderStatusStages(updatedStages);
   };
 
+  const fetchOrders = async () => {
+    const ordersCollection = collection(db, "orders");
+    const ordersSnapshot = await getDocs(ordersCollection);
+    const ordersList = ordersSnapshot.docs.map((doc) => ({
+      OrderId: doc.id,
+      ...doc.data(),
+    }));
+    dispatch(updateOrderLength(ordersList.length));
+    setOrderedFood(ordersList);
+
+    console.log(ordersList);
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
   return (
     <div className="bg-color ">
       <Navbar />
-      <div className="ease-in  ps-4">
+      <div className="ease-in  ">
         {orderedFood.length > 0 && (
-          <h2 className="mt-5 pt-5 pl-5">Your Order Status</h2>
+          <h2 className="mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
+            Your Order Status
+          </h2>
         )}
         {orderedFood.length > 0 ? (
           orderedFood.map((item, index) => (
-            <div className="" key={index}>
+            <div
+              className="d-flex justify-content-center align-items-center"
+              key={index}
+            >
               <Tracker
                 orderItem={item}
                 stages={orderStatusStages}
