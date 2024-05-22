@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import "./style.css";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import NormalBtn from "../normalButton";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { FaAngleDown } from "react-icons/fa";
-import { FaAngleUp } from "react-icons/fa";
-
+import "./style.css";
+import checkIcon from "../../assets/images/check.png";
 function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
   const [viewMore, setViewMore] = useState(false);
   const [viewMoreDetails, setViewMoreDetails] = useState(false);
@@ -41,16 +38,21 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
       )}
       <div className="d-flex justify-content-between">
         <p className="Arrives-label mt-2">Track Order </p>
-        <p
-          className="order-dishName-label fw-bold px-2 py-1 mt-2"
-          style={{
-            color: orderItem?.paymentMethod == "cash" ? "red" : "green",
-            background: "#acabab",
-            borderRadius: "10px",
-          }}
-        >
-          {orderItem?.paymentMethod == "cash" ? "UnPaid" : "Paid"}
-        </p>
+        <div className="d-flex align-items-center">
+          {orderItem?.paymentMethod !== "cash" && (
+            <img src={checkIcon} style={{ width: "18px", height: "18px" }} />
+          )}
+          <p
+            className="order-dishName-label fw-bold px-2 py-1 mb-0"
+            style={{
+              color: orderItem?.paymentMethod == "cash" ? "#fff" : "#00BA00",
+              // background: "#000",
+              borderRadius: "10px",
+            }}
+          >
+            {orderItem?.paymentMethod == "cash" ? "UnPaid" : "Paid"}
+          </p>
+        </div>
       </div>
       {stages.map((stage, index) => (
         <div key={index} className="tracker-item">

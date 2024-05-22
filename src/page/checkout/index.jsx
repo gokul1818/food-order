@@ -336,6 +336,7 @@ function Checkout() {
         orderStatus: 1,
       };
       await addOrder(payload);
+      localStorage.setItem("userPhoneNumber", phoneNumber);
       dispatch(updateOrder(payload));
       dispatch(clearCart());
     } else {

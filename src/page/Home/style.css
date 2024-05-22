@@ -28,11 +28,15 @@
   width: 90%;
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: #ffffff2e;
+  /* background-color: #; */
+
   /* justify-content: center; */
 }
 .search-input {
   background: "transparent";
+  background:none;
+  color: #ffffff;
   margin-left: 10px;
   border: none; /* Optional: Add border */
   outline: none; /* Optional: Remove default focus outline */
@@ -94,13 +98,13 @@
 }
 .food-item {
   display: inline-block;
-  background-color: #f2f2f2;
+  background-color: #ffffff2e;
   /* padding-left: 5px;
   padding-right: 5px; */
   margin-right: 15px;
   border-radius: 10px;
   justify-content: center;
-  /* border: 1px solid black; */
+  border: 1px solid #ffffff39;
   width: 110px;
 }
 .food-item-img {
@@ -122,7 +126,7 @@
 }
 
 .unselected {
-  color: #000000;
+  color: #ffffff;
   margin-bottom: 0px;
   font-size: 16px;
   text-overflow: ellipsis;
@@ -160,6 +164,7 @@
   border-radius: 10%;
   position: relative;
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ffffff39;
 }
 .food-list-img {
   width: 100px;
@@ -220,6 +225,8 @@
   align-items: center;
   /* border-radius: 10%; */
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ffffff39;
+
 }
 .selected-food-list-dish-name {
   color: #ffffff;

@@ -7,7 +7,13 @@ import NormalBtn from "../../components/normalButton";
 import Lottie from "react-lottie";
 import animationData from "../../assets/emptyOrder.json";
 import "./style.css";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useEffect } from "react";
 import {
@@ -40,12 +46,23 @@ function OrderStatus() {
     setOrderStatusStages(updatedStages);
   };
 
+  const userPhoneNumber = localStorage.getItem("userPhoneNumber");
+
   useEffect(() => {
+    if (!userPhoneNumber) {
+      console.error("No user phone number found in local storage.");
+      return;
+    }
+
     const ordersCollection = collection(db, "orders");
+    const q = query(
+      ordersCollection,
+      where("phoneNumber", "==", userPhoneNumber)
+    );
 
     // Set up a real-time listener
     const unsubscribe = onSnapshot(
-      ordersCollection,
+      q,
       (ordersSnapshot) => {
         const ordersList = ordersSnapshot.docs.map((doc) => ({
           OrderId: doc.id,
@@ -61,7 +78,7 @@ function OrderStatus() {
 
     // Cleanup function to unsubscribe from the listener
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, userPhoneNumber]);
 
   return (
     <div className="bg-color ">

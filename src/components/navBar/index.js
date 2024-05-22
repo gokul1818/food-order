@@ -8,24 +8,13 @@ import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
 import cartIcon from "../../assets/images/cart.png";
 import history from "../../assets/images/history.png";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 
-function ElevationScroll({ children }) {
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-}
-
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "rgb(15, 155, 10)",
+    backgroundColor: "#00BA00",
     color: "#fff", // Set your custom background color here
   },
 }));
@@ -34,18 +23,30 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const userPhoneNumber = localStorage.getItem("userPhoneNumber");
+
   useEffect(() => {
+    if (!userPhoneNumber) {
+      console.error("No user phone number found in local storage.");
+      return;
+    }
+
     const ordersCollection = collection(db, "orders");
+    const q = query(
+      ordersCollection,
+      where("phoneNumber", "==", userPhoneNumber)
+    );
 
     // Set up a real-time listener
     const unsubscribe = onSnapshot(
-      ordersCollection,
+      q,
       (ordersSnapshot) => {
         const ordersList = ordersSnapshot.docs.map((doc) => ({
           OrderId: doc.id,
           ...doc.data(),
         }));
         dispatch(updateOrderLength(ordersList.length));
+
         console.log(ordersList);
       },
       (error) => {
@@ -55,7 +56,7 @@ function Navbar() {
 
     // Cleanup function to unsubscribe from the listener
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, userPhoneNumber]);
 
   const orderedFood = useSelector((state) => state.order.orderLength);
   console.log(orderedFood, "orderStatus");
