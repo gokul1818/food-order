@@ -7,7 +7,7 @@ import foodData from "../../foodData.json";
 import NormalBtn from "../../components/normalButton";
 import { db } from "../../firebaseConfig";
 import { addDoc, collection, getDocs } from "firebase/firestore";
-
+import Modal from "../../components/modal/modal";
 
 function Home() {
   // const handleSubmit = async (e) => {
@@ -32,7 +32,9 @@ function Home() {
   const cart = useSelector((state) => state.cart.cart);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
   const [selectedList, setSelectedList] = useState();
   const [selectedFoodList, setSelectedFoodList] = useState(null);
   const [addToCartBtnLabels, setAddToCartBtnLabels] = useState(
@@ -93,6 +95,13 @@ function Home() {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("userPhoneNumber") == null) {
+      console.log(localStorage.getItem("userPhoneNumber"));
+      setShowModal(true);
+    }
   }, []);
 
   return (
@@ -321,6 +330,33 @@ function Home() {
           </div>
         )}
       </div>
+      <Modal show={showModal} handleClose={() => setShowModal(false)}>
+        <h2 className="modal-label">Login</h2>
+        <input
+          type="number"
+          placeholder="Enter PhoneNumber"
+          className="phoneNumber-input mb-4 px-2 mt-3"
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value.length <= 10) {
+              setPhoneNumber(value);
+            }
+          }}
+          value={phoneNumber}
+          max={10}
+          maxLength={10}
+        />
+        <NormalBtn
+          btnlabel={"login"}
+          className={"login-btn "}
+          onClick={() => {
+            
+            setShowModal(false);
+            localStorage.setItem("userPhoneNumber", phoneNumber);
+          }}
+          disabled={phoneNumber.length !== 10 ? true : false}
+        />
+      </Modal>
     </div>
   );
 }

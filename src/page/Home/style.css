@@ -35,7 +35,7 @@
 }
 .search-input {
   background: "transparent";
-  background:none;
+  background: none;
   color: #ffffff;
   margin-left: 10px;
   border: none; /* Optional: Add border */
@@ -226,7 +226,6 @@
   /* border-radius: 10%; */
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
   border: 1px solid #ffffff39;
-
 }
 .selected-food-list-dish-name {
   color: #ffffff;
@@ -280,4 +279,30 @@
   font-size: 14px;
   font-weight: 500;
   color: #ffffff;
+}
+
+.modal-label {
+  color: #000;
+}
+
+.phoneNumber-input {
+  background: "transparent";
+  background: none;
+  color: #000000;
+  border-radius: 5px;
+  height: 40px;
+  border: 1px solid #1010107c; /* Optional: Add border */
+  outline: none; /* Optional: Remove default focus outline */
+}
+.login-btn {
+  background-color: black !important;
+  outline: none !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  font-size: 17px !important;
+  color: #f2f2f2 !important ;
+  height: 50px;
 }
