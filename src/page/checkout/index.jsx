@@ -324,11 +324,8 @@ function Checkout() {
 
     if (name && phoneNumber && !phoneNumberError) {
       if (locationMatch && !isAnyChairSelected) {
-        console.log("sdsd");
-
         return;
       }
-      console.log("sdsd");
       setTimeout(() => {
         setSubmited(true);
       }, 1500);

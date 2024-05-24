@@ -13,7 +13,7 @@ const GeolocationComponent = () => {
   const [loading, setLoading] = useState(true);
   const [match, setMatch] = useState(false);
 
-  function arraysAreEqual(arr1, arr2) {
+  const arraysAreEqual = (arr1, arr2) => {
     if (arr1.length !== arr2.length) {
       return false;
     }
@@ -24,7 +24,8 @@ const GeolocationComponent = () => {
       }
     }
     return true;
-  }
+  };
+
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
       async (position) => {
@@ -52,6 +53,7 @@ const GeolocationComponent = () => {
         (doc) => doc.data().coordinates
       );
       setLocations(locationsData[0]);
+      console.log(location, locations);
       const isMatch = arraysAreEqual(location, locations);
       dispatch(updateLocationMatch(isMatch));
       console.log(isMatch);
