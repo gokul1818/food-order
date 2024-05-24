@@ -52,9 +52,8 @@ const GeolocationComponent = () => {
       const locationsData = querySnapshot.docs.map(
         (doc) => doc.data().coordinates
       );
-      setLocations(locationsData[0]);
-      console.log(location, locations);
-      const isMatch = arraysAreEqual(location, locations);
+      console.log(location, locationsData[0]);
+      const isMatch = arraysAreEqual(location, locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
       console.log(isMatch);
       setMatch(isMatch);
