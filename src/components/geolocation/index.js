@@ -65,7 +65,7 @@ const GeolocationComponent = () => {
 
   return (
     <div>
-      {/* {loading ? (
+      {loading ? (
         <p>Loading...</p>
       ) : (
         <div>
@@ -78,7 +78,7 @@ const GeolocationComponent = () => {
             <p>No match for the current location.</p>
           )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };
