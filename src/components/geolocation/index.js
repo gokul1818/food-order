@@ -16,7 +16,7 @@ const GeolocationComponent = () => {
     }
     for (let i = 0; i < arr1.length; i++) {
       console.log(arr1[i].toFixed(0), arr2[i].toFixed(0));
-      if (arr1[i].toFixed(0) !== arr2[i].toFixed(0)) {
+      if (arr1[i] !== arr2[i]) {
         return false;
       }
     }
