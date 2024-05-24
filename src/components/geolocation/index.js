@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 const GeolocationComponent = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useState([]);
-  const [match, setMatch] = useState(false);
+  const [locationsData, setLocationdata] = useState([]);
 
+  const [match, setMatch] = useState(false);
   const arraysAreEqual = (arr1, arr2) => {
     console.log(arr1, arr2);
     if (arr1.length !== arr2.length) {
@@ -50,6 +51,7 @@ const GeolocationComponent = () => {
       );
       console.log(coord, locationsData[0]);
       const isMatch = arraysAreEqual(coord, locationsData[0]);
+      setLocationdata(locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
       setMatch(isMatch);
     } catch (error) {
@@ -62,6 +64,9 @@ const GeolocationComponent = () => {
       <div>
         <p>
           Current Location: Latitude: {location[0]}, Longitude: {location[1]}
+          <br />
+          store Location: Latitude: {locationsData[0]}, Longitude:{" "}
+          {locationsData[1]}
         </p>
         {match ? (
           <p>Current location matches a stored location!</p>
