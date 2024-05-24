@@ -33,7 +33,7 @@ const GeolocationComponent = () => {
         const lon = position.coords.longitude;
         console.log(lat, lon);
         setLocation([lat, lon]);
-        fetchLocations();
+        fetchLocations([lat, lon]);
       },
       (error) => {
         setError(error.message);
@@ -45,15 +45,15 @@ const GeolocationComponent = () => {
     };
   }, []);
 
-  const fetchLocations = async () => {
+  const fetchLocations = async (coord) => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "locations"));
       const locationsData = querySnapshot.docs.map(
         (doc) => doc.data().coordinates
       );
-      console.log(location, locationsData[0]);
-      const isMatch = arraysAreEqual(location, locationsData[0]);
+      console.log(coord, locationsData[0]);
+      const isMatch = arraysAreEqual(coord, locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
       console.log(isMatch);
       setMatch(isMatch);

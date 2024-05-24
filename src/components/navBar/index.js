@@ -71,9 +71,6 @@ function Navbar() {
   const cart = useSelector((state) => state.cart.cart);
   return (
     <>
-      <GeolocationComponent />
-      
-
       <div className="button-container fixed-top">
         <button
           className="nav-button "
@@ -122,6 +119,8 @@ function Navbar() {
           </CustomBadge>
         </button>
       </div>
+      <div className="mt-5"></div>
+      <GeolocationComponent />
     </>
   );
 }
