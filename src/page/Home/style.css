@@ -94,7 +94,7 @@
   border-radius: 10px;
   justify-content: center;
   /* border: 1px solid black; */
-  width: 110px;
+  width: 112px;
 }
 .food-item {
   display: inline-block;
@@ -105,7 +105,7 @@
   border-radius: 10px;
   justify-content: center;
   border: 1px solid #ffffff39;
-  width: 110px;
+  width: 112px;
 }
 .food-item-img {
   width: 110px;
@@ -196,6 +196,8 @@
   border-top-right-radius: 10px;
   opacity: 0; /* Initially set opacity to 0 */
   animation: fadeIn 1s ease forwards;
+  border: 1px solid #ffffff39;
+  border-bottom: none;
 }
 .animation-ease-in {
   opacity: 0; /* Initially set opacity to 0 */
@@ -226,6 +228,7 @@
   /* border-radius: 10%; */
   box-shadow: 0px 7px 20px -5px rgba(0, 0, 0, 0.3);
   border: 1px solid #ffffff39;
+  border-top: none;
 }
 .selected-food-list-dish-name {
   color: #ffffff;

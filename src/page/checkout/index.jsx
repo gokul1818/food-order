@@ -23,10 +23,13 @@ import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const locationMatch = useSelector((state) => state.auth.locationMatch);
 
   const cart = useSelector((state) => state.cart.cart);
   const [tableSelect, setTableSelect] = useState([]);
-  const [deliveryMethod, setDeliveryMethod] = useState("Dine-In");
+  const [deliveryMethod, setDeliveryMethod] = useState(
+    locationMatch ? "Dine-In" : "Parcel"
+  );
   const [paymentMethod, setPaymentMethod] = useState("cash");
 
   const [name, setName] = useState("");
@@ -319,9 +322,13 @@ function Checkout() {
       setPhoneNumberError("");
     }
 
-    // Proceed with checkout if all fields are valid and at least one chair is selected
-    if (name && phoneNumber && !phoneNumberError && isAnyChairSelected) {
-      // Your checkout logic here
+    if (name && phoneNumber && !phoneNumberError) {
+      if (locationMatch && !isAnyChairSelected) {
+        console.log("sdsd");
+
+        return;
+      }
+      console.log("sdsd");
       setTimeout(() => {
         setSubmited(true);
       }, 1500);
@@ -379,84 +386,87 @@ function Checkout() {
       <div className="ease-in">
         {!submited ? (
           <div className="mt-3 pt-5">
-            <p className="select-label mb-0">Select your chairs / plates</p>
-
-            <div className="d-flex justify-content-center">
-              <img src={pointer} />
-              <p className="small-dec">click on a chair to book</p>
-            </div>
-            <div className="d-flex tables-container px-3">
-              {tables.map((table, index) => (
-                <div
-                  key={index}
-                  className="table-container mx-1 my-3 mb-4 d-flex flex-column"
-                >
-                  <div className="table-chair-container w-100 px-4">
-                    {table.chairs.slice(0, 2).map((chair, chairIndex) => (
-                      <div
-                        key={chairIndex}
-                        className={
-                          tablesBooked[index].chairs[chairIndex].booked
-                            ? "chairBooked-already"
-                            : chair.booked
-                            ? "table-chair-booked"
-                            : "table-chair"
-                        }
-                        onClick={() =>
-                          handleChairClick(table.table, chairIndex)
-                        }
-                      ></div>
-                    ))}
-                  </div>
-                  <div className="dine-table flex-column  justify-content-evenly">
-                    <div className="d-flex justify-content-evenly w-100 flex-wrap">
-                      {table.chairs.slice(0, 4).map((chair, chairIndex) => (
-                        <div
-                          key={index}
-                          className="mx-1 my-1"
-                          onClick={() =>
-                            handleChairClick(table.table, chairIndex)
-                          }
-                        >
-                          <img
-                            src={
-                              tablesBooked[index].chairs[chairIndex].booked
-                                ? foodOnPlate1
-                                : chair.booked
-                                ? foodOnPlate
-                                : emptyPlate
-                            }
-                            className="table-plate"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <p className="table-number">{table.table}</p>
-                  </div>
-                  <div className="table-chair-container w-100 px-4">
-                    {table.chairs.slice(2, 4).map((chair, chairIndex) => (
-                      <div
-                        key={chairIndex}
-                        className={
-                          tablesBooked[index].chairs[chairIndex + 2].booked
-                            ? "chairBooked-bottom-already"
-                            : chair.booked
-                            ? "table-chair-bottom-booked"
-                            : "table-chair-bottom"
-                        }
-                        onClick={() =>
-                          handleChairClick(table.table, chairIndex + 2)
-                        }
-                      ></div>
-                    ))}
-                  </div>
+            {locationMatch && (
+              <>
+                <p className="select-label mb-0">Select your chairs / plates</p>
+                <div className="d-flex justify-content-center">
+                  <img src={pointer} />
+                  <p className="small-dec">click on a chair to book</p>
                 </div>
-              ))}
-            </div>
-            {chairError && (
-              <p className="error ms-4 ps-2">
-                Please select at least one chair
-              </p>
+                <div className="d-flex tables-container px-3">
+                  {tables.map((table, index) => (
+                    <div
+                      key={index}
+                      className="table-container mx-1 my-3 mb-4 d-flex flex-column"
+                    >
+                      <div className="table-chair-container w-100 px-4">
+                        {table.chairs.slice(0, 2).map((chair, chairIndex) => (
+                          <div
+                            key={chairIndex}
+                            className={
+                              tablesBooked[index].chairs[chairIndex].booked
+                                ? "chairBooked-already"
+                                : chair.booked
+                                ? "table-chair-booked"
+                                : "table-chair"
+                            }
+                            onClick={() =>
+                              handleChairClick(table.table, chairIndex)
+                            }
+                          ></div>
+                        ))}
+                      </div>
+                      <div className="dine-table flex-column  justify-content-evenly">
+                        <div className="d-flex justify-content-evenly w-100 flex-wrap">
+                          {table.chairs.slice(0, 4).map((chair, chairIndex) => (
+                            <div
+                              key={index}
+                              className="mx-1 my-1"
+                              onClick={() =>
+                                handleChairClick(table.table, chairIndex)
+                              }
+                            >
+                              <img
+                                src={
+                                  tablesBooked[index].chairs[chairIndex].booked
+                                    ? foodOnPlate1
+                                    : chair.booked
+                                    ? foodOnPlate
+                                    : emptyPlate
+                                }
+                                className="table-plate"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <p className="table-number">{table.table}</p>
+                      </div>
+                      <div className="table-chair-container w-100 px-4">
+                        {table.chairs.slice(2, 4).map((chair, chairIndex) => (
+                          <div
+                            key={chairIndex}
+                            className={
+                              tablesBooked[index].chairs[chairIndex + 2].booked
+                                ? "chairBooked-bottom-already"
+                                : chair.booked
+                                ? "table-chair-bottom-booked"
+                                : "table-chair-bottom"
+                            }
+                            onClick={() =>
+                              handleChairClick(table.table, chairIndex + 2)
+                            }
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {chairError && (
+                  <p className="error ms-4 ps-2">
+                    Please select at least one chair
+                  </p>
+                )}
+              </>
             )}
 
             <p className="select-label mt-0">Booking Details</p>
@@ -494,18 +504,22 @@ function Checkout() {
                 )}
                 <p className="details-label mt-3">Delivery method</p>
                 <form className="radio-form mt-3 mb-3">
-                  <input
-                    value="Dine-In"
-                    name="deliveryMethod"
-                    type="radio"
-                    id="Dine-In"
-                    checked={deliveryMethod === "Dine-In"}
-                    onChange={() => setDeliveryMethod("Dine-In")}
-                  />
-                  <label htmlFor="Dine-In">
-                    <span></span> Dine-In
-                  </label>
-
+                  {locationMatch && (
+                    <>
+                      {" "}
+                      <input
+                        value="Dine-In"
+                        name="deliveryMethod"
+                        type="radio"
+                        id="Dine-In"
+                        checked={deliveryMethod === "Dine-In"}
+                        onChange={() => setDeliveryMethod("Dine-In")}
+                      />
+                      <label htmlFor="Dine-In">
+                        <span></span> Dine-In
+                      </label>
+                    </>
+                  )}
                   <input
                     value="Parcel"
                     name="deliveryMethod"
@@ -554,7 +568,6 @@ function Checkout() {
                 </form>
               </div>
             </div>
-
             <div className="fixed-bottom mx-auto  bg-white ">
               <PaymentBtn onClick={handleCheckout} />
             </div>

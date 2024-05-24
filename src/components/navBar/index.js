@@ -8,9 +8,16 @@ import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
 import cartIcon from "../../assets/images/cart.png";
 import history from "../../assets/images/history.png";
-import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { updateOrderLength } from "../../redux/reducers/ordersSlice";
+import GeolocationComponent from "../geolocation";
 
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -63,54 +70,59 @@ function Navbar() {
 
   const cart = useSelector((state) => state.cart.cart);
   return (
-    <div className="button-container fixed-top">
-      <button
-        className="nav-button "
-        onClick={() => {
-          setTimeout(() => {
-            navigate("/");
-          }, 100);
-        }}
-      >
-        <img src={home} className="nav-icon" />
-      </button>
-      <button
-        className="nav-button"
-        onClick={() => {
-          setTimeout(() => {
-            navigate("/order-status");
-          }, 100);
-        }}
-      >
-        <img src={offer} className="nav-icon" />
-      </button>
+    <>
+      <GeolocationComponent />
+      
 
-      <button
-        className="nav-button"
-        onClick={() => {
-          setTimeout(() => {
-            navigate("/order-status");
-          }, 100);
-        }}
-      >
-        <CustomBadge badgeContent={orderedFood}>
-          <img src={history} className="nav-icon" />
-        </CustomBadge>
-      </button>
+      <div className="button-container fixed-top">
+        <button
+          className="nav-button "
+          onClick={() => {
+            setTimeout(() => {
+              navigate("/");
+            }, 100);
+          }}
+        >
+          <img src={home} className="nav-icon" />
+        </button>
+        <button
+          className="nav-button"
+          onClick={() => {
+            setTimeout(() => {
+              navigate("/order-status");
+            }, 100);
+          }}
+        >
+          <img src={offer} className="nav-icon" />
+        </button>
 
-      <button
-        className="nav-button"
-        onClick={() => {
-          setTimeout(() => {
-            navigate("/cart");
-          }, 100);
-        }}
-      >
-        <CustomBadge badgeContent={cart?.length}>
-          <img src={cartIcon} className="nav-icon" />
-        </CustomBadge>
-      </button>
-    </div>
+        <button
+          className="nav-button"
+          onClick={() => {
+            setTimeout(() => {
+              navigate("/order-status");
+            }, 100);
+          }}
+        >
+          <CustomBadge badgeContent={orderedFood}>
+            <img src={history} className="nav-icon" />
+          </CustomBadge>
+        </button>
+
+        <button
+          className="nav-button"
+          onClick={() => {
+            setTimeout(() => {
+              navigate("/cart");
+            }, 100);
+          }}
+        >
+          <CustomBadge badgeContent={cart?.length}>
+            <img src={cartIcon} className="nav-icon" />
+          </CustomBadge>
+        </button>
+      </div>
+    </>
   );
 }
 
