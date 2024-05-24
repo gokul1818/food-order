@@ -8,9 +8,6 @@ import { useDispatch } from "react-redux";
 const GeolocationComponent = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useState([]);
-  const [error, setError] = useState(null);
-  const [locations, setLocations] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [match, setMatch] = useState(false);
 
   const arraysAreEqual = (arr1, arr2) => {
@@ -35,9 +32,7 @@ const GeolocationComponent = () => {
         setLocation([lat, lon]);
         fetchLocations([lat, lon]);
       },
-      (error) => {
-        setError(error.message);
-      }
+      (error) => {}
     );
 
     return () => {
@@ -46,7 +41,6 @@ const GeolocationComponent = () => {
   }, []);
 
   const fetchLocations = async (coord) => {
-    setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "locations"));
       const locationsData = querySnapshot.docs.map(
@@ -55,30 +49,24 @@ const GeolocationComponent = () => {
       console.log(coord, locationsData[0]);
       const isMatch = arraysAreEqual(coord, locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
-      console.log(isMatch);
       setMatch(isMatch);
     } catch (error) {
       console.error("Error fetching documents: ", error);
     }
-    setLoading(false);
   };
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <p>
-            Current Location: Latitude: {location[0]}, Longitude: {location[1]}
-          </p>
-          {match ? (
-            <p>Current location matches a stored location!</p>
-          ) : (
-            <p>No match for the current location.</p>
-          )}
-        </div>
-      )}
+      <div>
+        <p>
+          Current Location: Latitude: {location[0]}, Longitude: {location[1]}
+        </p>
+        {match ? (
+          <p>Current location matches a stored location!</p>
+        ) : (
+          <p>No match for the current location.</p>
+        )}
+      </div>
     </div>
   );
 };
