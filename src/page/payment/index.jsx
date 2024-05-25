@@ -16,8 +16,6 @@ function Payment() {
     return total + itemPrice * itemQuantity;
   }, 0);
 
-  console.log(totalPrice, "daygsdkaghkdjhkj");
-
   return (
     <div className="bg-color">
       <div className=" d-flex justify-content-start mt-4 ms-4 align-items-center">
@@ -26,7 +24,7 @@ function Payment() {
         </Link>
 
         <p className="cart-label pe-5 ">Payment</p>
-        
+
         <div className="mt-5 d-flex justify-content-center  flex-wrap">
           <div className="payment-content">
             <p>Total Price: ₹{totalPrice.toFixed(2)}</p>

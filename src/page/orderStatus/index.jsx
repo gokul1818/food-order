@@ -69,7 +69,6 @@ function OrderStatus() {
           ...doc.data(),
         }));
         setOrderedFood(ordersList);
-        console.log(ordersList);
       },
       (error) => {
         console.error("Error fetching orders:", error);

@@ -12,7 +12,6 @@ const GeolocationComponent = () => {
 
   const [match, setMatch] = useState(false);
   const arraysAreEqual = (arr1, arr2) => {
-    console.log(arr1, arr2);
     if (arr1.length !== arr2.length) {
       return false;
     }
@@ -43,14 +42,37 @@ const GeolocationComponent = () => {
     };
   }, []);
 
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371e3; // Radius of the Earth in meters
+    const φ1 = (lat1 * Math.PI) / 180; // Convert latitude 1 to radians
+    const φ2 = (lat2 * Math.PI) / 180; // Convert latitude 2 to radians
+    const Δφ = ((lat2 - lat1) * Math.PI) / 180; // Difference in latitude
+    const Δλ = ((lon2 - lon1) * Math.PI) / 180; // Difference in longitude
+
+    const a =
+      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = R * c; // Distance in meters
+    return distance;
+  };
+
   const fetchLocations = async (coord) => {
     try {
       const querySnapshot = await getDocs(collection(db, "locations"));
       const locationsData = querySnapshot.docs.map(
         (doc) => doc.data().coordinates
       );
-      console.log(coord, locationsData[0]);
-      const isMatch = arraysAreEqual(coord, locationsData[0]);
+      const distance = calculateDistance(
+        coord[0],
+        coord[1],
+        locationsData[0][0],
+        locationsData[0][1]
+      );
+      const isMatch = distance <= 50;
+      // const isMatch = arraysAreEqual(coord, locationsData[0]);
       setLocationdata(locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
       setMatch(isMatch);

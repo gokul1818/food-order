@@ -32,7 +32,6 @@ function Home() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const locationMatch = useSelector((state) => state.auth.locationMatch);
-  console.log(locationMatch);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -102,7 +101,6 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("userPhoneNumber") == null) {
-      console.log(localStorage.getItem("userPhoneNumber"));
       setShowModal(true);
     }
   }, []);

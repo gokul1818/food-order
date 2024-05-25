@@ -294,7 +294,6 @@ function Checkout() {
         orderID: orderId,
       });
 
-      console.log("Order added with ID: ", orderId);
     } catch (e) {
       console.error("Error adding order: ", e);
     }
@@ -305,7 +304,6 @@ function Checkout() {
     const isAnyChairSelected = tables.some((table) =>
       table.chairs.some((chair) => chair.booked)
     );
-    console.log(isAnyChairSelected);
     // Check if name is provided
     if (!name.trim()) {
       setNameError("Name is required");

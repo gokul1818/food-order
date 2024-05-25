@@ -54,7 +54,6 @@ function Navbar() {
         }));
         dispatch(updateOrderLength(ordersList.length));
 
-        console.log(ordersList);
       },
       (error) => {
         console.error("Error fetching orders:", error);
@@ -66,7 +65,6 @@ function Navbar() {
   }, [dispatch, userPhoneNumber]);
 
   const orderedFood = useSelector((state) => state.order.orderLength);
-  console.log(orderedFood, "orderStatus");
 
   const cart = useSelector((state) => state.cart.cart);
   return (
