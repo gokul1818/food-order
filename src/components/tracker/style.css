@@ -15,7 +15,16 @@
   letter-spacing: 0.5px;
   color: #ffffff;
 }
-
+.Arrives-successfully-label {
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  color: #00BA00;
+}
+.order-arrived-label {
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
 .tracker-item {
   display: flex;
   flex-direction: column;

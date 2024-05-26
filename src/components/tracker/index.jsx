@@ -1,17 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import NormalBtn from "../normalButton";
 import "./style.css";
 import checkIcon from "../../assets/images/check.png";
-function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
+function Tracker({
+  // stages,
+  // currentStage,
+  // handleCancelOrder,
+  orderItem,
+  orderDelivered,
+}) {
+  const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
+  const cancel = ["Cancel Initiated", "Order Cancelled"];
+  const delivered = ["Order Delivered"];
+  const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
+  const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
+  const [currentStage, setCurrentStage] = useState(1);
+
+  const handleCancelOrder = () => {
+    const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
+    setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+    setOrderStatusStages(updatedStages);
+  };
+
+  const handleOrderDelivered = (status) => {
+    if (status) {
+      const updatedStages = [...orderStatusStages.slice(0, 1), ...delivered];
+      setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+      setOrderStatusStages(updatedStages);
+    }
+  };
   const [viewMore, setViewMore] = useState(false);
   const [viewMoreDetails, setViewMoreDetails] = useState(false);
+  console.log(orderItem);
+  const [remainingTime, setRemainingTime] = useState(0);
 
+  useEffect(() => {
+    const countdownDate =
+      orderItem?.orderTime.toDate().getTime() + 15 * 60 * 1000; // Add 15 minutes to orderTime
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setRemainingTime({ minutes, seconds });
+      if (distance < 0) {
+        clearInterval(interval);
+        setRemainingTime({ minutes: 0, seconds: 0 });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [orderItem?.orderTime]);
+  useEffect(() => {
+    if (remainingTime.minutes === 0 && remainingTime.seconds === 0) {
+      handleOrderDelivered(true);
+      setCurrentStage(2);
+    } else {
+      handleOrderDelivered(false);
+    }
+  }, [remainingTime.minutes, remainingTime.seconds]);
   return (
     <div className="tracker">
-      <h5 className="order-dishName-label fs-5 mb-3">
-        Order ID : {orderItem?.OrderId}
-      </h5>
+      <div className="d-flex justify-content-between ">
+        <h5 className="order-dishName-label fs-5 mb-3">
+          Order ID : {orderItem?.orderID}
+        </h5>
+      </div>
+      <h6 className="order-arrived-label mb-3">
+        {remainingTime.minutes === 0 && remainingTime.seconds === 0 ? (
+          <p className="Arrives-successfully-label">Arrived</p>
+        ) : (
+          <>
+            Arrives within: {remainingTime.minutes} min :{" "}
+            {remainingTime.seconds} sec
+          </>
+        )}
+      </h6>
+
       {orderItem.cartItems
         .slice(0, viewMore ? orderItem.cartItems.length : 1)
         .map((item, index) => (
@@ -54,7 +120,7 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
           </p>
         </div>
       </div>
-      {stages.map((stage, index) => (
+      {orderStatusStages.map((stage, index) => (
         <div key={index} className="tracker-item">
           <div className="dot-and-connector">
             <div
@@ -62,7 +128,7 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
             ></div>
             <span className="stage">{stage}</span>
           </div>
-          {index < stages.length - 1 && (
+          {index < orderStatusStages.length - 1 && (
             <div
               className="connector"
               style={{
@@ -83,7 +149,7 @@ function Tracker({ stages, currentStage, handleCancelOrder, orderItem }) {
               ₹{orderItem?.totalPrice}
             </p>
           </div>
-          {stages[stages.length - 1] == "Reached Table" &&
+          {orderStatusStages[orderStatusStages.length - 1] == "Reached Table" &&
             currentStage !== 2 && (
               <NormalBtn
                 btnlabel="Cancel Order"

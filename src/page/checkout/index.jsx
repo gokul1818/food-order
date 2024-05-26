@@ -307,7 +307,7 @@ function Checkout() {
       console.error("Error adding order: ", e);
     }
   };
-
+  console.log(new Date());
   const handleCheckout = async () => {
     // Check if any chair is selected
     const isAnyChairSelected = tables.some((table) =>
@@ -343,6 +343,7 @@ function Checkout() {
         cartItems: cart,
         totalPrice: totalPrice,
         orderStatus: 1,
+        orderTime: new Date(),
       };
       await addOrder(payload);
       localStorage.setItem("userPhoneNumber", phoneNumber);
@@ -499,8 +500,11 @@ function Checkout() {
                   type="number"
                   value={phoneNumber}
                   onChange={(e) => {
-                    setPhoneNumber(e.target.value);
-                    validatePhoneNumber(e.target.value);
+                    const value = e.target.value;
+                    if (value.length <= 10) {
+                      setPhoneNumber(e.target.value);
+                      validatePhoneNumber(e.target.value);
+                    }
                   }}
                 ></input>
                 <span>Phone Number</span>

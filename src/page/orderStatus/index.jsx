@@ -21,24 +21,29 @@ import {
   updateOrderLength,
 } from "../../redux/reducers/ordersSlice";
 // initial stages
-const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
-
-const cancel = ["Cancel Initiated", "Order Cancelled"];
+// const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
+// const cancel = ["Cancel Initiated", "Order Cancelled"];
+// const delivered = ["Order Delivered"];
 
 function OrderStatus() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [orderedFood, setOrderedFood] = useState([]);
 
   // const orderedFood = useSelector((state) => state.order.order);
-  const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
-  const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
-  const [orderedFood, setOrderedFood] = useState([]);
-  const handleCancelOrder = () => {
-    const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
-    setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
-    setOrderStatusStages(updatedStages);
-  };
+  // const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
+  // const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
+  // const handleCancelOrder = () => {
+  //   const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
+  //   setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+  //   setOrderStatusStages(updatedStages);
+  // };
 
+  // const handleOrderDelivered = () => {
+  //   const updatedStages = [...orderStatusStages.slice(0, 1), ...delivered];
+  //   setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+  //   setOrderStatusStages(updatedStages);
+  // };
   const userPhoneNumber = localStorage.getItem("userPhoneNumber");
 
   useEffect(() => {
@@ -58,7 +63,6 @@ function OrderStatus() {
       q,
       (ordersSnapshot) => {
         const ordersList = ordersSnapshot.docs.map((doc) => ({
-          OrderId: doc.id,
           ...doc.data(),
         }));
         setOrderedFood(ordersList);
@@ -89,9 +93,10 @@ function OrderStatus() {
             >
               <Tracker
                 orderItem={item}
-                stages={orderStatusStages}
-                currentStage={item.orderStatus}
-                handleCancelOrder={handleCancelOrder}
+                // stages={orderStatusStages}
+                // currentStage={item.orderStatus}
+                // handleCancelOrder={handleCancelOrder}
+                // orderDelivered={handleOrderDelivered}
               />
             </div>
           ))
