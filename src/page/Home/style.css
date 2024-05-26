@@ -81,6 +81,7 @@
 .food-Data-list {
   display: flex;
   /* padding: 10px; */
+
   flex-wrap: wrap;
   justify-content: space-around;
   margin-left: 3%;
@@ -147,6 +148,7 @@
   align-items: end;
   position: relative;
   margin-top: 50px;
+  animation: fadeIn 1s ease-in;
 }
 
 .food-data-item-container {

@@ -13,6 +13,7 @@ import { Howl } from "howler";
 import clickSound from "../../assets/effect/clickSound.mp3";
 import trashSound from "../../assets/effect/trash.mp3";
 import popSound from "../../assets/effect/sweep.mp3";
+import shineSound from "../../assets/effect/shine.mp3";
 
 function Home() {
   // const handleSubmit = async (e) => {
@@ -53,6 +54,7 @@ function Home() {
 
   const handleFoodItemClick = (index) => {
     setSelectedList(index);
+    ShineSound.play();
   };
 
   const cartSound = new Howl({
@@ -66,6 +68,10 @@ function Home() {
   const SelectSound = new Howl({
     src: [popSound],
     volume: 1,
+  });
+  const ShineSound = new Howl({
+    src: [shineSound],
+    volume: 2,
   });
   const addToCart = (item, index) => {
     cartSound.play();

@@ -19,6 +19,7 @@ import { clearCart } from "../../redux/reducers/cartSlice";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
+import shineSound from "../../assets/effect/shine.mp3";
 import cartComplete from "../../assets/effect/spell.mp3";
 import { Howl } from "howler";
 function Checkout() {
@@ -263,6 +264,10 @@ function Checkout() {
     src: [cartComplete],
     volume: 1,
   });
+  const SelectSound = new Howl({
+    src: [shineSound],
+    volume: 2,
+  });
 
   const handleChairClick = (tableId, chairIndex) => {
     if (!tablesBooked[tableId - 1].chairs[chairIndex].booked) {
@@ -328,9 +333,7 @@ function Checkout() {
       if (locationMatch && !isAnyChairSelected) {
         return;
       }
-      setTimeout(() => {
-        setSubmited(true);
-      }, 1500);
+      CartComplete.play();
       let payload = {
         phoneNumber: phoneNumber,
         name: name,
@@ -345,7 +348,12 @@ function Checkout() {
       localStorage.setItem("userPhoneNumber", phoneNumber);
       dispatch(updateOrder(payload));
       dispatch(clearCart());
-      CartComplete.play();
+      setTimeout(() => {
+        SelectSound.play();
+      }, 500);
+      setTimeout(() => {
+        navigate("/order-status");
+      }, 800);
     } else {
       if (!isAnyChairSelected) {
         setchairError(true);
@@ -384,219 +392,191 @@ function Checkout() {
       </div> */}
       <Navbar />
       <div className="ease-in">
-        {!submited ? (
-          <div className="mt-3 pt-3">
-            {locationMatch && (
-              <>
-                <p className="select-label mb-0">Select your chairs</p>
-                <div className="d-flex ms-5 justify-content-start">
-                  <img src={pointer} />
-                  <p className="small-dec">click on a chair to book</p>
-                </div>
-                <div className="d-flex tables-container   px-3">
-                  {tables.map((table, index) => (
-                    <div
-                      key={index}
-                      className="table-container mx-1 my-3 mb-4 d-flex flex-column"
-                    >
-                      <div className="table-chair-container w-100 px-4">
-                        {table.chairs.slice(0, 2).map((chair, chairIndex) => (
+        <div className="mt-3 pt-3">
+          {locationMatch && (
+            <>
+              <p className="select-label mb-0">Select your chairs</p>
+              <div className="d-flex ms-5 justify-content-start">
+                <img src={pointer} />
+                <p className="small-dec">click on a chair to book</p>
+              </div>
+              <div className="d-flex tables-container   px-3">
+                {tables.map((table, index) => (
+                  <div
+                    key={index}
+                    className="table-container mx-1 my-3 mb-4 d-flex flex-column"
+                  >
+                    <div className="table-chair-container w-100 px-4">
+                      {table.chairs.slice(0, 2).map((chair, chairIndex) => (
+                        <div
+                          key={chairIndex}
+                          className={
+                            tablesBooked[index].chairs[chairIndex].booked
+                              ? "chairBooked-already"
+                              : chair.booked
+                              ? "table-chair-booked"
+                              : "table-chair"
+                          }
+                          onClick={() =>
+                            handleChairClick(table.table, chairIndex)
+                          }
+                        ></div>
+                      ))}
+                    </div>
+                    <div className="dine-table flex-column  justify-content-evenly">
+                      <div className="d-flex justify-content-evenly w-100 flex-wrap">
+                        {table.chairs.slice(0, 4).map((chair, chairIndex) => (
                           <div
-                            key={chairIndex}
-                            className={
-                              tablesBooked[index].chairs[chairIndex].booked
-                                ? "chairBooked-already"
-                                : chair.booked
-                                ? "table-chair-booked"
-                                : "table-chair"
-                            }
+                            key={index}
+                            className="mx-1 my-1"
                             onClick={() =>
                               handleChairClick(table.table, chairIndex)
                             }
-                          ></div>
-                        ))}
-                      </div>
-                      <div className="dine-table flex-column  justify-content-evenly">
-                        <div className="d-flex justify-content-evenly w-100 flex-wrap">
-                          {table.chairs.slice(0, 4).map((chair, chairIndex) => (
-                            <div
-                              key={index}
-                              className="mx-1 my-1"
-                              onClick={() =>
-                                handleChairClick(table.table, chairIndex)
+                          >
+                            <img
+                              src={
+                                tablesBooked[index].chairs[chairIndex].booked
+                                  ? foodOnPlate1
+                                  : chair.booked
+                                  ? foodOnPlate1
+                                  : emptyPlate
                               }
-                            >
-                              <img
-                                src={
-                                  tablesBooked[index].chairs[chairIndex].booked
-                                    ? foodOnPlate1
-                                    : chair.booked
-                                    ? foodOnPlate1
-                                    : emptyPlate
-                                }
-                                className="table-plate"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <p className="table-number">{table.table}</p>
-                      </div>
-                      <div className="table-chair-container w-100 px-4">
-                        {table.chairs.slice(2, 4).map((chair, chairIndex) => (
-                          <div
-                            key={chairIndex}
-                            className={
-                              tablesBooked[index].chairs[chairIndex + 2].booked
-                                ? "chairBooked-bottom-already"
-                                : chair.booked
-                                ? "table-chair-bottom-booked"
-                                : "table-chair-bottom"
-                            }
-                            onClick={() =>
-                              handleChairClick(table.table, chairIndex + 2)
-                            }
-                          ></div>
+                              className="table-plate"
+                            />
+                          </div>
                         ))}
                       </div>
+                      <p className="table-number">{table.table}</p>
                     </div>
-                  ))}
-                </div>
-                {chairError && (
-                  <p className="error ms-4 ps-2">
-                    Please select at least one chair
-                  </p>
-                )}
-              </>
-            )}
-
-            <p className="select-label mt-0">Booking Details</p>
-            <div className="d-flex justify-content-center">
-              <div className="booking-container">
-                <div className="inputbox mt-2 mb-1">
-                  <input
-                    required
-                    type="text"
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                      validateName(e.target.value);
-                    }}
-                  ></input>
-                  <span>Name</span>
-                  <i></i>
-                </div>
-                {nameError && <p className="error">{nameError}</p>}
-                <div className="inputbox mt-4 mb-1">
-                  <input
-                    required
-                    type="number"
-                    value={phoneNumber}
-                    onChange={(e) => {
-                      setPhoneNumber(e.target.value);
-                      validatePhoneNumber(e.target.value);
-                    }}
-                  ></input>
-                  <span>Phone Number</span>
-                  <i></i>
-                </div>
-                {phoneNumberError && (
-                  <p className="error">{phoneNumberError}</p>
-                )}
-                <p className="details-label mt-3">Delivery method</p>
-                <form className="radio-form mt-3 mb-3">
-                  {locationMatch && (
-                    <>
-                      {" "}
-                      <input
-                        value="Dine-In"
-                        name="deliveryMethod"
-                        type="radio"
-                        id="Dine-In"
-                        checked={deliveryMethod === "Dine-In"}
-                        onChange={() => setDeliveryMethod("Dine-In")}
-                      />
-                      <label htmlFor="Dine-In">
-                        <span></span> Dine-In
-                      </label>
-                    </>
-                  )}
-                  <input
-                    value="Parcel"
-                    name="deliveryMethod"
-                    type="radio"
-                    id="Parcel"
-                    checked={deliveryMethod === "Parcel"}
-                    onChange={() => setDeliveryMethod("Parcel")}
-                  />
-                  <label htmlFor="Parcel">
-                    <span></span> Parcel
-                  </label>
-
-                  <div className={deliveryMethod ? "worm" : "d-none"}>
-                    <div className="worm__segment"></div>
+                    <div className="table-chair-container w-100 px-4">
+                      {table.chairs.slice(2, 4).map((chair, chairIndex) => (
+                        <div
+                          key={chairIndex}
+                          className={
+                            tablesBooked[index].chairs[chairIndex + 2].booked
+                              ? "chairBooked-bottom-already"
+                              : chair.booked
+                              ? "table-chair-bottom-booked"
+                              : "table-chair-bottom"
+                          }
+                          onClick={() =>
+                            handleChairClick(table.table, chairIndex + 2)
+                          }
+                        ></div>
+                      ))}
+                    </div>
                   </div>
-                </form>
-                <p className="details-label mt-3">Payment method</p>
-                <form className="radio-form mt-3 mb-3">
-                  <input
-                    value="cash"
-                    name="Payment method"
-                    type="radio"
-                    id="cash"
-                    checked={paymentMethod === "cash"}
-                    onChange={() => setPaymentMethod("cash")}
-                  />
-                  <label htmlFor="cash">
-                    <span></span> Cash
-                  </label>
-
-                  <input
-                    value="online"
-                    name="Payment method"
-                    type="radio"
-                    id="online"
-                    checked={paymentMethod === "online"}
-                    onChange={() => setPaymentMethod("online")}
-                  />
-                  <label htmlFor="online">
-                    <span></span> UPI/Card
-                  </label>
-
-                  <div className={deliveryMethod ? "worm" : "d-none"}>
-                    <div className="worm__segment"></div>
-                  </div>
-                </form>
+                ))}
               </div>
-            </div>
-            <div className="fixed-bottom  ">
-              <PaymentBtn onClick={handleCheckout} />
+              {chairError && (
+                <p className="error ms-4 ps-2">
+                  Please select at least one chair
+                </p>
+              )}
+            </>
+          )}
+
+          <p className="select-label mt-0">Booking Details</p>
+          <div className="d-flex justify-content-center">
+            <div className="booking-container">
+              <div className="inputbox mt-2 mb-1">
+                <input
+                  required
+                  type="text"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    validateName(e.target.value);
+                  }}
+                ></input>
+                <span>Name</span>
+                <i></i>
+              </div>
+              {nameError && <p className="error">{nameError}</p>}
+              <div className="inputbox mt-4 mb-1">
+                <input
+                  required
+                  type="number"
+                  value={phoneNumber}
+                  onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                    validatePhoneNumber(e.target.value);
+                  }}
+                ></input>
+                <span>Phone Number</span>
+                <i></i>
+              </div>
+              {phoneNumberError && <p className="error">{phoneNumberError}</p>}
+              <p className="details-label mt-3">Delivery method</p>
+              <form className="radio-form mt-3 mb-3">
+                {locationMatch && (
+                  <>
+                    {" "}
+                    <input
+                      value="Dine-In"
+                      name="deliveryMethod"
+                      type="radio"
+                      id="Dine-In"
+                      checked={deliveryMethod === "Dine-In"}
+                      onChange={() => setDeliveryMethod("Dine-In")}
+                    />
+                    <label htmlFor="Dine-In">
+                      <span></span> Dine-In
+                    </label>
+                  </>
+                )}
+                <input
+                  value="Parcel"
+                  name="deliveryMethod"
+                  type="radio"
+                  id="Parcel"
+                  checked={deliveryMethod === "Parcel"}
+                  onChange={() => setDeliveryMethod("Parcel")}
+                />
+                <label htmlFor="Parcel">
+                  <span></span> Parcel
+                </label>
+
+                <div className={deliveryMethod ? "worm" : "d-none"}>
+                  <div className="worm__segment"></div>
+                </div>
+              </form>
+              <p className="details-label mt-3">Payment method</p>
+              <form className="radio-form mt-3 mb-3">
+                <input
+                  value="cash"
+                  name="Payment method"
+                  type="radio"
+                  id="cash"
+                  checked={paymentMethod === "cash"}
+                  onChange={() => setPaymentMethod("cash")}
+                />
+                <label htmlFor="cash">
+                  <span></span> Cash
+                </label>
+
+                <input
+                  value="online"
+                  name="Payment method"
+                  type="radio"
+                  id="online"
+                  checked={paymentMethod === "online"}
+                  onChange={() => setPaymentMethod("online")}
+                />
+                <label htmlFor="online">
+                  <span></span> UPI/Card
+                </label>
+
+                <div className={deliveryMethod ? "worm" : "d-none"}>
+                  <div className="worm__segment"></div>
+                </div>
+              </form>
             </div>
           </div>
-        ) : (
-          <div
-            className="d-flex flex-column justify-content-center align-items-center   "
-            style={{ height: "100vh" }}
-          >
-            <Lottie
-              options={{
-                animationData: animationData,
-                loop: false,
-                autoplay: true,
-              }}
-              height={300} // Optional
-              width={300} // Optional
-              eventListeners={[
-                {
-                  eventName: "complete",
-                  callback: () => navigate("/order-status"),
-                },
-              ]}
-            />
-            <p className="select-label m-0" style={{ top: "60%" }}>
-              Your food is begin prepared{" "}
-            </p>
+          <div className="fixed-bottom  ">
+            <PaymentBtn onClick={handleCheckout} />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
