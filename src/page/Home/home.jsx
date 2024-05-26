@@ -12,7 +12,7 @@ import GeolocationComponent from "../../components/geolocation";
 import { Howl } from "howler";
 import clickSound from "../../assets/effect/clickSound.mp3";
 import trashSound from "../../assets/effect/trash.mp3";
-import popSound from "../../assets/effect/pop.mp3";
+import popSound from "../../assets/effect/sweep.mp3";
 
 function Home() {
   // const handleSubmit = async (e) => {

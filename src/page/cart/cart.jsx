@@ -5,21 +5,48 @@ import CartIcon from "../../assets/icon/cartIcon.svg";
 import DeleteOutline from "../../assets/icon/delete.svg";
 
 import NormalBtn from "../../components/normalButton";
-import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
+import {
+  addCartItem,
+  deleteCartItem,
+  removeCartItem,
+} from "../../redux/reducers/cartSlice";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/navBar";
 import Lottie from "react-lottie";
+import { Howl } from "howler";
 import animationData from "../../assets/emptyCart.json";
 import animationData1 from "../../assets/orderConfirm.json";
+import deleteSound from "../../assets/effect/delete.mp3";
+import trashSound from "../../assets/effect/trash.mp3";
+import cartComplete from "../../assets/effect/cartComplete.mp3";
+import clickSound from "../../assets/effect/clickSound.mp3";
 
 function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [proceedDone, setProceed] = useState(false);
   const cart = useSelector((state) => state.cart.cart);
+
+  const TrashSound = new Howl({
+    src: [trashSound],
+    volume: 1,
+  });
+  const DeleteSound = new Howl({
+    src: [deleteSound],
+    volume: 1,
+  });
+  const cartSound = new Howl({
+    src: [clickSound],
+    volume: 1,
+  });
+  const CartComplete = new Howl({
+    src: [cartComplete],
+    volume: 1,
+  });
   const addToCart = (item, index) => {
     dispatch(addCartItem({ item, quantity: 1 }));
+    cartSound.play();
 
     // const newLabels = [...addToCartBtnLabels];
     // newLabels[index] = "Plus";
@@ -31,7 +58,21 @@ function Cart() {
   };
 
   const removeFromCart = (item, index) => {
+    TrashSound.play();
     dispatch(removeCartItem({ item, quantity: 1 }));
+    // const newQuantities = [...itemQuantities];
+    // newQuantities[index]--;
+    // setItemQuantities(newQuantities);
+
+    // if (newQuantities[index] === 0) {
+    //   const newLabels = [...addToCartBtnLabels];
+    //   newLabels[index] = "Add to Cart";
+    //   setAddToCartBtnLabels(newLabels);
+  };
+  const deleteFromCart = (item, index) => {
+    DeleteSound.play();
+    console.log(item);
+    dispatch(deleteCartItem(item));
     // const newQuantities = [...itemQuantities];
     // newQuantities[index]--;
     // setItemQuantities(newQuantities);
@@ -67,7 +108,7 @@ function Cart() {
               {cart.map((item, index) => (
                 <div key={index} className="cart-container-width mb-4 ">
                   <div className="cart-container">
-                    <div onClick={() => removeFromCart(item, index)}>
+                    <div onClick={() => deleteFromCart(item, index)}>
                       <img
                         src={DeleteOutline}
                         className="delete-icon"
@@ -105,12 +146,18 @@ function Cart() {
               ))}
             </div>
             <div className="total-price-container fixed-bottom">
-              <p className="cart-list-price fw-bold" style={{color:"#000"}}> Total Price : ₹{totalPrice.toFixed(2)}</p>
+              <p className="cart-list-price fw-bold" style={{ color: "#000" }}>
+                {" "}
+                Total Price : ₹{totalPrice.toFixed(2)}
+              </p>
               <NormalBtn
                 btnlabel="Proceed"
                 className={"btn-proceed"}
                 onClick={() => {
-                  setProceed(true);
+                  CartComplete.play();
+                  setTimeout(() => {
+                    setProceed(true);
+                  }, 800);
                 }}
               />
             </div>
