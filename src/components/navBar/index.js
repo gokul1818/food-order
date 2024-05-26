@@ -18,6 +18,8 @@ import {
 import { db } from "../../firebaseConfig";
 import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 import GeolocationComponent from "../geolocation";
+import shineSound from "../../assets/effect/shine.mp3";
+import { Howl } from "howler";
 
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -53,7 +55,6 @@ function Navbar() {
           ...doc.data(),
         }));
         dispatch(updateOrderLength(ordersList.length));
-
       },
       (error) => {
         console.error("Error fetching orders:", error);
@@ -67,12 +68,18 @@ function Navbar() {
   const orderedFood = useSelector((state) => state.order.orderLength);
 
   const cart = useSelector((state) => state.cart.cart);
+
+  const SelectSound = new Howl({
+    src: [shineSound],
+    volume: 2,
+  });
   return (
     <>
       <div className="button-container fixed-top">
         <button
           className="nav-button "
           onClick={() => {
+            SelectSound.play();
             setTimeout(() => {
               navigate("/");
             }, 100);
@@ -83,6 +90,7 @@ function Navbar() {
         <button
           className="nav-button"
           onClick={() => {
+            SelectSound.play();
             setTimeout(() => {
               navigate("/order-status");
             }, 100);
@@ -94,6 +102,7 @@ function Navbar() {
         <button
           className="nav-button"
           onClick={() => {
+            SelectSound.play();
             setTimeout(() => {
               navigate("/order-status");
             }, 100);
@@ -107,6 +116,7 @@ function Navbar() {
         <button
           className="nav-button"
           onClick={() => {
+            SelectSound.play();
             setTimeout(() => {
               navigate("/cart");
             }, 100);

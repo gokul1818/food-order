@@ -21,14 +21,7 @@ import {
   updateOrderLength,
 } from "../../redux/reducers/ordersSlice";
 // initial stages
-const initialStages = [
-  "Order Placed",
-  "Food Preparing",
-  // "Preparation Done",
-  // "Ready To Serve",
-  // "Out Of Kitchen",
-  "Reached Table",
-];
+const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
 
 const cancel = ["Cancel Initiated", "Order Cancelled"];
 

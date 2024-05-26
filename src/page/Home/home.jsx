@@ -9,6 +9,10 @@ import { db } from "../../firebaseConfig";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import Modal from "../../components/modal/modal";
 import GeolocationComponent from "../../components/geolocation";
+import { Howl } from "howler";
+import clickSound from "../../assets/effect/clickSound.mp3";
+import trashSound from "../../assets/effect/trash.mp3";
+import popSound from "../../assets/effect/pop.mp3";
 
 function Home() {
   // const handleSubmit = async (e) => {
@@ -51,7 +55,20 @@ function Home() {
     setSelectedList(index);
   };
 
+  const cartSound = new Howl({
+    src: [clickSound],
+    volume: 1,
+  });
+  const trshSound = new Howl({
+    src: [trashSound],
+    volume: 1,
+  });
+  const SelectSound = new Howl({
+    src: [popSound],
+    volume: 1,
+  });
   const addToCart = (item, index) => {
+    cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
     const newLabels = [...addToCartBtnLabels];
@@ -64,6 +81,8 @@ function Home() {
   };
 
   const removeFromCart = (item, index) => {
+    trshSound.play();
+
     dispatch(removeCartItem({ item, quantity: 1 }));
     const newQuantities = [...itemQuantities];
     newQuantities[index]--;
@@ -161,7 +180,11 @@ function Home() {
                     <div
                       key={index}
                       className="food-data-item"
-                      onClick={() => setSelectedFoodList(index)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        SelectSound.play();
+                        setSelectedFoodList(index);
+                      }}
                     >
                       <div className="position-relative">
                         <img
@@ -199,7 +222,9 @@ function Home() {
                                 <NormalBtn
                                   btnlabel={"Add To Cart "}
                                   className={"food-list-cart-btn"}
-                                  onClick={() => {
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+
                                     setTimeout(() => {
                                       addToCart(item, index);
                                     }, 500);
@@ -210,7 +235,8 @@ function Home() {
                                   <NormalBtn
                                     btnlabel={"-"}
                                     className={"food-list-cart-btn"}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       setTimeout(() => {
                                         removeFromCart(item, index);
                                       }, 500);
@@ -223,7 +249,8 @@ function Home() {
                                   <NormalBtn
                                     btnlabel={"+"}
                                     className={"food-list-cart-btn"}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       setTimeout(() => {
                                         addToCart(item, index);
                                       }, 500);
