@@ -9,21 +9,7 @@ const GeolocationComponent = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useState([]);
   const [locationsData, setLocationdata] = useState([]);
-
   const [match, setMatch] = useState(false);
-  const arraysAreEqual = (arr1, arr2) => {
-    if (arr1.length !== arr2.length) {
-      return false;
-    }
-    for (let i = 0; i < arr1.length; i++) {
-      console.log(arr1[i].toFixed(0), arr2[i].toFixed(0));
-      if (arr1[i].toFixed(0) === arr2[i].toFixed(0)) {
-      } else {
-        return false;
-      }
-    }
-    return true;
-  };
 
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
@@ -55,7 +41,7 @@ const GeolocationComponent = () => {
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    const distance = R * c; // Distance in meters
+    const distance = R * c; 
     return distance;
   };
 
@@ -71,8 +57,7 @@ const GeolocationComponent = () => {
         locationsData[0][0],
         locationsData[0][1]
       );
-      const isMatch = distance <= 50;
-      // const isMatch = arraysAreEqual(coord, locationsData[0]);
+      const isMatch = distance <= 100;
       setLocationdata(locationsData[0]);
       dispatch(updateLocationMatch(isMatch));
       setMatch(isMatch);
@@ -83,7 +68,7 @@ const GeolocationComponent = () => {
 
   return (
     <div>
-      <div>
+      {/* <div>
         <p>
           Current Location: Latitude: {location[0]}, Longitude: {location[1]}
           <br />
@@ -95,7 +80,7 @@ const GeolocationComponent = () => {
         ) : (
           <p>No match for the current location.</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

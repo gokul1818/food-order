@@ -293,7 +293,6 @@ function Checkout() {
         ...orderData,
         orderID: orderId,
       });
-
     } catch (e) {
       console.error("Error adding order: ", e);
     }
@@ -380,15 +379,15 @@ function Checkout() {
       <Navbar />
       <div className="ease-in">
         {!submited ? (
-          <div className="mt-3 pt-5">
+          <div className="mt-3 pt-3">
             {locationMatch && (
               <>
-                <p className="select-label mb-0">Select your chairs / plates</p>
-                <div className="d-flex justify-content-center">
+                <p className="select-label mb-0">Select your chairs</p>
+                <div className="d-flex ms-5 justify-content-start">
                   <img src={pointer} />
                   <p className="small-dec">click on a chair to book</p>
                 </div>
-                <div className="d-flex tables-container px-3">
+                <div className="d-flex tables-container   px-3">
                   {tables.map((table, index) => (
                     <div
                       key={index}
@@ -426,7 +425,7 @@ function Checkout() {
                                   tablesBooked[index].chairs[chairIndex].booked
                                     ? foodOnPlate1
                                     : chair.booked
-                                    ? foodOnPlate
+                                    ? foodOnPlate1
                                     : emptyPlate
                                 }
                                 className="table-plate"
@@ -563,7 +562,7 @@ function Checkout() {
                 </form>
               </div>
             </div>
-            <div className="fixed-bottom mx-auto  bg-white ">
+            <div className="fixed-bottom  ">
               <PaymentBtn onClick={handleCheckout} />
             </div>
           </div>

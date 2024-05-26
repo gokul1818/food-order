@@ -19,7 +19,7 @@
 }
 
 .left-side {
-  background-color: black;
+  background-color: rgb(30, 30, 30);
   width: 130px;
   height: 120px;
   border-top-left-radius: 10px;
@@ -32,6 +32,9 @@
   transition: 0.3s;
   flex-shrink: 0;
   overflow: hidden;
+  border: 1px solid #fff;
+  /* border-right: none; */
+
 }
 
 .right-side {
@@ -48,6 +51,8 @@
   /* border-radius: 10px; */
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  background-color: #f9f7f9;
+
 }
 
 .right-side:hover {

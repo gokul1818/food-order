@@ -6,13 +6,7 @@
   margin-right: auto;
   margin-bottom: 0px;
 }
-.tables-container {
-  display: flex;
-  width: 100% !important;
-  overflow-x: scroll;
-  /* align-items: center;
-  justify-content: center; */
-}
+
 .table-container {
   display: flex;
   min-width: 150px !important;
@@ -43,9 +37,9 @@
   width: 100px !important;
   min-height: 70px;
   border-radius: 10px;
-  background-color: #ffe1a0;
+  background-color: #595959;
   align-items: center;
-  border: 1px solid #ffe1a0;
+  border: 1px solid #b8b8b8;
   color: #fff;
   justify-content: center;
   box-shadow: 20px 11px 20px 0px rgba(127, 127, 126, 0.241);
@@ -53,14 +47,13 @@
 .table-number {
   position: absolute;
   top: 33%;
-  color: #464646;
+  color: #ffffff;
   font-size: 15px;
   font-weight: 600;
 }
 .table-plate {
   width: 25px;
   height: 25px;
-  background-color: #e8e8e897;
   border-radius: 50%;
 }
 
@@ -73,7 +66,7 @@
   width: 20px;
   height: 10px;
   background-color: #ffffff2e;
-  border: 1px solid green;
+  border: 1px solid #fff;
   border-bottom: 0px;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -81,7 +74,7 @@
 .table-chair-booked {
   width: 20px;
   height: 10px;
-  background-color: green;
+  background-color: #fff;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -89,7 +82,7 @@
   width: 20px;
   height: 10px;
   background-color: #ffffff2e;
-  border: 1px solid green;
+  border: 1px solid #fff;
   border-top: 0px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -97,7 +90,7 @@
 .table-chair-bottom-booked {
   width: 20px;
   height: 10px;
-  background-color: green;
+  background-color: #fff;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
@@ -376,3 +369,32 @@
   margin-bottom: 0px;
   margin-left: 10px;
 }
+.tables-container {
+  display: flex;
+  width: 100% !important;
+  overflow-x: scroll;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+/* Customize the scrollbar */
+.tables-container::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 5px;
+}
+
+/* Track */
+.tables-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.tables-container::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Handle on hover */
+.tables-container::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
