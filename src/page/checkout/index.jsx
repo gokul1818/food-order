@@ -19,7 +19,8 @@ import { clearCart } from "../../redux/reducers/cartSlice";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
-
+import cartComplete from "../../assets/effect/spell.mp3";
+import { Howl } from "howler";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -258,6 +259,10 @@ function Checkout() {
     const itemQuantity = parseInt(item.quantity);
     return total + itemPrice * itemQuantity;
   }, 0);
+  const CartComplete = new Howl({
+    src: [cartComplete],
+    volume: 1,
+  });
 
   const handleChairClick = (tableId, chairIndex) => {
     if (!tablesBooked[tableId - 1].chairs[chairIndex].booked) {
@@ -340,6 +345,7 @@ function Checkout() {
       localStorage.setItem("userPhoneNumber", phoneNumber);
       dispatch(updateOrder(payload));
       dispatch(clearCart());
+      CartComplete.play();
     } else {
       if (!isAnyChairSelected) {
         setchairError(true);
