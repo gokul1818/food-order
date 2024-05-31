@@ -63,11 +63,11 @@ function Home() {
   });
   const trshSound = new Howl({
     src: [trashSound],
-    volume: 1,
+    volume: 0.5,
   });
   const SelectSound = new Howl({
     src: [popSound],
-    volume: 1,
+    volume: 0.5,
   });
   const ShineSound = new Howl({
     src: [shineSound],

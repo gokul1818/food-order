@@ -3,6 +3,8 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import NormalBtn from "../normalButton";
 import "./style.css";
 import checkIcon from "../../assets/images/check.png";
+import { collection, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 function Tracker({
   // stages,
   // currentStage,
@@ -12,32 +14,37 @@ function Tracker({
 }) {
   const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
   const cancel = ["Cancel Initiated", "Order Cancelled"];
-  const delivered = ["Order Delivered"];
+  const delivered = ["Reached Table"];
   const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
   const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
-  const [currentStage, setCurrentStage] = useState(1);
-
-  const handleCancelOrder = () => {
-    const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
-    setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
-    setOrderStatusStages(updatedStages);
-  };
+  const [currentStage, setCurrentStage] = useState(orderItem.orderStatus);
 
   const handleOrderDelivered = (status) => {
-    if (status) {
+    console.log("Sdfsdf", status);
+
+    if (status === 2) {
       const updatedStages = [...orderStatusStages.slice(0, 1), ...delivered];
       setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+      setOrderStatusStages(updatedStages);
+    } else if (status === 3) {
+      console.log("Sdfsdf", status);
+      const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
+      setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
+      
       setOrderStatusStages(updatedStages);
     }
   };
   const [viewMore, setViewMore] = useState(false);
   const [viewMoreDetails, setViewMoreDetails] = useState(false);
   console.log(orderItem);
-  const [remainingTime, setRemainingTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useState({
+    minutes: 0,
+    seconds: 1,
+  });
 
   useEffect(() => {
     const countdownDate =
-      orderItem?.orderTime.toDate().getTime() + 15 * 60 * 1000; // Add 15 minutes to orderTime
+      orderItem?.orderTime?.toDate().getTime() + 15 * 60 * 1000; // Add 15 minutes to orderTime
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
@@ -52,12 +59,37 @@ function Tracker({
 
     return () => clearInterval(interval);
   }, [orderItem?.orderTime]);
+
+  const updateOrderStatus = async (orderId, status) => {
+    try {
+      const orderDocRef = doc(collection(db, "orders"), orderId);
+
+      await updateDoc(orderDocRef, {
+        orderStatus: status,
+      });
+    } catch (e) {
+      console.error("Error updating order status: ", e);
+    }
+  };
+
+  const handleCancelOrder = () => {
+    updateOrderStatus(orderItem.orderID, 3);
+  };
+
   useEffect(() => {
-    if (remainingTime.minutes === 0 && remainingTime.seconds === 0) {
-      handleOrderDelivered(true);
-      setCurrentStage(2);
-    } else {
-      handleOrderDelivered(false);
+    if (orderItem.orderStatus !== 4) {
+      if (
+        remainingTime.minutes === 0 &&
+        remainingTime.seconds === 0 &&
+        orderItem.orderStatus === 1
+      ) {
+        handleOrderDelivered(orderItem.orderStatus);
+        setCurrentStage(2);
+        updateOrderStatus(orderItem.orderID, 2);
+      } else {
+        handleOrderDelivered(orderItem.orderStatus);
+        updateOrderStatus(orderItem.orderID, 1);
+      }
     }
   }, [remainingTime.minutes, remainingTime.seconds]);
   return (
@@ -68,14 +100,14 @@ function Tracker({
         </h5>
       </div>
       <h6 className="order-arrived-label mb-3">
-        {remainingTime.minutes === 0 && remainingTime.seconds === 0 ? (
-          <p className="Arrives-successfully-label">Arrived</p>
-        ) : (
-          <>
-            Arrives within: {remainingTime.minutes} min :{" "}
-            {remainingTime.seconds} sec
-          </>
-        )}
+        {remainingTime.minutes === 0 && remainingTime.seconds === 0
+          ? ""
+          : orderItem.orderStatus !== 3 && (
+              <>
+                Arrives within: {remainingTime.minutes} min :{" "}
+                {remainingTime.seconds} sec
+              </>
+            )}
       </h6>
 
       {orderItem.cartItems

@@ -71,7 +71,7 @@ function Navbar() {
 
   const SelectSound = new Howl({
     src: [shineSound],
-    volume: 2,
+    volume: 3,
   });
   return (
     <>
