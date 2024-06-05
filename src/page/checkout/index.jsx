@@ -9,6 +9,7 @@ import PaymentBtn from "../../components/payment";
 import TableIcon from "../../assets/images/table.png";
 import foodOnPlate from "../../assets/images/plateOnfood.png";
 import foodOnPlate1 from "../../assets/images/plateOnfood1.png";
+
 import emptyPlate from "../../assets/images/emptyPlate.png";
 import pointer from "../../assets/icon/pointer.svg";
 import Navbar from "../../components/navBar";
