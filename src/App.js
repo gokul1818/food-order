@@ -2,9 +2,10 @@ import React from "react";
 import { deviceDetect } from "react-device-detect";
 import { useDispatch } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "./page/Home/home";
 import Cart from "./page/cart/cart";
 import Checkout from "./page/checkout";
+import Home from "./page/home/home";
+import Offers from "./page/offers/index";
 import OrderStatus from "./page/orderStatus/index.jsx";
 import { updateDeviceID } from "./redux/reducers/authSlice.js";
 const navigator_info = window.navigator;
@@ -30,6 +31,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/checkout" element={<Checkout />} />
         <Route path="/order-status" element={<OrderStatus />} />
+        <Route path="/offers" element={<Offers />} />
       </Routes>
     </Router>
   );

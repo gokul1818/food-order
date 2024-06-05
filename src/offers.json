@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "Big Cheeseburger + Fries + Drink Combo",
+    "description": "Get a juicy Big Cheeseburger, large fries, and a cold soft drink for only $7.99 (regular price $10.49). Save over 25%!",
+    "type": "Combo",
+    "discount": 25,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "image1": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "image2": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Spicy Veggie Pizza (50% Off)",
+    "description": "Indulge in our flavorful Spicy Veggie Pizza at half price! Made with fresh vegetables and a kick of spice. Limited time offer.",
+    "type": "Flat 50%",
+    "discount": 50,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Crispy Chicken Wings (Buy 1 Get 1 Free)",
+    "description": "Double the fun! Buy one order of our crispy chicken wings and get another one absolutely free. Perfect for sharing or enjoying all by yourself.",
+    "type": "Combo",
+    "discount": 50,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "image1": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Family Feast (Free Delivery)",
+    "description": "Enjoy a delicious feast for the whole family! This combo includes two large pizzas, garlic bread, and a bottle of soda. Free delivery included!",
+    "type": "Combo",
+    "discount": 0,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg",
+    "image1": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Fresh Summer Salad (20% Off)",
+    "description": "Beat the heat with our refreshing Summer Salad! Packed with seasonal vegetables, light dressing, and grilled chicken. Get 20% off for a healthy and delicious meal.",
+    "type": "Flat 30%",
+    "discount": 20,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Fresh Summer Salad (20% Off)",
+    "description": "Beat the heat with our refreshing Summer Salad! Packed with seasonal vegetables, light dressing, and grilled chicken. Get 20% off for a healthy and delicious meal.",
+    "type": "Flat 50%",
+    "discount": 20,
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/06/brown-rice-dosa-recipe.jpg"
+  }
+]

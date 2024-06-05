@@ -92,7 +92,7 @@ function Navbar() {
           onClick={() => {
             SelectSound.play();
             setTimeout(() => {
-              navigate("/order-status");
+              navigate("/offers");
             }, 100);
           }}
         >
