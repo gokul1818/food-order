@@ -5,13 +5,7 @@ import OfferList from "../../offers.json";
 import "./style.css";
 
 function Offers() {
-  const filterData = [
-    "special",
-    "combo",
-    "kh",
-    "lkj",
-    "bnm",
-  ];
+  const filterData = ["special", "combo", "kh", "lkj", "bnm"];
 
   const [selectedFilter, setSelectedFilter] = useState("");
 
@@ -43,12 +37,14 @@ function Offers() {
               }`}
               onClick={() => handleFilterClick(filter)}
             >
-              <p className="filter-style">
-                {filter}
-                {selectedFilter === filter && (
-                  <span className="cancel-icon">×</span>
-                )}
-              </p>
+              <div className="filter-box">
+                <p className="filter-style">
+                  {filter}
+                  {selectedFilter === filter && (
+                    <span className="filter-style">×</span>
+                  )}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -57,11 +53,9 @@ function Offers() {
             <OfferCard key={offer.id} item={offer} type={2} />
           ))}
         </div>
-        <div className="offer-cards">
-          {filteredOffers.map((offer) => (
-            <OfferCard key={offer.id} item={offer} type={1} />
-          ))}
-        </div>
+        {filteredOffers.map((offer) => (
+          <OfferCard key={offer.id} item={offer} type={1} />
+        ))}
       </div>
     </div>
   );

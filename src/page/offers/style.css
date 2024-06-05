@@ -29,32 +29,20 @@
 }
 
 .filter-style {
-  background-color: beige;
   color: black;
-  width: 100px;
-  padding: 5px;
   text-align: center;
-  border-radius: 10px;
   font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 .filter-view.selected .filter-style {
-  border: 2px solid black;
+  border: 2px solid rgb(142, 27, 27);
 }
 
-.cancel-icon {
-  margin-left: 0.5rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: black;
-}
-
-.offer-cards {
+.filter-box {
+  flex-direction: row;
   display: flex;
-  flex-wrap: wrap;
+  background-color: beige;
+  width: 100px;
+  border-radius: 10px;
   justify-content: center;
 }
