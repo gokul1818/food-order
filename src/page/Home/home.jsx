@@ -1,19 +1,18 @@
+import { collection, getDocs } from "firebase/firestore";
+import { Howl } from "howler";
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/navBar";
-import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
-import foodData from "../../foodData.json";
+import clickSound from "../../assets/effect/clickSound.mp3";
+import shineSound from "../../assets/effect/shine.mp3";
+import popSound from "../../assets/effect/sweep.mp3";
+import trashSound from "../../assets/effect/trash.mp3";
+import Modal from "../../components/modal/modal";
+import Navbar from "../../components/navBar";
 import NormalBtn from "../../components/normalButton";
 import { db } from "../../firebaseConfig";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import Modal from "../../components/modal/modal";
-import GeolocationComponent from "../../components/geolocation";
-import { Howl } from "howler";
-import clickSound from "../../assets/effect/clickSound.mp3";
-import trashSound from "../../assets/effect/trash.mp3";
-import popSound from "../../assets/effect/sweep.mp3";
-import shineSound from "../../assets/effect/shine.mp3";
+import foodData from "../../foodData.json";
+import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
+import "./style.css";
 
 function Home() {
   // const handleSubmit = async (e) => {

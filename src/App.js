@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Cart from "./page/cart/cart";
 import Checkout from "./page/checkout";
-import Home from "./page/home/home";
+import Home from "./page/Home/home.jsx";
 import Offers from "./page/offers/index";
 import OrderStatus from "./page/orderStatus/index.jsx";
 import { updateDeviceID } from "./redux/reducers/authSlice.js";
