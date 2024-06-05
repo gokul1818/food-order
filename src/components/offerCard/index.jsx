@@ -10,7 +10,8 @@ import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import NormalBtn from "../normalButton";
 import "./styles.css";
 
-export const OfferCard = ({ item, type = 1 }) => {
+export const OfferCard = ({ item, type = 1, index }) => {
+  console.log(item, type, index)
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -35,7 +36,7 @@ export const OfferCard = ({ item, type = 1 }) => {
     volume: 0.5,
   });
 
-  const addToCart = (item, index) => {
+  const addToCart = (item, id) => {
     cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
@@ -48,7 +49,7 @@ export const OfferCard = ({ item, type = 1 }) => {
     setItemQuantities(newQuantities);
   };
 
-  const removeFromCart = (item, index) => {
+  const removeFromCart = (item, id) => {
     trash.play();
 
     dispatch(removeCartItem({ item, quantity: 1 }));
@@ -62,7 +63,6 @@ export const OfferCard = ({ item, type = 1 }) => {
       setAddToCartBtnLabels(newLabels);
     }
   };
-
   const itemQuantity = (item) => {
     const quantity = cart.filter((x) => x?.dishName == item?.dishName);
     return quantity[0]?.quantity;
@@ -111,7 +111,7 @@ export const OfferCard = ({ item, type = 1 }) => {
                     <NormalBtn
                       btnlabel={"-"}
                       className={"food-increase-btn-hz"}
-                      onClick={() => removeFromCart(item)}
+                      onClick={() => removeFromCart(item, item.id)}
                     />
                     <span className="food-list-quantity mx-3">
                       {itemQuantity(item)}
@@ -119,14 +119,14 @@ export const OfferCard = ({ item, type = 1 }) => {
                     <NormalBtn
                       btnlabel={"+"}
                       className={"food-increase-btn-hz"}
-                      onClick={() => addToCart(item)}
+                      onClick={() => addToCart(item, item.id)}
                     />
                   </div>
                 ) : (
                   <NormalBtn
                     btnlabel={"Add to cart"}
                     className={"food-list-btn"}
-                    onClick={() => addToCart(item)}
+                    onClick={() => addToCart(item, item.id)}
                   />
                 )}
               </div>
@@ -148,29 +148,29 @@ export const OfferCard = ({ item, type = 1 }) => {
               <img src={ribbonIcon} alt="img" className="ribbon-hz" />
             </div>
             <p className="name-hz">{item?.name}</p>
-              {itemQuantity(item) > 0 ? (
-                <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
-                  <NormalBtn
-                    btnlabel={"-"}
-                    className={"food-increase-btn-hz"}
-                    onClick={() => removeFromCart(item)}
-                  />
-                  <span className="food-list-quantity mx-3">
-                    {itemQuantity(item)}
-                  </span>
-                  <NormalBtn
-                    btnlabel={"+"}
-                    className={"food-increase-btn-hz"}
-                    onClick={() => addToCart(item)}
-                  />
-                </div>
-              ) : (
+            {itemQuantity(item) > 0 ? (
+              <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
                 <NormalBtn
-                  btnlabel={"Add to cart"}
-                  className={"food-list-btn-hz"}
+                  btnlabel={"-"}
+                  className={"food-increase-btn-hz"}
+                  onClick={() => removeFromCart(item)}
+                />
+                <span className="food-list-quantity mx-3">
+                  {itemQuantity(item)}
+                </span>
+                <NormalBtn
+                  btnlabel={"+"}
+                  className={"food-increase-btn-hz"}
                   onClick={() => addToCart(item)}
                 />
-              )}
+              </div>
+            ) : (
+              <NormalBtn
+                btnlabel={"Add to cart"}
+                className={"food-list-btn-hz"}
+                onClick={() => addToCart(item)}
+              />
+            )}
           </div>
         </div>
       )}

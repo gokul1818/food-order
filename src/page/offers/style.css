@@ -1,7 +1,6 @@
 .horizontal-view {
   white-space: nowrap;
   height: auto;
-  margin-left: 10px;
   margin-right: 10px;
   flex-direction: row;
   overflow-x: scroll;
@@ -21,28 +20,52 @@
   background: transparent;
 }
 
+.horizontal-filter {
+  white-space: nowrap;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 10px;
+  flex-direction: row;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: center;
+}
+
 .filter-view {
   display: block;
   margin-right: 10px;
-  margin-top: 10px;
-  cursor: pointer;
+  background-color: beige;
+  width: 200px;
+  border-radius: 20px;
+  height: 40px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 .filter-style {
   color: black;
-  text-align: center;
   font-size: 18px;
 }
 
-.filter-view.selected .filter-style {
-  border: 2px solid rgb(142, 27, 27);
+.filter-view.selected {
+  border-bottom: 5px solid  #facd00;
+  background-color: rgb(104, 104, 102);
+  width: 200px;
+  border-radius: 20px;
+  height: 40px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
 }
 
-.filter-box {
-  flex-direction: row;
-  display: flex;
-  background-color: beige;
-  width: 100px;
-  border-radius: 10px;
-  justify-content: center;
+.filter-style.selected {
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-weight: 500;
+}
+.filter-cancel.selected {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: 500;
 }

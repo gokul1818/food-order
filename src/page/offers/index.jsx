@@ -5,9 +5,9 @@ import OfferList from "../../offers.json";
 import "./style.css";
 
 function Offers() {
-  const filterData = ["special", "combo", "kh", "lkj", "bnm"];
+  const filterData = ["All", "Special", "Combo"];
 
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
   const handleFilterClick = (filter) => {
     if (selectedFilter === filter) {
@@ -17,10 +17,12 @@ function Offers() {
     }
   };
 
-  const filteredOffers = selectedFilter
-    ? OfferList.filter((offer) => offer.type.toLowerCase() === selectedFilter)
-    : OfferList;
-
+  const filteredOffers = selectedFilter === "All"
+    ? OfferList
+    : OfferList.filter(
+        (offer) => offer.type.toLowerCase() === selectedFilter.toLowerCase()
+      );
+      
   return (
     <div className="bg-color">
       <Navbar />
@@ -28,7 +30,7 @@ function Offers() {
         <h2 className="mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
           Today's Offers
         </h2>
-        <div className="horizontal-view">
+        <div className="horizontal-filter">
           {filterData.map((filter, index) => (
             <div
               key={index}
@@ -38,23 +40,24 @@ function Offers() {
               onClick={() => handleFilterClick(filter)}
             >
               <div className="filter-box">
-                <p className="filter-style">
+                <p
+                  className={`filter-style ${
+                    selectedFilter === filter ? "selected" : ""
+                  }`}
+                >
                   {filter}
-                  {selectedFilter === filter && (
-                    <span className="filter-style">×</span>
-                  )}
                 </p>
               </div>
             </div>
           ))}
         </div>
         <div className="horizontal-view">
-          {filteredOffers.map((offer) => (
-            <OfferCard key={offer.id} item={offer} type={2} />
+          {filteredOffers.map((offer, index) => (
+            <OfferCard key={offer.id} item={offer} index={index} type={2} />
           ))}
         </div>
-        {filteredOffers.map((offer) => (
-          <OfferCard key={offer.id} item={offer} type={1} />
+        {filteredOffers.map((offer, index) => (
+          <OfferCard key={offer.id} item={offer} index={index} type={1} />
         ))}
       </div>
     </div>
