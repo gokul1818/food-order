@@ -17,20 +17,17 @@ export const OfferCard = ({ item, onClick }) => {
           <img src={ribbonIcon} alt="img" className="ribbon" />
         </div>
         <div className="view-details">
-
-        {/* <div className="details"> */}
           {/* <p className="discount">{`${item?.discount} %`}</p> */}
           <p className="name">{item?.name}</p>
-        {/* </div> */}
-        <div className="btn-container">
-          <NormalBtn
-            btnlabel={"Add to cart"}
-            className={"food-list-btn"}
-            onClick={(e) => {
-              console.log(e);
-            }}
-          />
-        </div>
+          {/* <div className="btn-container"> */}
+            <NormalBtn
+              btnlabel={"Add to cart"}
+              className={"food-list-btn"}
+              onClick={(e) => {
+                console.log(e);
+              }}
+            />
+          {/* </div> */}
         </div>
       </div>
     </div>

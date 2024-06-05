@@ -91,6 +91,17 @@
   text-overflow: ellipsis;
   white-space: normal;
 }
+
+.btn-container{
+  /* align-self: flex-end; */
+}
+
+.view-details{
+align-items: center;
+}
+.details {
+  padding-top: 15px;
+}
 .name {
   color: #ffffff;
   font-size: 16px;
@@ -103,12 +114,8 @@
   font-family: cursive;
 }
 
-.details {
-  padding-top: 15px;
-}
-
 .food-list-btn{
-  background-color: rgb(179, 177, 177) !important;
+  background-color: rgb(46, 130, 20) !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
@@ -118,12 +125,4 @@
   font-size: 17px !important;
   color: #f2f2f2 !important ;
   width: 150px;
-}
-
-.btn-container{
-  /* align-self: flex-end; */
-}
-
-.view-details{
-align-items: center;
 }
