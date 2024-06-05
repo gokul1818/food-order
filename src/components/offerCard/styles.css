@@ -14,46 +14,52 @@
   padding: 0 !important;
   margin-bottom: 15px;
   margin: 5%;
+  align-items: center;
 }
 
 .image-view {
-  padding: 10px;
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  left: 15%;
+  width: auto;
   padding: 15px;
-  bottom: 55%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 .card-image {
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
   border-radius: 50%;
   background-color: #fff;
   z-index: 10;
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
-  position: absolute;
-  left: 60px;
-  padding: 5px;
 }
 .card-image1 {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 50%;
   background-color: #fff;
   z-index: 10;
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
   position: absolute;
-  left: 30px;
-  bottom: 25px;
+  left: 85px;
+  bottom: 30px;
 }
 
-.ribbon {
-  width: 100%;
-  object-fit: contain;
+.ribbon-container {
+  width: 120px;
+  height: 20px;
   z-index: 10;
+  position: absolute;
+  left: -10px;
+  top: 5px;
+}
+.ribbon {
+  width: 105px;
+  object-fit: cover;
+  z-index: 10;
+  height: 50px;
 }
 
 .type {
@@ -65,16 +71,7 @@
   white-space: normal;
   z-index: 15;
   position: absolute;
-  left: 20px;
-  top: 30px;
-}
-
-.ribbon-container {
-  width: 120px;
-  height: 50px;
-  z-index: 10;
-  position: absolute;
-  left: -14px;
+  left: 10px;
   top: 10px;
 }
 
@@ -92,16 +89,6 @@
   white-space: normal;
 }
 
-.btn-container{
-  /* align-self: flex-end; */
-}
-
-.view-details{
-align-items: center;
-}
-.details {
-  padding-top: 15px;
-}
 .name {
   color: #ffffff;
   font-size: 16px;
@@ -109,13 +96,12 @@ align-items: center;
   overflow: hidden;
   text-align: center;
   height: auto;
-  text-overflow: ellipsis;
   white-space: normal;
   font-family: cursive;
 }
 
-.food-list-btn{
-  background-color: rgb(46, 130, 20) !important;
+.food-list-btn {
+  background-color: #00ba00 !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
@@ -123,6 +109,221 @@ align-items: center;
   padding-left: 15px !important;
   padding-right: 15px !important;
   font-size: 17px !important;
-  color: #f2f2f2 !important ;
+  color: #ffffff !important ;
   width: 150px;
+}
+
+.view-details-txt {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+}
+@media screen and (min-width: 768px) {
+  .view-details {
+    display: flex;
+    flex-direction: row !important;
+    width: 100% !important;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10%;
+  }
+  .name-view {
+    width: 70%;
+  }
+  .btn-container {
+    width: 30%;
+    margin-right: 0%;
+    margin-left: auto;
+  }
+}
+@media screen and (max-width: 768px) {
+  .view-details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 5%;
+    justify-content: center;
+  }
+}
+
+.modal-body {
+  z-index: 50;
+}
+.image-container {
+  width: 100%;
+}
+.food-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 10px;
+  padding: 5px;
+  top: 10px;
+}
+.food-image1 {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 95px;
+  bottom: 55px;
+}
+
+.food-name {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* harizontal */
+
+.body-hz {
+  display: inline-block;
+  white-space: nowrap;
+  margin-left: 5%;
+  margin-top: 5px;
+  width: 250px;
+}
+
+.card-view-hz {
+  background-color: #cab8b82e;
+  display: flex;
+  height: 350px;
+  position: relative;
+  border-radius: 6px;
+  transition: 0.3s ease-in-out;
+  padding: 0 !important;
+  margin-bottom: 15px;
+  margin: 5%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-view-hz {
+  width: auto;
+  padding: 15px;
+  padding-top: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.card-image-hz {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
+}
+.card-image1-hz {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #fff;
+  z-index: 10;
+  box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 50px;
+  top: 100px;
+}
+
+.ribbon-container-hz {
+  width: 120px;
+  height: 20px;
+  z-index: 10;
+  position: absolute;
+  left: -10px;
+  top: 5px;
+}
+.ribbon-hz {
+  width: 105px;
+  object-fit: cover;
+  z-index: 10;
+  height: 50px;
+}
+
+.type-hz {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  z-index: 15;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.discount-hz {
+  color: #ffffff;
+  margin-top: auto;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  width: 126px;
+  text-align: center;
+  height: auto;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.name-hz {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  text-align: center;
+  height: auto;
+  white-space: normal;
+  font-family: cursive;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.food-list-btn-hz {
+  background-color: #00ba00 !important;
+  outline: none !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  font-size: 17px !important;
+  color: #ffffff !important ;
+  width: 150px;
+  align-self: center;
+}
+
+.food-increase-btn-hz {
+  background-color: black !important;
+  outline: none !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  font-size: 17px !important;
+  color: #f2f2f2 !important ;
+
+}
+.btn-container-hz {
+  width: 30%;
+  margin-bottom: 0;
+  align-self: center;
+}
+.name-view-hz {
+  width: 70%;
+  margin-top: 30px;
 }
