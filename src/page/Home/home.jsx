@@ -10,7 +10,6 @@ import Modal from "../../components/modal/modal";
 import Navbar from "../../components/navBar";
 import NormalBtn from "../../components/normalButton";
 import { db } from "../../firebaseConfig";
-import foodData from "../../foodData.json";
 import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import "./style.css";
 
@@ -43,6 +42,8 @@ function Home() {
   const [showModal, setShowModal] = useState(false);
   const [selectedList, setSelectedList] = useState();
   const [selectedFoodList, setSelectedFoodList] = useState(null);
+  const [foodList, setFoodList] = useState([]);
+
   const [addToCartBtnLabels, setAddToCartBtnLabels] = useState(
     Array(foodItems.length).fill("Add to Cart")
   );
@@ -53,27 +54,27 @@ function Home() {
 
   const handleFoodItemClick = (index) => {
     setSelectedList(index);
-    ShineSound.play();
+    // ShineSound.play();
   };
 
-  const cartSound = new Howl({
-    src: [clickSound],
-    volume: 1,
-  });
-  const trshSound = new Howl({
-    src: [trashSound],
-    volume: 0.5,
-  });
-  const SelectSound = new Howl({
-    src: [popSound],
-    volume: 0.5,
-  });
-  const ShineSound = new Howl({
-    src: [shineSound],
-    volume: 2,
-  });
+  // const cartSound = new Howl({
+  //     src: [clickSound],
+  //     volume: 1,
+  //   });
+  //   const trshSound = new Howl({
+  //     src: [trashSound],
+  //     volume: 0.5,
+  //   });
+  //   const SelectSound = new Howl({
+  //     src: [popSound],
+  //     volume: 0.5,
+  //   });
+  //   const ShineSound = new Howl({
+  //     src: [shineSound],
+  //     volume: 2,
+  //   });
   const addToCart = (item, index) => {
-    cartSound.play();
+    // cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
     const newLabels = [...addToCartBtnLabels];
@@ -86,7 +87,7 @@ function Home() {
   };
 
   const removeFromCart = (item, index) => {
-    trshSound.play();
+    // trshSound.play();
 
     dispatch(removeCartItem({ item, quantity: 1 }));
     const newQuantities = [...itemQuantities];
@@ -128,6 +129,29 @@ function Home() {
       setShowModal(true);
     }
   }, []);
+
+  useEffect(() => {
+    const fetchFoodList = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "foodList"));
+        const items = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setFoodList(items);
+      } catch (e) {
+        console.error("Error fetching documents: ", e);
+      }
+    };
+
+    fetchFoodList();
+  }, []);
+
+  // console.log(foodList, "items");
+  const filteredFoodList = foodList.filter(
+    (food) => food.category === selectedFoodList?.name
+  );
+  // console.log(filteredFoodList);
 
   return (
     <div>
@@ -179,7 +203,8 @@ function Home() {
             </div>
             <div className="horizontal-scroll">
               <div className="food-Data-list  mb-5">
-                {foodData
+                {console.log(foodList)}
+                {foodList
                   .filter((item) => item?.category === selectedList)
                   .map((item, index) => (
                     <div
@@ -187,7 +212,7 @@ function Home() {
                       className="food-data-item"
                       onClick={(e) => {
                         e.stopPropagation();
-                        SelectSound.play();
+                        // SelectSound.play();
                         setSelectedFoodList(index);
                       }}
                     >
@@ -215,7 +240,7 @@ function Home() {
                                 : "food-list-dish-name"
                             }
                           >
-                            {item?.dishName.length > 20 &&
+                            {item?.dishName?.length > 20 &&
                             selectedFoodList !== index
                               ? item?.dishName.slice(0, 20) + "..."
                               : item?.dishName}
@@ -275,7 +300,7 @@ function Home() {
         ) : (
           <div className="horizontal-scroll">
             <div className="food-Data-list  mb-5">
-              {foodData
+              {foodList
                 .filter((item) =>
                   item?.dishName?.toLowerCase().includes(search?.toLowerCase())
                 )
