@@ -24,27 +24,31 @@ function App() {
   console.log(uid, "UUUUID");
   dispatch(updateDeviceID(uid));
 
-  window.addEventListener("load", () => {
+  // Assuming this function is called when your application loads or when needed
+  const fetchDataFromQRCode = () => {
+    localStorage.setItem("qrDataTable", "null");
+    localStorage.setItem("qrDataChair", "null");
     const urlParams = new URLSearchParams(window.location.search);
     const base64Data = urlParams.get("data");
-
     if (base64Data) {
       try {
         // Decode Base64 to JSON string
         const jsonString = atob(base64Data);
         // Parse JSON string to object
         const qrData = JSON.parse(jsonString);
-        // Store in local storage
-        localStorage.setItem("qrData", JSON.stringify(qrData));
-        console.log("QR Data stored in local storage:", qrData);
-        alert(qrData);
+        // You can also store qrData in local storage if needed
+        localStorage.setItem("qrDataTable", qrData.tableNumber);
+        localStorage.setItem("qrDataChair", qrData.chairs.id);
       } catch (error) {
         console.error("Failed to decode or parse QR data:", error);
       }
     } else {
       console.log("No QR data found in the URL");
     }
-  });
+  };
+
+  // Call the function to execute the code
+  fetchDataFromQRCode();
 
   return (
     <Router>

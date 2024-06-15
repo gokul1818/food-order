@@ -51,7 +51,6 @@ function Checkout() {
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [tables, setTables] = useState([]);
   const [tablesBooked, setTablesBooked] = useState([]);
-
   console.log(tables);
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => {
@@ -103,8 +102,6 @@ function Checkout() {
 
     fetchTablesBookedFromFirestore();
   }, []);
-
-
 
   const updateTableData = async (tables, orderId) => {
     // Find tables with booked chairs and update corresponding tablesBooked data
@@ -170,7 +167,24 @@ function Checkout() {
       }, 100);
     }
   };
-
+  const handleAutoChairSelect = () => {
+    const localTabledata = localStorage.getItem("qrDataTable");
+    const localChairdata = localStorage.getItem("qrDataChair");
+    if (localTabledata === "null") {
+      return;
+    } else if (tables.length) {
+      setTables((prevTables) => {
+        const updatedTables = [...prevTables];
+        console.log(updatedTables);
+        const chair =
+          updatedTables[localTabledata - 1]?.chairs[localChairdata - 1];
+        console.log(chair);
+        chair.booked = true;
+        return updatedTables;
+      });
+    }
+  };
+  console.log(tables);
   const handleChairError = () => {
     const isAnyChairSelected = tables.some((table) =>
       table.chairs.some((chair) => chair.booked)
@@ -193,7 +207,7 @@ function Checkout() {
       console.error("Error adding order: ", e);
     }
   };
-  console.log(new Date());
+
   const handleCheckout = async () => {
     // Check if any chair is selected
     const isAnyChairSelected = tables.some((table) =>
@@ -272,6 +286,12 @@ function Checkout() {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      handleAutoChairSelect();
+    }, 100);
+  }, [tables]);
+
   return (
     <div className="bg-color ">
       {/* <div className=" d-flex justify-content-start mt-4 ms-4 align-items-center">
@@ -291,72 +311,73 @@ function Checkout() {
                 <p className="small-dec">click on a chair to book</p>
               </div>
               <div className="d-flex tables-container   px-3">
-                {tables.map((table, index) => (
-                  <div
-                    key={index}
-                    className="table-container mx-1 my-3 mb-4 d-flex flex-column"
-                  >
-                    <div className="table-chair-container w-100 px-4">
-                      {table.chairs.slice(0, 2).map((chair, chairIndex) => (
-                        <div
-                          key={chairIndex}
-                          className={
-                            tablesBooked[index]?.chairs[chairIndex].booked
-                              ? "chairBooked-already"
-                              : chair.booked
-                              ? "table-chair-booked"
-                              : "table-chair"
-                          }
-                          onClick={() =>
-                            handleChairClick(table.table, chairIndex)
-                          }
-                        ></div>
-                      ))}
-                    </div>
-                    <div className="dine-table flex-column  justify-content-evenly">
-                      <div className="d-flex justify-content-evenly w-100 flex-wrap">
-                        {table.chairs.slice(0, 4).map((chair, chairIndex) => (
+                {tables.length &&
+                  tables?.map((table, index) => (
+                    <div
+                      key={index}
+                      className="table-container mx-1 my-3 mb-4 d-flex flex-column"
+                    >
+                      <div className="table-chair-container w-100 px-4">
+                        {table.chairs.slice(0, 2).map((chair, chairIndex) => (
                           <div
-                            key={index}
-                            className="mx-1 my-1"
+                            key={chairIndex}
+                            className={
+                              tablesBooked[index]?.chairs[chairIndex].booked
+                                ? "chairBooked-already"
+                                : chair.booked
+                                ? "table-chair-booked"
+                                : "table-chair"
+                            }
                             onClick={() =>
                               handleChairClick(table.table, chairIndex)
                             }
-                          >
-                            <img
-                              src={
-                                tablesBooked[index]?.chairs[chairIndex].booked
-                                  ? foodOnPlate1
-                                  : chair.booked
-                                  ? foodOnPlate1
-                                  : emptyPlate
-                              }
-                              className="table-plate"
-                            />
-                          </div>
+                          ></div>
                         ))}
                       </div>
-                      <p className="table-number">{table.table}</p>
+                      <div className="dine-table flex-column  justify-content-evenly">
+                        <div className="d-flex justify-content-evenly w-100 flex-wrap">
+                          {table.chairs.slice(0, 4).map((chair, chairIndex) => (
+                            <div
+                              key={index}
+                              className="mx-1 my-1"
+                              onClick={() =>
+                                handleChairClick(table.table, chairIndex)
+                              }
+                            >
+                              <img
+                                src={
+                                  tablesBooked[index]?.chairs[chairIndex].booked
+                                    ? foodOnPlate1
+                                    : chair.booked
+                                    ? foodOnPlate1
+                                    : emptyPlate
+                                }
+                                className="table-plate"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <p className="table-number">{table.table}</p>
+                      </div>
+                      <div className="table-chair-container w-100 px-4">
+                        {table.chairs.slice(2, 4).map((chair, chairIndex) => (
+                          <div
+                            key={chairIndex}
+                            className={
+                              tablesBooked[index]?.chairs[chairIndex + 2].booked
+                                ? "chairBooked-bottom-already"
+                                : chair.booked
+                                ? "table-chair-bottom-booked"
+                                : "table-chair-bottom"
+                            }
+                            onClick={() =>
+                              handleChairClick(table.table, chairIndex + 2)
+                            }
+                          ></div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="table-chair-container w-100 px-4">
-                      {table.chairs.slice(2, 4).map((chair, chairIndex) => (
-                        <div
-                          key={chairIndex}
-                          className={
-                            tablesBooked[index]?.chairs[chairIndex + 2].booked
-                              ? "chairBooked-bottom-already"
-                              : chair.booked
-                              ? "table-chair-bottom-booked"
-                              : "table-chair-bottom"
-                          }
-                          onClick={() =>
-                            handleChairClick(table.table, chairIndex + 2)
-                          }
-                        ></div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               {chairError && (
                 <p className="error ms-4 ps-2">
