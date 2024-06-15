@@ -17,7 +17,14 @@ import animationData from "../../assets/foodprepare.json";
 import { useNavigate } from "react-router-dom";
 import { updateOrder } from "../../redux/reducers/ordersSlice";
 import { clearCart } from "../../redux/reducers/cartSlice";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
 import shineSound from "../../assets/effect/shine.mp3";
@@ -26,7 +33,8 @@ import { Howl } from "howler";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const locationMatch = useSelector((state) => state.auth.locationMatch);
+  // const locationMatch = useSelector((state) => state.auth.locationMatch);
+  const locationMatch = true;
 
   const cart = useSelector((state) => state.cart.cart);
   const [tableSelect, setTableSelect] = useState([]);
@@ -41,220 +49,10 @@ function Checkout() {
   const [chairError, setchairError] = useState(false);
   const [submited, setSubmited] = useState(false);
   const [phoneNumberError, setPhoneNumberError] = useState("");
-  const [tables, setTables] = useState([
-    {
-      table: 1,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 2,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 3,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 4,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 5,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-  ]);
-  const [tablesBooked, setTablesBooked] = useState([
-    {
-      table: 1,
-      chairs: [
-        {
-          id: 1,
-          booked: true,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: true,
-        },
-      ],
-    },
-    {
-      table: 2,
-      chairs: [
-        {
-          id: 1,
-          booked: true,
-        },
-        {
-          id: 2,
-          booked: true,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 3,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 4,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-    {
-      table: 5,
-      chairs: [
-        {
-          id: 1,
-          booked: false,
-        },
-        {
-          id: 2,
-          booked: false,
-        },
-        {
-          id: 3,
-          booked: false,
-        },
-        {
-          id: 4,
-          booked: false,
-        },
-      ],
-    },
-  ]);
+  const [tables, setTables] = useState([]);
+  const [tablesBooked, setTablesBooked] = useState([]);
+
+  console.log(tables);
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => {
     const itemPrice = parseFloat(item.price.replace("₹", ""));
@@ -269,6 +67,94 @@ function Checkout() {
     src: [shineSound],
     volume: 2,
   });
+
+  useEffect(() => {
+    const fetchTablesBookedFromFirestore = async () => {
+      try {
+        const docRef = doc(db, "bookingData", "tablesBooked");
+        console.log(docRef);
+        // Listen to real-time updates
+        const unsubscribe = onSnapshot(docRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data().tablesBooked;
+            console.log(data);
+            // Modify the data to set booked to false and orderId to null for all chairs
+            const modifiedData = data.map((table) => ({
+              ...table,
+              chairs: table.chairs.map((chair) => ({
+                ...chair,
+                booked: false,
+                orderId: null,
+              })),
+            }));
+            setTablesBooked(data);
+            setTables(modifiedData);
+          } else {
+            console.log("No such document!");
+          }
+        });
+
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+      } catch (error) {
+        console.error("Error fetching data from Firestore: ", error);
+      }
+    };
+
+    fetchTablesBookedFromFirestore();
+  }, []);
+
+
+
+  const updateTableData = async (tables, orderId) => {
+    // Find tables with booked chairs and update corresponding tablesBooked data
+    const updatedTablesBooked = tablesBooked.map((bookedTable) => {
+      const matchingTable = tables.find(
+        (table) => table.table === bookedTable.table
+      );
+      if (matchingTable) {
+        return {
+          ...bookedTable,
+          chairs: bookedTable.chairs.map((chair, index) => {
+            const isChairBooked = matchingTable.chairs[index].booked;
+            return {
+              ...chair,
+              booked: isChairBooked,
+              orderId: isChairBooked ? orderId : null,
+            };
+          }),
+        };
+      }
+      return bookedTable;
+    });
+
+    // Merge updatedTablesBooked with existing tablesBooked, updating only booked chairs
+    const mergedTablesBooked = updatedTablesBooked.map((updatedTable) => {
+      const existingTable = tablesBooked.find(
+        (table) => table.table === updatedTable.table
+      );
+      if (existingTable) {
+        return {
+          ...existingTable,
+          chairs: existingTable.chairs.map((existingChair, index) => {
+            if (updatedTable.chairs[index].booked) {
+              return updatedTable.chairs[index];
+            }
+            return existingChair;
+          }),
+        };
+      }
+      return updatedTable;
+    });
+    console.log(mergedTablesBooked);
+    try {
+      const docRef = doc(db, "bookingData", "tablesBooked");
+      await updateDoc(docRef, { tablesBooked: mergedTablesBooked });
+      console.log("Document successfully updated!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  };
 
   const handleChairClick = (tableId, chairIndex) => {
     if (!tablesBooked[tableId - 1].chairs[chairIndex].booked) {
@@ -295,9 +181,8 @@ function Checkout() {
       setchairError(false);
     }
   };
-  const addOrder = async (orderData) => {
+  const addOrder = async (orderData, orderId) => {
     try {
-      const orderId = await generateOrderId();
       const orderDocRef = doc(collection(db, "orders"), orderId);
 
       await setDoc(orderDocRef, {
@@ -346,7 +231,10 @@ function Checkout() {
         orderStatus: 1,
         orderTime: new Date(),
       };
-      await addOrder(payload);
+      const orderId = await generateOrderId();
+
+      await updateTableData(tables, orderId);
+      await addOrder(payload, orderId);
       localStorage.setItem("userPhoneNumber", phoneNumber);
       dispatch(updateOrder(payload));
       dispatch(clearCart());
@@ -413,7 +301,7 @@ function Checkout() {
                         <div
                           key={chairIndex}
                           className={
-                            tablesBooked[index].chairs[chairIndex].booked
+                            tablesBooked[index]?.chairs[chairIndex].booked
                               ? "chairBooked-already"
                               : chair.booked
                               ? "table-chair-booked"
@@ -437,7 +325,7 @@ function Checkout() {
                           >
                             <img
                               src={
-                                tablesBooked[index].chairs[chairIndex].booked
+                                tablesBooked[index]?.chairs[chairIndex].booked
                                   ? foodOnPlate1
                                   : chair.booked
                                   ? foodOnPlate1
@@ -455,7 +343,7 @@ function Checkout() {
                         <div
                           key={chairIndex}
                           className={
-                            tablesBooked[index].chairs[chairIndex + 2].booked
+                            tablesBooked[index]?.chairs[chairIndex + 2].booked
                               ? "chairBooked-bottom-already"
                               : chair.booked
                               ? "table-chair-bottom-booked"

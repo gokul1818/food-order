@@ -24,6 +24,28 @@ function App() {
   console.log(uid, "UUUUID");
   dispatch(updateDeviceID(uid));
 
+  window.addEventListener("load", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const base64Data = urlParams.get("data");
+
+    if (base64Data) {
+      try {
+        // Decode Base64 to JSON string
+        const jsonString = atob(base64Data);
+        // Parse JSON string to object
+        const qrData = JSON.parse(jsonString);
+        // Store in local storage
+        localStorage.setItem("qrData", JSON.stringify(qrData));
+        console.log("QR Data stored in local storage:", qrData);
+        alert(qrData);
+      } catch (error) {
+        console.error("Failed to decode or parse QR data:", error);
+      }
+    } else {
+      console.log("No QR data found in the URL");
+    }
+  });
+
   return (
     <Router>
       <Routes>
