@@ -164,7 +164,7 @@ function Home() {
               <i className="search-icon fas fa-search"></i>
               <input
                 type="text"
-                placeholder="Search for delicious food..."
+                placeholder="What did you eat today ?"
                 className="search-input"
                 onChange={(e) => setSearch(e.target.value)}
                 value={search}
@@ -174,7 +174,9 @@ function Home() {
         </div>
         {search.length == 0 ? (
           <>
-            <p className="category-label mt-4"> Top categories </p>
+            <div className="hr-line">
+              <p className="category-label text-center">Top categories</p>
+            </div>
             <div className="horizontal-scroll ">
               <div className="food-list">
                 {foodItems.map((item, index) => (
