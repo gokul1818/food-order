@@ -175,7 +175,7 @@ function Home() {
         {search.length == 0 ? (
           <>
             <div className="hr-line">
-              <p className="category-label text-center">Top categories</p>
+              <p className="category-label-home text-center">Top categories</p>
             </div>
             <div className="horizontal-scroll ">
               <div className="food-list">
