@@ -201,6 +201,10 @@
   border: 1px solid #ffffff39;
   border-bottom: none;
 }
+.soldOut {
+  filter: grayscale(100%) blur(1px);
+}
+
 .animation-ease-in {
   opacity: 0; /* Initially set opacity to 0 */
   animation: fadeIn 1s ease forwards;
@@ -212,6 +216,13 @@
   to {
     opacity: 1; /* End opacity at 1 */
   }
+}
+
+.food-data-item-container-sold {
+  filter: blur(1px);
+  background-color: #6034343e !important;
+  border: 1px solid #6034343e !important;
+
 }
 .selected-food-data-item-container {
   display: flex;

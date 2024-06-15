@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { Howl } from "howler";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -107,21 +107,21 @@ function Home() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "categories"));
+    const unsubscribe = onSnapshot(
+      collection(db, "categories"),
+      (querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setFoodItems(items);
-        setSelectedList(items[0]?.name);
-      } catch (e) {
-        console.error("Error fetching documents: ", e);
+        if (items.length > 0) {
+          setSelectedList(items[0].name);
+        }
       }
-    };
+    );
 
-    fetchData();
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -131,20 +131,18 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const fetchFoodList = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "foodList"));
+    const unsubscribe = onSnapshot(
+      collection(db, "foodList"),
+      (querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setFoodList(items);
-      } catch (e) {
-        console.error("Error fetching documents: ", e);
       }
-    };
+    );
 
-    fetchFoodList();
+    return () => unsubscribe();
   }, []);
 
   // console.log(foodList, "items");
@@ -203,7 +201,6 @@ function Home() {
             </div>
             <div className="horizontal-scroll">
               <div className="food-Data-list  mb-5">
-                {console.log(foodList)}
                 {foodList
                   .filter((item) => item?.category === selectedList)
                   .map((item, index) => (
@@ -218,20 +215,28 @@ function Home() {
                     >
                       <div className="position-relative">
                         <img
-                          className={
+                          className={`${
                             selectedFoodList === index
                               ? "selected-food-list-img"
                               : "food-list-img"
-                          }
+                          }  
+                          ${item.isSoldOut ? "soldOut" : ""}
+                          `}
                           src={item?.img}
                           alt="img"
                         />
                         <div
-                          className={
+                          className={`${
                             selectedFoodList === index
                               ? "selected-food-data-item-container"
                               : "food-data-item-container"
-                          }
+                          } 
+                            ${
+                              item.isSoldOut
+                                ? "food-data-item-container-sold"
+                                : ""
+                            }
+                          `}
                         >
                           <p
                             className={
@@ -245,20 +250,21 @@ function Home() {
                               ? item?.dishName.slice(0, 20) + "..."
                               : item?.dishName}
                           </p>
-                          <p className="food-list-dish-price">{item?.price}</p>
+                          <p className="food-list-dish-price">₹{item?.price}</p>
                           {selectedFoodList == index && (
                             <div className="d-flex justify-content-evenly my-3 w-100 ">
                               {itemQuantity(item) === undefined ? (
                                 <NormalBtn
-                                  btnlabel={"Add To Cart "}
+                                  btnlabel={
+                                    item.isSoldOut ? "sold out" : "Add To Cart "
+                                  }
                                   className={"food-list-cart-btn"}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-
+                                  onClick={() => {
                                     setTimeout(() => {
                                       addToCart(item, index);
                                     }, 500);
                                   }}
+                                  disabled={item.isSoldOut}
                                 />
                               ) : (
                                 <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
@@ -312,11 +318,13 @@ function Home() {
                   >
                     <div className="position-relative">
                       <img
-                        className={
+                        className={`${
                           selectedFoodList === index
                             ? "selected-food-list-img"
                             : "food-list-img"
-                        }
+                        }  
+                          ${item.isSoldOut ? "soldOut" : ""}
+                          `}
                         src={item?.img}
                         alt="img"
                       />
@@ -340,17 +348,20 @@ function Home() {
                             : item?.dishName}
                         </p>
                         <p className="food-list-dish-price">{item?.price}</p>
-                        {selectedFoodList == index && (
+                        {selectedFoodList === index && (
                           <div className="d-flex justify-content-evenly my-3 w-100 ">
                             {itemQuantity(item) === undefined ? (
                               <NormalBtn
-                                btnlabel={"Add To Cart "}
+                                btnlabel={
+                                  item.isSoldOut ? "soldOut" : "Add To Cart "
+                                }
                                 className={"food-list-cart-btn"}
                                 onClick={() => {
                                   setTimeout(() => {
                                     addToCart(item, index);
                                   }, 500);
                                 }}
+                                disabled={item.isSoldOut}
                               />
                             ) : (
                               <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
