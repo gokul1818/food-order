@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navBar/index";
 import { OfferCard } from "../../components/offerCard";
-import OfferList from "../../offers.json";
+import { db } from "../../firebaseConfig";
 import "./style.css";
 
 function Offers() {
   const filterData = ["All", "Special", "Combo"];
+  const [foodItems, setFoodItems] = useState([]);
+  const [topRecArr, setTopRecArr] = useState([]);
 
   const [selectedFilter, setSelectedFilter] = useState("All");
 
@@ -17,12 +20,33 @@ function Offers() {
     }
   };
 
-  const filteredOffers = selectedFilter === "All"
-    ? OfferList
-    : OfferList.filter(
-        (offer) => offer.type.toLowerCase() === selectedFilter.toLowerCase()
-      );
-      
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "offers"),
+      (querySnapshot) => {
+        const items = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setFoodItems(items);
+        // Filter top recommended items
+        const topRecItems = items.filter((offer) => offer.topRec === true);
+        setTopRecArr(topRecItems);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  console.log(foodItems, "foodItems");
+
+  const filteredOffers =
+    selectedFilter === "All"
+      ? foodItems
+      : foodItems.filter(
+          (offer) => offer.type.toLowerCase() === selectedFilter.toLowerCase()
+        );
+
   return (
     <div className="bg-color">
       <Navbar />
@@ -51,8 +75,9 @@ function Offers() {
             </div>
           ))}
         </div>
+        <h3 className="d-flex mt-5 pl-5">Top Recommended</h3>
         <div className="horizontal-view">
-          {filteredOffers.map((offer, index) => (
+          {topRecArr.map((offer, index) => (
             <OfferCard key={offer.id} item={offer} index={index} type={2} />
           ))}
         </div>
