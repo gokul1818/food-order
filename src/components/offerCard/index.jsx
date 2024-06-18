@@ -11,7 +11,7 @@ import NormalBtn from "../normalButton";
 import "./styles.css";
 
 export const OfferCard = ({ item, type = 1, index }) => {
-  console.log(item, type, index)
+  console.log(item, "item")
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -92,9 +92,9 @@ export const OfferCard = ({ item, type = 1, index }) => {
         <div className="body">
           <div className="card-view">
             <div className="image-view">
-              <img src={item.image} alt="img" className="card-image" />
+              <img src={item.imgSrc} alt="img" className="card-image" />
               {item.type === "Combo" && (
-                <img src={item.image1} alt="img" className="card-image1" />
+                <img src={item.imgSrc} alt="img" className="card-image1" />
               )}
             </div>
             <div className="ribbon-container">
@@ -103,7 +103,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
             </div>
             <div className="view-details">
               <div className="name-view">
-                <p className="name">{item?.name}</p>
+                <p className="name">{item?.dishName}</p>
               </div>
               <div className="btn-container">
                 {itemQuantity(item) > 0 ? (
@@ -137,7 +137,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
         <div className="body-hz">
           <div className="card-view-hz">
             <div className="image-view-hz">
-              <img src={item.image} alt="img" className="card-image-hz" />
+              <img src={item.imgSrc} alt="img" className="card-image-hz" />
               {item.type === "Combo" && (
                 <img src={item.image1} alt="img" className="card-image1-hz" />
               )}
@@ -147,7 +147,8 @@ export const OfferCard = ({ item, type = 1, index }) => {
               <p className="type">{item?.type}</p>
               <img src={ribbonIcon} alt="img" className="ribbon-hz" />
             </div>
-            <p className="name-hz">{item?.name}</p>
+            <p className="name-hz">{item?.dishName}</p>
+            {/* <p className="name-hz">{item?.price}</p> */}
             {itemQuantity(item) > 0 ? (
               <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
                 <NormalBtn
@@ -177,43 +178,3 @@ export const OfferCard = ({ item, type = 1, index }) => {
     </div>
   );
 };
-// const [modalIsOpen, setModalIsOpen] = useState(false);
-// const [selectedOffer, setSelectedOffer] = useState(null);
-
-// const openModal = (offer) => {
-//   setSelectedOffer(offer);
-//   setModalIsOpen(true);
-// };
-
-// const closeModal = () => {
-//   setModalIsOpen(false);
-//   setSelectedOffer(null);
-// };
-
-{
-  /* <Modal show={modalIsOpen} handleClose={() => setModalIsOpen(false)}>
-        {selectedOffer && (
-          <div className="modal-body">
-            <h2 className="food-name">{selectedOffer.name}</h2>
-            <p className="food-discount">Discount: {selectedOffer.discount}%</p>
-            <p className="food-type">Type: {selectedOffer.type}</p>
-            <div className="image-container">
-              <img
-                src={selectedOffer.image}
-                alt={selectedOffer.name}
-                className="food-image"
-              />
-              {selectedOffer.type === "Combo" && (
-                <img
-                  src={selectedOffer.image1}
-                  alt={`${selectedOffer.name} combo`}
-                  className="food-image1"
-                />
-              )}
-            </div>
-
-            <button onClick={closeModal}>Continue Order</button>
-          </div>
-        )}
-      </Modal> */
-}
