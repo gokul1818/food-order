@@ -119,7 +119,7 @@ function Cart() {
                     <div className="d-block w-75">
                       <p className="cart-dishName"> {item?.dishName}</p>
                       <div className="d-flex justify-content-between">
-                        <p className="cart-list-price"> {item?.price}</p>
+                        <p className="cart-list-price"> ₹{item?.price}</p>
                         <div className="d-flex  cart-inc-container px-2 py-3">
                           <div className="cart-add-container">
                             <p
@@ -157,7 +157,7 @@ function Cart() {
                   CartComplete.play();
                   setTimeout(() => {
                     setProceed(true);
-                  }, 800);
+                  }, 500);
                 }}
               />
             </div>

@@ -33,8 +33,8 @@ import { Howl } from "howler";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const locationMatch = useSelector((state) => state.auth.locationMatch);
-  const locationMatch = true;
+  const locationMatch = useSelector((state) => state.auth.locationMatch);
+  // const locationMatch = true;
 
   const cart = useSelector((state) => state.cart.cart);
   const [tableSelect, setTableSelect] = useState([]);
