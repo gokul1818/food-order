@@ -75,7 +75,7 @@ function Offers() {
             </div>
           ))}
         </div>
-        <h3 className="d-flex mt-5 pl-5">Top Recommended</h3>
+        <h5 className="d-flex mt-5 ms-3">Top Recommended</h5>
         <div className="horizontal-view">
           {topRecArr.map((offer, index) => (
             <OfferCard key={offer.id} item={offer} index={index} type={2} />

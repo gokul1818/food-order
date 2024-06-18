@@ -92,9 +92,9 @@ export const OfferCard = ({ item, type = 1, index }) => {
         <div className="body">
           <div className="card-view">
             <div className="image-view">
-              <img src={item.imgSrc} alt="img" className="card-image" />
+              <img src={item.img} alt="img" className="card-image" />
               {item.type === "Combo" && (
-                <img src={item.imgSrc} alt="img" className="card-image1" />
+                <img src={item.img} alt="img" className="card-image1" />
               )}
             </div>
             <div className="ribbon-container">
@@ -137,7 +137,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
         <div className="body-hz">
           <div className="card-view-hz">
             <div className="image-view-hz">
-              <img src={item.imgSrc} alt="img" className="card-image-hz" />
+              <img src={item.img} alt="img" className="card-image-hz" />
               {item.type === "Combo" && (
                 <img src={item.image1} alt="img" className="card-image1-hz" />
               )}

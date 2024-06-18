@@ -9,7 +9,7 @@
 .sticky-top {
   position: sticky;
   top: 50px;
-  background-color: #000;
+  /* background-color: #000; */
   box-shadow: 0px 5px 20px 0px #101010;
 }
 .category-label-home {
@@ -17,11 +17,7 @@
   font-size: 16px;
   font-weight: 600;
   width: "100%";
-  background-color: #000;
-  position: absolute;
-  top: 50%;
-  left: 30px;
-  text-align: center;
+  margin-top: 10px;
 }
 .hr-line {
   border-bottom: 1px solid grey;
@@ -97,7 +93,6 @@
 }
 .food-item-selected {
   display: flex;
-  background-color: black;
   margin-right: 15px;
   border-radius: 10px;
   justify-content: center;
@@ -106,11 +101,14 @@
   min-width: 92px;
   text-overflow: ellipsis;
   overflow: hidden;
+  min-height: 100px;
 }
 .food-item {
   display: flex;
+  background-color: #110e19;
   margin-right: 15px;
   border-radius: 10px;
+  min-height: 100px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -232,7 +230,7 @@
 }
 
 .food-data-item-container-sold {
-  filter: blur(1px);
+  filter: blur(0.7px);
   /* background-color: #6034343e !important; */
   border: 1px solid #6034343e !important;
 }
