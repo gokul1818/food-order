@@ -54,6 +54,11 @@ function Offers() {
         <h2 className="mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
           Today's Offers
         </h2>
+        <div className="horizontal-view">
+          {topRecArr.map((offer, index) => (
+            <OfferCard key={offer.id} item={offer} index={index} type={2} />
+          ))}
+        </div>
         <div className="horizontal-filter">
           {filterData.map((filter, index) => (
             <div
@@ -76,11 +81,7 @@ function Offers() {
           ))}
         </div>
         <h5 className="d-flex mt-5 ms-3">Top Recommended</h5>
-        <div className="horizontal-view">
-          {topRecArr.map((offer, index) => (
-            <OfferCard key={offer.id} item={offer} index={index} type={2} />
-          ))}
-        </div>
+
         {filteredOffers.map((offer, index) => (
           <OfferCard key={offer.id} item={offer} index={index} type={1} />
         ))}

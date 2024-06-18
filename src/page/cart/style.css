@@ -31,6 +31,7 @@
 .cart-container {
   border-radius: 22px;
   background-color: #ffffff2e;
+  background: linear-gradient(to bottom, #f5efed70, #f5efed60, #f5efed50, #f5efed40);
   width: 100%;
   align-self: center;
   position: relative;
