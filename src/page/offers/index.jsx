@@ -38,7 +38,6 @@ function Offers() {
     return () => unsubscribe();
   }, []);
 
-  console.log(foodItems, "foodItems");
 
   const filteredOffers =
     selectedFilter === "All"

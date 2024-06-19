@@ -20,14 +20,13 @@ function Tracker({
   const [currentStage, setCurrentStage] = useState(orderItem.orderStatus);
 
   const handleOrderDelivered = (status) => {
-    console.log("Sdfsdf", status);
+    // console.log("Sdfsdf", status);
 
     if (status === 2) {
       const updatedStages = [...orderStatusStages.slice(0, 1), ...delivered];
       setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
       setOrderStatusStages(updatedStages);
     } else if (status === 3) {
-      console.log("Sdfsdf", status);
       const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
       setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
       

@@ -51,7 +51,6 @@ function Checkout() {
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [tables, setTables] = useState([]);
   const [tablesBooked, setTablesBooked] = useState([]);
-  console.log(tables);
   // Calculate total price
   const totalPrice = cart.reduce((total, item) => {
     const itemPrice = parseFloat(item.price.replace("₹", ""));
@@ -71,7 +70,7 @@ function Checkout() {
     const fetchTablesBookedFromFirestore = async () => {
       try {
         const docRef = doc(db, "bookingData", "tablesBooked");
-        console.log(docRef);
+        // console.log(docRef);
         // Listen to real-time updates
         const unsubscribe = onSnapshot(docRef, (docSnap) => {
           if (docSnap.exists()) {
@@ -143,7 +142,7 @@ function Checkout() {
       }
       return updatedTable;
     });
-    console.log(mergedTablesBooked);
+    // console.log(mergedTablesBooked);
     try {
       const docRef = doc(db, "bookingData", "tablesBooked");
       await updateDoc(docRef, { tablesBooked: mergedTablesBooked });
@@ -175,16 +174,16 @@ function Checkout() {
     } else if (tables.length) {
       setTables((prevTables) => {
         const updatedTables = [...prevTables];
-        console.log(updatedTables);
+        // console.log(updatedTables);
         const chair =
           updatedTables[localTabledata - 1]?.chairs[localChairdata - 1];
-        console.log(chair);
+        // console.log(chair);
         chair.booked = true;
         return updatedTables;
       });
     }
   };
-  console.log(tables);
+  // console.log(tables);
   const handleChairError = () => {
     const isAnyChairSelected = tables.some((table) =>
       table.chairs.some((chair) => chair.booked)

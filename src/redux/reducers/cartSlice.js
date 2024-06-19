@@ -35,7 +35,7 @@ const cartSlice = createSlice({
     },
     deleteCartItem: (state, action) => {
       const item = action.payload;
-      console.log(item);
+      // console.log(item);
       const filterCart = state.cart.filter((x) => x.dishName !== item.dishName);
       state.cart = filterCart;
     },

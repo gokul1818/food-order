@@ -16,7 +16,7 @@ const GeolocationComponent = () => {
       async (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
-        console.log(lat, lon);
+        // console.log(lat, lon);
         setLocation([lat, lon]);
         fetchLocations([lat, lon]);
       },

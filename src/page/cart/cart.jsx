@@ -71,7 +71,7 @@ function Cart() {
   };
   const deleteFromCart = (item, index) => {
     DeleteSound.play();
-    console.log(item);
+    // console.log(item);
     dispatch(deleteCartItem(item));
     // const newQuantities = [...itemQuantities];
     // newQuantities[index]--;

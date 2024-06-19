@@ -12,7 +12,7 @@ import "./styles.css";
 import { Box } from "@mui/material";
 
 export const OfferCard = ({ item, type = 1, index }) => {
-  console.log(item, "item");
+  // console.log(item, "item");
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -38,6 +38,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
   });
 
   const addToCart = (item, id) => {
+    console.log(item, id, "add to cart item details")
     // cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
@@ -51,6 +52,8 @@ export const OfferCard = ({ item, type = 1, index }) => {
   };
 
   const removeFromCart = (item, id) => {
+    console.log(item, id, "remove from cart item details")
+
     // trash.play();
 
     dispatch(removeCartItem({ item, quantity: 1 }));
@@ -86,8 +89,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
     fetchData();
   }, []);
 
-  console.log(cart);
-  console.log(item, "item");
+  // console.log(item, "item");
 
   return (
     <div>
@@ -116,7 +118,12 @@ export const OfferCard = ({ item, type = 1, index }) => {
             </div>
             <div className="view-details ">
               <div className="name-view">
-                <p className="name">{item?.dishName}</p>
+                <p className="name">
+                  {Array.isArray(item?.dishName)
+                    ? item.dishName.join(" + ")
+                    : item.dishName}
+                </p>
+                <p className="name">₹ {item?.priceAfterOffer}</p>
               </div>
               <div className="btn-container">
                 {itemQuantity(item) > 0 ? (
@@ -155,11 +162,11 @@ export const OfferCard = ({ item, type = 1, index }) => {
                 <img src={item.img[1]} alt="img" className="card-image1-hz" />
               )}
               <p className="name-hz">
-                {console.log(item.dishName)}
                 {Array.isArray(item?.dishName)
                   ? item.dishName.join(" + ")
                   : item.dishName}
               </p>
+              <p className="name-hz">₹ {item?.priceAfterOffer}</p>
             </div>
             <div className="trend-tag-hz">
               <p className="trend-type-hz">
