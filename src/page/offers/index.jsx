@@ -4,7 +4,7 @@ import Navbar from "../../components/navBar/index";
 import { OfferCard } from "../../components/offerCard";
 import { db } from "../../firebaseConfig";
 import "./style.css";
-
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
 function Offers() {
   const filterData = ["All", "Special", "Combo"];
   const [foodItems, setFoodItems] = useState([]);
@@ -50,16 +50,27 @@ function Offers() {
   return (
     <div className="bg-color">
       <Navbar />
-      <div className="ease-in">
-        <h2 className="mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
-          Today's Offers
-        </h2>
-        <div className="horizontal-view">
-          {topRecArr.map((offer, index) => (
-            <OfferCard key={offer.id} item={offer} index={index} type={2} />
-          ))}
-        </div>
-        <div className="horizontal-filter">
+      <div className="ease-in w-100">
+        {topRecArr.length ? (
+          <>
+            <h5 className="d-flex mt-5 ms-3 pt-3  glow-text" style={{}}>
+              New offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+            </h5>
+
+            <div className="horizontal-view">
+              {topRecArr.map((offer, index) => (
+                <OfferCard key={offer.id} item={offer} index={index} type={2} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div> {""}</div>
+        )}
+        <div
+          className={`horizontal-filter ${
+            topRecArr.length == 0 ? " mt-5 pt-4" : ""
+          } `}
+        >
           {filterData.map((filter, index) => (
             <div
               key={index}
@@ -80,7 +91,6 @@ function Offers() {
             </div>
           ))}
         </div>
-        <h5 className="d-flex mt-5 ms-3">Top Recommended</h5>
 
         {filteredOffers.map((offer, index) => (
           <OfferCard key={offer.id} item={offer} index={index} type={1} />

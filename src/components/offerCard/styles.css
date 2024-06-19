@@ -5,9 +5,9 @@
 }
 
 .card-view {
-  background-color: #cab8b82e;
+  background-color: #ffffff2e;
   display: flex;
-  height: 200px;
+  min-height: 150px;
   position: relative;
   border-radius: 6px;
   transition: 0.3s ease-in-out;
@@ -18,7 +18,7 @@
 }
 
 .image-view {
-  width: auto;
+  width: 30%;
   padding: 15px;
   justify-content: center;
   align-items: center;
@@ -26,24 +26,25 @@
   flex-direction: column;
 }
 .card-image {
-  width: 110px;
-  height: 110px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
+  margin-left: 10px;
   border-radius: 50%;
   background-color: #fff;
   z-index: 10;
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
 }
 .card-image1 {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   border-radius: 50%;
   background-color: #fff;
-  z-index: 10;
+  z-index: 5;
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
   position: absolute;
-  left: 85px;
+  left: 15px;
   bottom: 30px;
 }
 
@@ -101,7 +102,7 @@
 }
 
 .food-list-btn {
-  background-color: #00ba00 !important;
+  background-color: #125238 !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
@@ -139,6 +140,7 @@
 @media screen and (max-width: 768px) {
   .view-details {
     display: flex;
+    width: 70%;
     align-items: center;
     flex-direction: column;
     padding-right: 5%;
@@ -191,35 +193,36 @@
   white-space: nowrap;
   margin-left: 5%;
   margin-top: 5px;
-  width: 250px;
+  width: 200px;
 }
 
 .card-view-hz {
   background-color: #cab8b82e;
   display: flex;
-  height: 350px;
+  min-height: 250px;
   position: relative;
-  border-radius: 6px;
+  border-radius: 10px;
   transition: 0.3s ease-in-out;
   padding: 0 !important;
   margin-bottom: 15px;
   margin: 5%;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .image-view-hz {
   width: auto;
   padding: 15px;
-  padding-top: 30px;
+  padding-top: 50px;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 .card-image-hz {
-  width: 110px;
-  height: 110px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   border-radius: 50%;
   background-color: #fff;
@@ -227,16 +230,16 @@
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
 }
 .card-image1-hz {
-  width: 50px;
-  height: 50px;
+  width: 39px;
+  height: 39px;
   object-fit: cover;
   border-radius: 50%;
   background-color: #fff;
-  z-index: 10;
+  z-index: 4;
   box-shadow: 0px 7px 20px 2px rgba(0, 0, 0, 0.3);
   position: absolute;
-  left: 50px;
-  top: 100px;
+  right: 36px;
+  top: 36px;
 }
 
 .ribbon-container-hz {
@@ -290,12 +293,12 @@
   height: auto;
   white-space: normal;
   font-family: cursive;
-  margin-top: 30px;
-  padding: 10px;
+  margin: 5px;
+  padding: 0px 5px;
 }
 
 .food-list-btn-hz {
-  background-color: #00ba00 !important;
+  background-color: #125238 !important;
   outline: none !important;
   border: none !important;
   border-radius: 5px !important;
@@ -304,6 +307,7 @@
   color: #ffffff !important ;
   width: 150px;
   align-self: center;
+  margin-bottom: 10px;
 }
 
 .food-increase-btn-hz {
@@ -315,8 +319,8 @@
   padding-left: 10px !important;
   padding-right: 10px !important;
   font-size: 17px !important;
+  margin-bottom: 10px;
   color: #f2f2f2 !important ;
-
 }
 .btn-container-hz {
   width: 30%;
@@ -326,4 +330,47 @@
 .name-view-hz {
   width: 70%;
   margin-top: 30px;
+}
+
+.trend-tag-hz {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 30px;
+  background-color: #facd00;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+  clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
+}
+.trend-type-hz {
+  font-size: 10px;
+  margin-left: 10px;
+  margin-bottom: 0;
+  color: #000000;
+  font-weight: 600;
+}
+.trend-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100px;
+  height: 40px;
+  background-color: #facd00;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+  clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
+}
+.trend-type {
+  font-size: 10px;
+  margin-left: 10px;
+  margin-bottom: 0;
+  color: #000000;
+  font-weight: 600;
+}
+.text-strict {
+  text-decoration: line-through;
+  color: red;
 }

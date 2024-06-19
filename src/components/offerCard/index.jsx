@@ -9,9 +9,10 @@ import { db } from "../../firebaseConfig";
 import { addCartItem, removeCartItem } from "../../redux/reducers/cartSlice";
 import NormalBtn from "../normalButton";
 import "./styles.css";
+import { Box } from "@mui/material";
 
 export const OfferCard = ({ item, type = 1, index }) => {
-  console.log(item, "item")
+  console.log(item, "item");
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
 
@@ -37,7 +38,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
   });
 
   const addToCart = (item, id) => {
-    cartSound.play();
+    // cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
     const newLabels = [...addToCartBtnLabels];
@@ -50,7 +51,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
   };
 
   const removeFromCart = (item, id) => {
-    trash.play();
+    // trash.play();
 
     dispatch(removeCartItem({ item, quantity: 1 }));
     const newQuantities = [...itemQuantities];
@@ -86,6 +87,8 @@ export const OfferCard = ({ item, type = 1, index }) => {
   }, []);
 
   console.log(cart);
+  console.log(item, "item");
+
   return (
     <div>
       {Boolean(isColumn) ? (
@@ -93,15 +96,25 @@ export const OfferCard = ({ item, type = 1, index }) => {
           <div className="card-view">
             <div className="image-view">
               <img src={item.img} alt="img" className="card-image" />
-              {item.type === "Combo" && (
-                <img src={item.img} alt="img" className="card-image1" />
+              {item.type === "combo" && (
+                <img src={item.img[1]} alt="img" className="card-image1" />
               )}
             </div>
-            <div className="ribbon-container">
-              <p className="type">{item?.type}</p>
-              <img src={ribbonIcon} alt="img" className="ribbon" />
+            <div className="trend-tag">
+              <p className="trend-type">
+                {" "}
+                {item.type} {item?.offer}%
+                <br />
+                <div className="d-flex">
+                  <p className="text-strict mb-0">₹{item.price}</p>
+
+                  <p className=" ms-2 mb-0 " style={{ color: "green" }}>
+                    ₹{item.priceAfterOffer}
+                  </p>
+                </div>
+              </p>
             </div>
-            <div className="view-details">
+            <div className="view-details ">
               <div className="name-view">
                 <p className="name">{item?.dishName}</p>
               </div>
@@ -138,16 +151,27 @@ export const OfferCard = ({ item, type = 1, index }) => {
           <div className="card-view-hz">
             <div className="image-view-hz">
               <img src={item.img} alt="img" className="card-image-hz" />
-              {item.type === "Combo" && (
-                <img src={item.image1} alt="img" className="card-image1-hz" />
+              {item.type === "combo" && (
+                <img src={item.img[1]} alt="img" className="card-image1-hz" />
               )}
+              <p className="name-hz">
+                {console.log(item.dishName)}
+                {Array.isArray(item?.dishName)
+                  ? item.dishName.join(" + ")
+                  : item.dishName}
+              </p>
             </div>
-
-            <div className="ribbon-container-hz">
+            <div className="trend-tag-hz">
+              <p className="trend-type-hz">
+                {" "}
+                {item.type} {item?.offer}%
+              </p>
+            </div>
+            {/* <div className="ribbon-container-hz">
               <p className="type">{item?.type}</p>
               <img src={ribbonIcon} alt="img" className="ribbon-hz" />
-            </div>
-            <p className="name-hz">{item?.dishName}</p>
+            </div> */}
+
             {/* <p className="name-hz">{item?.price}</p> */}
             {itemQuantity(item) > 0 ? (
               <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
@@ -167,8 +191,8 @@ export const OfferCard = ({ item, type = 1, index }) => {
               </div>
             ) : (
               <NormalBtn
-                btnlabel={"Add to cart"}
-                className={"food-list-btn-hz"}
+                btnlabel={"Add to cart "}
+                className={"food-list-btn-hz "}
                 onClick={() => addToCart(item)}
               />
             )}

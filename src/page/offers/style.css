@@ -1,3 +1,23 @@
+.glow-text {
+  color: #fff; /* Text color */
+  text-shadow: 0 0 20px #facd00, 0 0 20px #facd00; /* Glowing effect */
+  animation: glow 1s infinite alternate; /* Animation for continuous glowing */
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #facd00, 0 0 20px #facd00; /* Initial glow effect */
+  }
+  to {
+    text-shadow: 0 0 20px #facd00, 0 0 30px #facd00; /* Final glow effect */
+  }
+}
+
+.ease-in {
+  opacity: 0; /* Initially set opacity to 0 */
+  animation: fadeIn 1s ease forwards;
+}
+
 .horizontal-view {
   white-space: nowrap;
   height: auto;
@@ -62,7 +82,7 @@
 }
 
 .filter-view.selected {
-  border-bottom: 5px solid  #facd00;
+  border-bottom: 5px solid #facd00;
   background-color: rgb(104, 104, 102);
   width: 200px;
   border-radius: 20px;
