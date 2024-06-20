@@ -194,7 +194,7 @@
 
 .radio-form input:checked + label,
 .radio-form input:checked + label span {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .radio-form input:checked + label,

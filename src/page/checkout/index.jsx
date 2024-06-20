@@ -100,6 +100,10 @@ function Checkout() {
     };
 
     fetchTablesBookedFromFirestore();
+    const phoneNum = localStorage.getItem("userPhoneNumber");
+    if (phoneNum) {
+      setPhoneNumber(phoneNum);
+    }
   }, []);
 
   const updateTableData = async (tables, orderId) => {

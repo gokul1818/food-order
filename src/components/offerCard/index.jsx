@@ -38,7 +38,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
   });
 
   const addToCart = (item, id) => {
-    console.log(item, id, "add to cart item details")
+    console.log(item, id, "add to cart item details");
     // cartSound.play();
     dispatch(addCartItem({ item, quantity: 1 }));
 
@@ -52,7 +52,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
   };
 
   const removeFromCart = (item, id) => {
-    console.log(item, id, "remove from cart item details")
+    console.log(item, id, "remove from cart item details");
 
     // trash.play();
 
@@ -116,16 +116,17 @@ export const OfferCard = ({ item, type = 1, index }) => {
                 </div>
               </p>
             </div>
-            <div className="view-details ">
+            <div className="view-details my-3 ">
               <div className="name-view">
                 <p className="name">
+                  {" "}
                   {Array.isArray(item?.dishName)
                     ? item.dishName.join(" + ")
                     : item.dishName}
                 </p>
                 <p className="name">₹ {item?.priceAfterOffer}</p>
               </div>
-              <div className="btn-container">
+              <div className="btn-container ">
                 {itemQuantity(item) > 0 ? (
                   <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
                     <NormalBtn

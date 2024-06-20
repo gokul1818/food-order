@@ -103,8 +103,11 @@ function Cart() {
       <div className="ease-in">
         {cart.length > 0 && !proceedDone ? (
           <>
-            <p className="category-label mt-5  pt-5">Your Cart </p>
-            <div className="mt-3 d-flex justify-content-center  flex-wrap">
+            <p className="category-label mt-5  pt-3 ">Your Cart </p>
+            <div
+              className="mt-3  d-flex justify-content-center  flex-wrap"
+              style={{ paddingBottom: "8rem" }}
+            >
               {cart.map((item, index) => (
                 <div key={index} className="cart-container-width mb-4 ">
                   <div className="cart-container">

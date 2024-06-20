@@ -291,7 +291,7 @@
   text-align: center;
   height: auto;
   white-space: normal;
-  margin: 5px;
+  /* margin: 5px; */
   padding: 0px 5px;
 }
 
@@ -343,7 +343,7 @@
   clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
 }
 .trend-type-hz {
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 10px;
   margin-bottom: 0;
   color: #000000;
@@ -353,7 +353,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  min-width: 100px;
+  min-width: 120px;
   height: 40px;
   background-color: #facd00;
   display: flex;
@@ -362,7 +362,7 @@
   clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
 }
 .trend-type {
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 10px;
   margin-bottom: 0;
   color: #000000;
