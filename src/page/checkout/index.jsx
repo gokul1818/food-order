@@ -37,6 +37,8 @@ function Checkout() {
   // const locationMatch = true;
 
   const cart = useSelector((state) => state.cart.cart);
+  const hotelId = useSelector((state) => state.auth.hotelId);
+
   const [tableSelect, setTableSelect] = useState([]);
   const [deliveryMethod, setDeliveryMethod] = useState(
     locationMatch ? "Dine-In" : "Parcel"
@@ -69,7 +71,7 @@ function Checkout() {
   useEffect(() => {
     const fetchTablesBookedFromFirestore = async () => {
       try {
-        const docRef = doc(db, "bookingData", "tablesBooked");
+        const docRef = doc(db, "bookingData", hotelId);
         // console.log(docRef);
         // Listen to real-time updates
         const unsubscribe = onSnapshot(docRef, (docSnap) => {

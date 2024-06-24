@@ -1,15 +1,16 @@
 // src/GeolocationComponent.js
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebaseConfig";
 import { updateLocationMatch } from "../../redux/reducers/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const GeolocationComponent = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useState([]);
   const [locationsData, setLocationdata] = useState([]);
   const [match, setMatch] = useState(false);
+  const hotelId = useSelector((state) => state.auth.hotelId);
 
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
@@ -41,29 +42,33 @@ const GeolocationComponent = () => {
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    const distance = R * c; 
+    const distance = R * c;
     return distance;
   };
 
   const fetchLocations = async (coord) => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "locations"));
-      const locationsData = querySnapshot.docs.map(
-        (doc) => doc.data().coordinates
-      );
+    const hotelRef = collection(db, "hotels");
+    const unsubscribeHotel = onSnapshot(hotelRef, (snap) => {
+      const data = snap.docs.map((x) => ({
+        ...x.data(),
+      }));
+      const filterHotel = data.filter((x) => x.uid === hotelId);
+      console.log(filterHotel[0].coordinates[0], filterHotel[0].coordinates[1]);
       const distance = calculateDistance(
         coord[0],
         coord[1],
-        locationsData[0][0],
-        locationsData[0][1]
+        filterHotel[0].coordinates[0],
+        filterHotel[0].coordinates[1]
       );
-      const isMatch = distance <= 100;
-      setLocationdata(locationsData[0]);
+
+      const isMatch = distance <= 50;
+      console.log(isMatch, distance);
       dispatch(updateLocationMatch(isMatch));
       setMatch(isMatch);
-    } catch (error) {
-      console.error("Error fetching documents: ", error);
-    }
+    });
+    return () => {
+      unsubscribeHotel();
+    };
   };
 
   return (
