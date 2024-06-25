@@ -152,7 +152,7 @@ function Checkout() {
     });
     // console.log(mergedTablesBooked);
     try {
-      const docRef = doc(db, "bookingData", "tablesBooked");
+      const docRef = doc(db, "bookingData", hotelId);
       await updateDoc(docRef, { tablesBooked: mergedTablesBooked });
       console.log("Document successfully updated!");
     } catch (error) {
