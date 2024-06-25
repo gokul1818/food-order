@@ -5,12 +5,14 @@ import { OfferCard } from "../../components/offerCard";
 import { db } from "../../firebaseConfig";
 import "./style.css";
 import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import { useSelector } from "react-redux";
 function Offers() {
   const filterData = ["All", "Special", "Combo"];
   const [foodItems, setFoodItems] = useState([]);
   const [topRecArr, setTopRecArr] = useState([]);
 
   const [selectedFilter, setSelectedFilter] = useState("All");
+  const hotelId = useSelector((state) => state.auth.hotelId);
 
   const handleFilterClick = (filter) => {
     if (selectedFilter === filter) {
@@ -28,16 +30,16 @@ function Offers() {
           id: doc.id,
           ...doc.data(),
         }));
-        setFoodItems(items);
+        const hotelOffers = items.filter((data) => data?.hotelId === hotelId);
+        setFoodItems(hotelOffers);
         // Filter top recommended items
-        const topRecItems = items.filter((offer) => offer.topRec === true);
+        const topRecItems = hotelOffers.filter((offer) => offer.topRec === true);
         setTopRecArr(topRecItems);
       }
     );
 
     return () => unsubscribe();
   }, []);
-
 
   const filteredOffers =
     selectedFilter === "All"
