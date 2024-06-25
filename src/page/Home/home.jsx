@@ -34,6 +34,8 @@ function Home() {
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+  const hotelId = useSelector((state) => state.auth.hotelId);
+
   const locationMatch = useSelector((state) => state.auth.locationMatch);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -114,7 +116,10 @@ function Home() {
           id: doc.id,
           ...doc.data(),
         }));
-        setFoodItems(items);
+        const hotelCategories = items.filter(
+          (data) => data?.hotelId === hotelId
+        );
+        setFoodItems(hotelCategories);
         if (items.length > 0) {
           setSelectedList(items[0].name);
         }
@@ -138,7 +143,8 @@ function Home() {
           id: doc.id,
           ...doc.data(),
         }));
-        setFoodList(items);
+        const hotelFodds = items.filter((data) => data?.hotelId === hotelId);
+        setFoodList(hotelFodds);
       }
     );
 
@@ -174,7 +180,9 @@ function Home() {
         </div>
         {search.length == 0 ? (
           <>
-              <p className="category-label-home text-center  mt-3">Top categories</p>
+            <p className="category-label-home text-center  mt-3">
+              Top categories
+            </p>
             <div className="horizontal-scroll ">
               <div className="food-list">
                 {foodItems.map((item, index) => (
