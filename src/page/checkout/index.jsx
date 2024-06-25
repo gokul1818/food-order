@@ -21,6 +21,8 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
+  increment,
   onSnapshot,
   setDoc,
   updateDoc,
@@ -49,7 +51,7 @@ function Checkout() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [nameError, setNameError] = useState("");
   const [chairError, setchairError] = useState(false);
-  const [submited, setSubmited] = useState(false);
+  const [orderId, setOrderId] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [tables, setTables] = useState([]);
   const [tablesBooked, setTablesBooked] = useState([]);
@@ -213,6 +215,42 @@ function Checkout() {
     }
   };
 
+  // generateOrderId
+  const generateOrderId = async () => {
+    const counterDocRef = doc(db, "hotels", hotelId,);
+
+    // Initialize counter if it doesn't exist
+    const counterDoc = await getDoc(counterDocRef);
+    if (!counterDoc.exists()) {
+      await setDoc(counterDocRef, { orderId: 0 });
+    }
+
+    // Increment the counter
+    await setDoc(counterDocRef, { orderId: increment(1) }, { merge: true });
+
+    // Get the updated counter value
+    const updatedCounterDoc = await getDoc(counterDocRef);
+    const count = updatedCounterDoc.data().orderId;
+
+    // Format the order ID
+    const orderId = `ORD${count.toString().padStart(5, "0")}`;
+    return orderId;
+  };
+
+  useEffect(() => {
+    const hotelRef = collection(db, "hotels");
+    const unsubscribeHotel = onSnapshot(hotelRef, (snap) => {
+      const data = snap.docs.map((x) => ({
+        ...x.data(),
+      }));
+      const filterHotel = data.filter((x) => x.uid === hotelId);
+      // setOrderId(filterHotel.orderID);
+    });
+    return () => {
+      unsubscribeHotel();
+    };
+  }, []);
+
   const handleCheckout = async () => {
     // Check if any chair is selected
     const isAnyChairSelected = tables.some((table) =>
@@ -249,6 +287,7 @@ function Checkout() {
         totalPrice: totalPrice,
         orderStatus: 1,
         orderTime: new Date(),
+        hotelId:hotelId
       };
       const orderId = await generateOrderId();
 
