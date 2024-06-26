@@ -1,49 +1,21 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../../components/navBar/index";
-import Tracker from "../../components/tracker/index";
-import { useNavigate } from "react-router-dom";
-import NormalBtn from "../../components/normalButton";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import animationData from "../../assets/emptyOrder.json";
-import "./style.css";
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import Navbar from "../../components/navBar/index";
+import NormalBtn from "../../components/normalButton";
+import Tracker from "../../components/tracker/index";
 import { db } from "../../firebaseConfig";
-import { useEffect } from "react";
-import {
-  updateOrder,
-  updateOrderLength,
-} from "../../redux/reducers/ordersSlice";
-// initial stages
-// const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
-// const cancel = ["Cancel Initiated", "Order Cancelled"];
-// const delivered = ["Order Delivered"];
+import "./style.css";
 
 function OrderStatus() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [orderedFood, setOrderedFood] = useState([]);
+  const hotelId = useSelector((state) => state.auth.hotelId);
 
-  // const orderedFood = useSelector((state) => state.order.order);
-  // const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
-  // const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
-  // const handleCancelOrder = () => {
-  //   const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
-  //   setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
-  //   setOrderStatusStages(updatedStages);
-  // };
-
-  // const handleOrderDelivered = () => {
-  //   const updatedStages = [...orderStatusStages.slice(0, 1), ...delivered];
-  //   setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
-  //   setOrderStatusStages(updatedStages);
-  // };
   const userPhoneNumber = localStorage.getItem("userPhoneNumber");
 
   useEffect(() => {
@@ -52,7 +24,7 @@ function OrderStatus() {
       return;
     }
 
-    const ordersCollection = collection(db, "orders");
+    const ordersCollection = collection(db, `orders-${hotelId}`);
     const q = query(
       ordersCollection,
       where("phoneNumber", "==", userPhoneNumber)
@@ -65,7 +37,11 @@ function OrderStatus() {
         const ordersList = ordersSnapshot.docs.map((doc) => ({
           ...doc.data(),
         }));
-        setOrderedFood(ordersList);
+        const hotelOrdersList = ordersList.filter(
+          (data) => data?.hotelId === hotelId
+        );
+
+        setOrderedFood(hotelOrdersList);
       },
       (error) => {
         console.error("Error fetching orders:", error);
@@ -91,13 +67,7 @@ function OrderStatus() {
               className="d-flex justify-content-center align-items-center"
               key={index}
             >
-              <Tracker
-                orderItem={item}
-                // stages={orderStatusStages}
-                // currentStage={item.orderStatus}
-                // handleCancelOrder={handleCancelOrder}
-                // orderDelivered={handleOrderDelivered}
-              />
+              <Tracker orderItem={item} />
             </div>
           ))
         ) : (
@@ -131,22 +101,3 @@ function OrderStatus() {
 }
 
 export default OrderStatus;
-
-{
-  /*    <div className="mt-5 pt-5 justify-content-center">
-          <h2>Your Orders</h2>
-            <ul>
-              {orderedFood.map((food, index) => (
-                <DetailCard
-                  key={index}
-                  title={food.name}
-                  description=""
-                  category={food.category}
-                  // image={food.img}
-                  price={food.price}
-                  quantity={food.quantity}
-                />
-              ))}
-            </ul>
-          </div> */
-}

@@ -5,6 +5,7 @@ import "./style.css";
 import checkIcon from "../../assets/images/check.png";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { useSelector } from "react-redux";
 function Tracker({
   // stages,
   // currentStage,
@@ -18,6 +19,7 @@ function Tracker({
   const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
   const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
   const [currentStage, setCurrentStage] = useState(orderItem.orderStatus);
+  const hotelId = useSelector((state) => state.auth.hotelId);
 
   const handleOrderDelivered = (status) => {
     // console.log("Sdfsdf", status);
@@ -61,7 +63,7 @@ function Tracker({
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      const orderDocRef = doc(collection(db, "orders"), orderId);
+      const orderDocRef = doc(collection(db, `orders-${hotelId}`), orderId);
 
       await updateDoc(orderDocRef, {
         orderStatus: status,
@@ -84,10 +86,10 @@ function Tracker({
       ) {
         handleOrderDelivered(orderItem.orderStatus);
         setCurrentStage(2);
-        updateOrderStatus(orderItem.orderID, 2);
+        // updateOrderStatus(orderItem.orderID, 2);
       } else {
         handleOrderDelivered(orderItem.orderStatus);
-        updateOrderStatus(orderItem.orderID, 1);
+        // updateOrderStatus(orderItem.orderID, 1);
       }
     }
   }, [remainingTime.minutes, remainingTime.seconds]);
@@ -101,7 +103,7 @@ function Tracker({
       <h6 className="order-arrived-label mb-3">
         {remainingTime.minutes === 0 && remainingTime.seconds === 0
           ? ""
-          : orderItem.orderStatus !== 3 && (
+          : orderItem.orderStatus == 1 && (
               <>
                 Arrives within: {remainingTime.minutes} min :{" "}
                 {remainingTime.seconds} sec

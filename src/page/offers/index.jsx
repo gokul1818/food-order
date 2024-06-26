@@ -33,7 +33,8 @@ function Offers() {
         const hotelOffers = items.filter((data) => data?.hotelId === hotelId);
         setFoodItems(hotelOffers);
         // Filter top recommended items
-        const topRecItems = hotelOffers.filter((offer) => offer.topRec === true);
+        const topRecItems = hotelOffers
+        .filter((offer) => offer.topRec === true);
         setTopRecArr(topRecItems);
       }
     );

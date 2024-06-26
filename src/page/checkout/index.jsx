@@ -204,7 +204,7 @@ function Checkout() {
   };
   const addOrder = async (orderData, orderId) => {
     try {
-      const orderDocRef = doc(collection(db, "orders"), orderId);
+      const orderDocRef = doc(collection(db, `orders-${hotelId}`), orderId);
 
       await setDoc(orderDocRef, {
         ...orderData,
@@ -217,7 +217,7 @@ function Checkout() {
 
   // generateOrderId
   const generateOrderId = async () => {
-    const counterDocRef = doc(db, "hotels", hotelId,);
+    const counterDocRef = doc(db, "hotels", hotelId);
 
     // Initialize counter if it doesn't exist
     const counterDoc = await getDoc(counterDocRef);
@@ -287,7 +287,7 @@ function Checkout() {
         totalPrice: totalPrice,
         orderStatus: 1,
         orderTime: new Date(),
-        hotelId:hotelId
+        hotelId: hotelId,
       };
       const orderId = await generateOrderId();
 
