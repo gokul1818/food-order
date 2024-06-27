@@ -157,7 +157,7 @@ function Tracker({
             <div className="ms-2">
               <p className="order-dishName-label mb-0 ms-2">{item.dishName}</p>
               <p className="order-dishName-label  mb-0 ms-2">
-                <i>Quantity :</i>
+                <i>{"Quantity : "}</i>
                 {item.quantity}
               </p>
             </div>

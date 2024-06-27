@@ -34,9 +34,11 @@ function OrderStatus() {
     const unsubscribe = onSnapshot(
       q,
       (ordersSnapshot) => {
-        const ordersList = ordersSnapshot.docs.map((doc) => ({
-          ...doc.data(),
-        }));
+        const ordersList = ordersSnapshot.docs
+          .sort(
+            (a, b) => b.data().orderTime.seconds - a.data().orderTime.seconds
+          ) // Ensure correct property access
+          .map((doc) => doc.data());
         const hotelOrdersList = ordersList.filter(
           (data) => data?.hotelId === hotelId
         );
@@ -50,7 +52,7 @@ function OrderStatus() {
 
     // Cleanup function to unsubscribe from the listener
     return () => unsubscribe();
-  }, [dispatch, userPhoneNumber]);
+  }, [userPhoneNumber]);
 
   return (
     <div className="bg-color ">
