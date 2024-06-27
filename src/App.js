@@ -111,13 +111,13 @@ function App() {
     if (loading) {
       return <div>Loading...</div>; // Optionally, render a loading spinner here
     }
-    if (!hotelId || !isMobile) {
+    if (!hotelId ) {
       return <Navigate to="/404" />;
     }
     return element;
   };
 
-  return (
+  return (  
     <Router>
       <Routes>
         <Route path="/" element={<ProtectedRoute element={<Home />} />} />

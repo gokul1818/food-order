@@ -2,7 +2,7 @@ import { Badge, useScrollTrigger } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
@@ -20,7 +20,11 @@ import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 import GeolocationComponent from "../geolocation";
 import shineSound from "../../assets/effect/shine.mp3";
 import { Howl } from "howler";
-
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
+import HistorySharpIcon from "@mui/icons-material/HistorySharp";
+import FastfoodSharpIcon from "@mui/icons-material/FastfoodSharp";
+import LocalOfferSharpIcon from "@mui/icons-material/LocalOfferSharp";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#00BA00",
@@ -31,7 +35,8 @@ const CustomBadge = styled(Badge)(({ theme }) => ({
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const path = location.pathname;
   const userPhoneNumber = localStorage.getItem("userPhoneNumber");
 
   useEffect(() => {
@@ -85,7 +90,17 @@ function Navbar() {
             }, 100);
           }}
         >
-          <img src={home} className="nav-icon" />
+          <HomeSharpIcon
+            sx={{
+              background: path == "/" ? "#470d56" : "",
+              color: path == "/" ? "#fff" : "#16121e",
+              borderRadius: path == "/" ? "50%" : "0%",
+              padding: 1,
+              fontSize: 40,
+              boxShadow: path == "/" ? "0px 0px 20px 2px #470d56 " : "",
+            }}
+          />
+          {/* <img src={home} className="nav-icon" /> */}
         </button>
         <button
           className="nav-button"
@@ -96,7 +111,17 @@ function Navbar() {
             }, 100);
           }}
         >
-          <img src={offer} className="nav-icon" />
+          {/* <img src={offer} className="nav-icon" /> */}
+          <FastfoodSharpIcon
+            sx={{
+              background: path == "/offers" ? "#470d56" : "",
+              color: path == "/offers" ? "#fff" : "#16121e",
+              borderRadius: path == "/offers" ? "50%" : "0%",
+              padding: 1,
+              fontSize: 40,
+              boxShadow: path == "/offers" ? "0px 0px 20px 2px #470d56 " : "",
+            }}
+          />
         </button>
 
         <button
@@ -109,7 +134,17 @@ function Navbar() {
           }}
         >
           <CustomBadge badgeContent={orderedFood}>
-            <img src={history} className="nav-icon" />
+            <HistorySharpIcon
+              sx={{
+                background: path == "/order-status" ? "#470d56" : "",
+                color: path == "/order-status" ? "#fff" : "#16121e",
+                borderRadius: "50%",
+                padding: 1,
+                fontSize: 40,
+                boxShadow:
+                  path == "/order-status" ? "0px 0px 20px 2px #470d56 " : "",
+              }}
+            />
           </CustomBadge>
         </button>
 
@@ -123,7 +158,16 @@ function Navbar() {
           }}
         >
           <CustomBadge badgeContent={cart?.length}>
-            <img src={cartIcon} className="nav-icon" />
+            <ShoppingCartSharpIcon
+              sx={{
+                background: path == "/cart" ? "#470d56" : "",
+                color: path == "/cart" ? "#fff" : "#16121e",
+                borderRadius: "50%",
+                padding: 1,
+                fontSize: 40,
+                boxShadow: path == "/cart" ? "0px 0px 20px 2px #470d56 " : "",
+              }}
+            />
           </CustomBadge>
         </button>
       </div>
