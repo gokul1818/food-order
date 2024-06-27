@@ -3,7 +3,7 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import NormalBtn from "../normalButton";
 import "./style.css";
 import checkIcon from "../../assets/images/check.png";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useSelector } from "react-redux";
 function Tracker({
@@ -16,6 +16,7 @@ function Tracker({
   const initialStages = ["Order Placed", "Food Preparing", "Reached Table"];
   const cancel = ["Cancel Initiated", "Order Cancelled"];
   const delivered = ["Reached Table"];
+  const [tables, setTables] = useState([]);
   const [currentOrderStatusIndex, setCurrentOrderStatusIndex] = useState(2);
   const [orderStatusStages, setOrderStatusStages] = useState(initialStages);
   const [currentStage, setCurrentStage] = useState(orderItem.orderStatus);
@@ -61,6 +62,23 @@ function Tracker({
     return () => clearInterval(interval);
   }, [orderItem?.orderTime]);
 
+
+  useEffect(() => {
+    const docRef = doc(db, "bookingData", hotelId);
+    console.log(docRef);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data().tablesBooked;
+        setTables(data);
+        console.log(data);
+      } else {
+        console.log("No such document!");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
   const updateOrderStatus = async (orderId, status) => {
     try {
       const orderDocRef = doc(collection(db, `orders-${hotelId}`), orderId);
@@ -68,6 +86,23 @@ function Tracker({
       await updateDoc(orderDocRef, {
         orderStatus: status,
       });
+
+         // Update the local tables data to set booked to false based on orderId
+         const updatedTables = tables.map((table) => ({
+          ...table,
+          chairs: table.chairs.map((chair) =>
+            chair.orderId === orderId
+              ? { ...chair, booked: false, orderId: null }
+              : chair
+          ),
+        }));
+        setTables(updatedTables);
+        console.log(updatedTables);
+        // Update the Firestore document with the new tables data
+        const bookingDataDocRef = doc(db, "bookingData", hotelId);
+        await updateDoc(bookingDataDocRef, {
+          tablesBooked: updatedTables,
+        });
     } catch (e) {
       console.error("Error updating order status: ", e);
     }
