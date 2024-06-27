@@ -207,8 +207,8 @@ function Home() {
                 ))}
               </div>
             </div>
-            <div className="horizontal-scroll">
-              <div className="food-Data-list  mb-5">
+            <div className="horizontal-scroll ">
+              <div className="food-Data-list ">
                 {foodList
                   .filter((item) => item?.category === selectedList)
                   .map((item, index) => (

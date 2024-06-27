@@ -52,7 +52,7 @@ function Offers() {
   return (
     <div className="bg-color">
       <Navbar />
-      <div className="ease-in w-100 pb-5">
+      <div className="ease-in w-100 pb-5 mb-3">
         {topRecArr.length ? (
           <>
             <h5 className="d-flex mt-5 ms-3  glow-text" style={{}}>
