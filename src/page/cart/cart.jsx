@@ -103,7 +103,10 @@ function Cart() {
       <div className="ease-in">
         {cart.length > 0 && !proceedDone ? (
           <>
-            <p className="category-label mt-5  pt-3 ">Your Cart </p>
+            <h2 className="mt-5 d-flex flex-column justify-content-center align-items-center">
+             Cart
+            </h2>
+            {/* <p className="category-label mt-5  ">Your Cart </p> */}
             <div
               className="mt-3  d-flex justify-content-center  flex-wrap"
               style={{ paddingBottom: "8rem" }}
@@ -148,7 +151,7 @@ function Cart() {
                 </div>
               ))}
             </div>
-            <div className="total-price-container fixed-bottom">
+            <div className="total-price-container">
               <p className="cart-list-price fw-bold" style={{ color: "#000" }}>
                 {" "}
                 Total Price : ₹{totalPrice.toFixed(2)}

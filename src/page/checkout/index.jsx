@@ -357,7 +357,7 @@ function Checkout() {
       </div> */}
       <Navbar />
       <div className="ease-in">
-        <div className="mt-3 pt-3">
+        <div className="mt-3 ">
           {locationMatch && (
             <>
               <p className="select-label mb-0">Select your chairs</p>
@@ -542,7 +542,7 @@ function Checkout() {
               </form>
             </div>
           </div>
-          <div className="fixed-bottom  ">
+          <div className="total-payments-container ">
             <PaymentBtn onClick={handleCheckout} />
           </div>
         </div>

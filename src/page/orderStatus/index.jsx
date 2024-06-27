@@ -57,10 +57,10 @@ function OrderStatus() {
   return (
     <div className="bg-color ">
       <Navbar />
-      <div className="ease-in  ">
+      <div className="ease-in mb-5  ">
         {orderedFood.length > 0 && (
-          <h2 className="mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
-            Your Order Status
+          <h2 className="mt-5 d-flex flex-column justify-content-center align-items-center">
+          Order Status
           </h2>
         )}
         {orderedFood.length > 0 ? (

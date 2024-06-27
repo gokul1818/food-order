@@ -75,7 +75,7 @@ function Navbar() {
   });
   return (
     <>
-      <div className="button-container fixed-top">
+      <div className="button-container fixed-bottom">
         <button
           className="nav-button "
           onClick={() => {

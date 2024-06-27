@@ -161,7 +161,7 @@ function Home() {
     <div>
       <Navbar />
       <div className="ease-in">
-        <div className="mt-5 pt-3">
+        <div className="mt-5">
           <p className="nav-label mb-0">Delicious food for you </p>
         </div>
         <div className="sticky-top pt-2">
