@@ -149,7 +149,7 @@ function Tracker({
               borderRadius: "10px",
             }}
           >
-            {orderItem?.paymentMethod == "cash" ? "UnPaid" : "Paid"}
+            {orderItem?.paymentMethod == "cash" ? "cash" : "UPI"}
           </p>
         </div>
       </div>
