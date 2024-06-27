@@ -92,12 +92,12 @@ function Navbar() {
         >
           <HomeSharpIcon
             sx={{
-              background: path == "/" ? "#470d56" : "",
+              background: path == "/" ? "#740e8e" : "",
               color: path == "/" ? "#fff" : "#16121e",
               borderRadius: path == "/" ? "50%" : "0%",
               padding: 1,
               fontSize: 40,
-              boxShadow: path == "/" ? "0px 0px 20px 2px #470d56 " : "",
+              boxShadow: path == "/" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
           {/* <img src={home} className="nav-icon" /> */}
@@ -114,12 +114,12 @@ function Navbar() {
           {/* <img src={offer} className="nav-icon" /> */}
           <FastfoodSharpIcon
             sx={{
-              background: path == "/offers" ? "#470d56" : "",
+              background: path == "/offers" ? "#740e8e" : "",
               color: path == "/offers" ? "#fff" : "#16121e",
               borderRadius: path == "/offers" ? "50%" : "0%",
               padding: 1,
               fontSize: 40,
-              boxShadow: path == "/offers" ? "0px 0px 20px 2px #470d56 " : "",
+              boxShadow: path == "/offers" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
         </button>
@@ -136,13 +136,13 @@ function Navbar() {
           <CustomBadge badgeContent={orderedFood}>
             <HistorySharpIcon
               sx={{
-                background: path == "/order-status" ? "#470d56" : "",
+                background: path == "/order-status" ? "#740e8e" : "",
                 color: path == "/order-status" ? "#fff" : "#16121e",
                 borderRadius: "50%",
                 padding: 1,
                 fontSize: 40,
                 boxShadow:
-                  path == "/order-status" ? "0px 0px 20px 2px #470d56 " : "",
+                  path == "/order-status" ? "0px 5px 20px 2px #470d56 " : "",
               }}
             />
           </CustomBadge>
@@ -160,12 +160,12 @@ function Navbar() {
           <CustomBadge badgeContent={cart?.length}>
             <ShoppingCartSharpIcon
               sx={{
-                background: path == "/cart" ? "#470d56" : "",
+                background: path == "/cart" ? "#740e8e" : "",
                 color: path == "/cart" ? "#fff" : "#16121e",
                 borderRadius: "50%",
                 padding: 1,
                 fontSize: 40,
-                boxShadow: path == "/cart" ? "0px 0px 20px 2px #470d56 " : "",
+                boxShadow: path == "/cart" ? "0px 5px 20px 2px #470d56 " : "",
               }}
             />
           </CustomBadge>
