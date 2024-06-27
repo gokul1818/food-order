@@ -1,24 +1,10 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./style.css";
-import Lottie from "react-lottie";
-import { Link } from "react-router-dom";
-import PayButton from "../../components/payButton";
-import PaymentBtn from "../../components/payment";
-import TableIcon from "../../assets/images/table.png";
-import foodOnPlate from "../../assets/images/plateOnfood.png";
 import foodOnPlate1 from "../../assets/images/plateOnfood1.png";
+import PaymentBtn from "../../components/payment";
+import "./style.css";
 
-import emptyPlate from "../../assets/images/emptyPlate.png";
-import pointer from "../../assets/icon/pointer.svg";
-import Navbar from "../../components/navBar";
-import animationData from "../../assets/foodprepare.json";
-import { useNavigate } from "react-router-dom";
-import { updateOrder } from "../../redux/reducers/ordersSlice";
-import { clearCart } from "../../redux/reducers/cartSlice";
 import {
-  addDoc,
   collection,
   doc,
   getDoc,
@@ -27,21 +13,29 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
-import generateOrderId from "../../components/orderIdGenerator/orderGenerator";
+import { Howl } from "howler";
+import { useNavigate } from "react-router-dom";
 import shineSound from "../../assets/effect/shine.mp3";
 import cartComplete from "../../assets/effect/spell.mp3";
-import { Howl } from "howler";
+import pointer from "../../assets/icon/pointer.svg";
+import emptyPlate from "../../assets/images/emptyPlate.png";
+import Navbar from "../../components/navBar";
+import { db } from "../../firebaseConfig";
+import { clearCart } from "../../redux/reducers/cartSlice";
+import { updateOrder } from "../../redux/reducers/ordersSlice";
 function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const locationMatch = useSelector((state) => state.auth.locationMatch);
+
   // const locationMatch = true;
 
   const cart = useSelector((state) => state.cart.cart);
   const hotelId = useSelector((state) => state.auth.hotelId);
+  const newOrder = useSelector((state) => state.order.newOrder);
+  const lastOrder = useSelector((state) => state.order.lastOrder);
+  console.log(lastOrder, "lastorer");
 
-  const [tableSelect, setTableSelect] = useState([]);
   const [deliveryMethod, setDeliveryMethod] = useState(
     locationMatch ? "Dine-In" : "Parcel"
   );
@@ -51,7 +45,6 @@ function Checkout() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [nameError, setNameError] = useState("");
   const [chairError, setchairError] = useState(false);
-  const [orderId, setOrderId] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [tables, setTables] = useState([]);
   const [tablesBooked, setTablesBooked] = useState([]);
@@ -202,14 +195,29 @@ function Checkout() {
       setchairError(false);
     }
   };
+  console.log(lastOrder, "lastorer");
+
   const addOrder = async (orderData, orderId) => {
     try {
-      const orderDocRef = doc(collection(db, `orders-${hotelId}`), orderId);
+      if (newOrder) {
+        let orderDocRef = doc(collection(db, `orders-${hotelId}`), orderId);
+        await setDoc(orderDocRef, {
+          ...orderData,
+          orderID: orderId,
+        });
+      } else {
+        let orderDocRef = doc(
+          collection(db, `orders-${hotelId}`),
+          lastOrder.orderID
+        );
 
-      await setDoc(orderDocRef, {
-        ...orderData,
-        orderID: orderId,
-      });
+        await setDoc(orderDocRef, {
+          ...orderData,
+          orderID: lastOrder.orderID,
+          cartItems: orderData.cartItems.concat(lastOrder?.cartItems),
+          totalPrice: lastOrder.totalPrice + orderData.totalPrice,
+        });
+      }
     } catch (e) {
       console.error("Error adding order: ", e);
     }
@@ -217,24 +225,26 @@ function Checkout() {
 
   // generateOrderId
   const generateOrderId = async () => {
-    const counterDocRef = doc(db, "hotels", hotelId);
+    if (newOrder) {
+      const counterDocRef = doc(db, "hotels", hotelId);
 
-    // Initialize counter if it doesn't exist
-    const counterDoc = await getDoc(counterDocRef);
-    if (!counterDoc.exists()) {
-      await setDoc(counterDocRef, { orderId: 0 });
+      // Initialize counter if it doesn't exist
+      const counterDoc = await getDoc(counterDocRef);
+      if (!counterDoc.exists()) {
+        await setDoc(counterDocRef, { orderId: 0 });
+      }
+
+      // Increment the counter
+      await setDoc(counterDocRef, { orderId: increment(1) }, { merge: true });
+
+      // Get the updated counter value
+      const updatedCounterDoc = await getDoc(counterDocRef);
+      const count = updatedCounterDoc.data().orderId;
+
+      // Format the order ID
+      const orderId = `ORD${count.toString().padStart(5, "0")}`;
+      return orderId;
     }
-
-    // Increment the counter
-    await setDoc(counterDocRef, { orderId: increment(1) }, { merge: true });
-
-    // Get the updated counter value
-    const updatedCounterDoc = await getDoc(counterDocRef);
-    const count = updatedCounterDoc.data().orderId;
-
-    // Format the order ID
-    const orderId = `ORD${count.toString().padStart(5, "0")}`;
-    return orderId;
   };
 
   useEffect(() => {
@@ -289,6 +299,7 @@ function Checkout() {
         orderTime: new Date(),
         hotelId: hotelId,
       };
+
       const orderId = await generateOrderId();
 
       await updateTableData(tables, orderId);

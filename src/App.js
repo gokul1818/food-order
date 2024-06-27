@@ -14,6 +14,12 @@ import Offers from "./page/offers/index";
 import OrderStatus from "./page/orderStatus/index.jsx";
 import NotFound from "./page/notFound/notFound.jsx";
 import { updateDeviceID, updateHotelId } from "./redux/reducers/authSlice.js";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "./firebaseConfig.js";
+import {
+  updateLastOrder,
+  updateNewOrder,
+} from "./redux/reducers/ordersSlice.js";
 
 const navigator_info = window.navigator;
 const screen_info = window.screen;
@@ -57,6 +63,48 @@ function App() {
 
     fetchDataFromQRCode();
   }, [dispatch]);
+
+  const userPhoneNumber = localStorage.getItem("userPhoneNumber");
+
+  useEffect(() => {
+    if (!userPhoneNumber) {
+      console.error("No user phone number found in local storage.");
+      return;
+    }
+
+    const ordersCollection = collection(db, `orders-${hotelId}`);
+    const q = query(
+      ordersCollection,
+      where("phoneNumber", "==", userPhoneNumber)
+    );
+
+    // Set up a real-time listener
+    const unsubscribe = onSnapshot(
+      q,
+      (ordersSnapshot) => {
+        const ordersList = ordersSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+        }));
+        const hotelOrdersList = ordersList.filter(
+          (data) => data?.hotelId === hotelId
+        );
+        let hotelOrdersListLength = hotelOrdersList.length - 1;
+        console.log(hotelOrdersList[hotelOrdersListLength]?.orderStatus)
+        if (hotelOrdersList[hotelOrdersListLength]?.orderStatus === 1) {
+          dispatch(updateNewOrder(false));
+          dispatch(updateLastOrder(hotelOrdersList[hotelOrdersListLength]));
+        } else {
+          dispatch(updateNewOrder(true));
+        }
+      },
+      (error) => {
+        console.error("Error fetching orders:", error);
+      }
+    );
+
+    // Cleanup function to unsubscribe from the listener
+    return () => unsubscribe();
+  }, [userPhoneNumber]);
 
   const ProtectedRoute = ({ element }) => {
     if (loading) {
