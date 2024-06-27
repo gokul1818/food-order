@@ -20,7 +20,7 @@ import {
   updateLastOrder,
   updateNewOrder,
 } from "./redux/reducers/ordersSlice.js";
-
+import { isMobile } from "react-device-detect";
 const navigator_info = window.navigator;
 const screen_info = window.screen;
 let uid = navigator_info.mimeTypes.length;
@@ -34,7 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const deviceInfo = deviceDetect();
   uid += deviceInfo.model;
-  console.log(uid, "UUUUID");
+  console.log(screen_info, "UUUUID");
   const hotelId = useSelector((state) => state.auth.hotelId);
   const [loading, setLoading] = useState(true);
 
@@ -89,7 +89,7 @@ function App() {
           (data) => data?.hotelId === hotelId
         );
         let hotelOrdersListLength = hotelOrdersList.length - 1;
-        console.log(hotelOrdersList[hotelOrdersListLength]?.orderStatus)
+        console.log(hotelOrdersList[hotelOrdersListLength]?.orderStatus);
         if (hotelOrdersList[hotelOrdersListLength]?.orderStatus === 1) {
           dispatch(updateNewOrder(false));
           dispatch(updateLastOrder(hotelOrdersList[hotelOrdersListLength]));
@@ -106,11 +106,12 @@ function App() {
     return () => unsubscribe();
   }, [userPhoneNumber]);
 
+  console.log(isMobile);
   const ProtectedRoute = ({ element }) => {
     if (loading) {
       return <div>Loading...</div>; // Optionally, render a loading spinner here
     }
-    if (!hotelId) {
+    if (!hotelId || !isMobile) {
       return <Navigate to="/404" />;
     }
     return element;
