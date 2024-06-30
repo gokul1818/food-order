@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Cart from "./page/cart/cart";
 import Checkout from "./page/checkout";
-import Home from "./page/Home/home.jsx";
+import Home from "./page/Home/home.jsx"
 import Offers from "./page/offers/index";
 import OrderStatus from "./page/orderStatus/index.jsx";
 import NotFound from "./page/notFound/notFound.jsx";
@@ -21,6 +21,7 @@ import {
   updateNewOrder,
 } from "./redux/reducers/ordersSlice.js";
 import { isMobile } from "react-device-detect";
+import Categories from "./page/categories/index.jsx";
 const navigator_info = window.navigator;
 const screen_info = window.screen;
 let uid = navigator_info.mimeTypes.length;
@@ -111,16 +112,20 @@ function App() {
     if (loading) {
       return <div>Loading...</div>; // Optionally, render a loading spinner here
     }
-    if (!hotelId ) {
+    if (!hotelId) {
       return <Navigate to="/404" />;
     }
     return element;
   };
 
-  return (  
+  return (
     <Router>
       <Routes>
         <Route path="/" element={<ProtectedRoute element={<Home />} />} />
+        <Route
+          path="/categories"
+          element={<ProtectedRoute element={<Categories />} />}
+        />
         <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
         <Route
           path="/cart/checkout"

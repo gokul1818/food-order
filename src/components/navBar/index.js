@@ -8,6 +8,7 @@ import home from "../../assets/images/home.png";
 import offer from "../../assets/images/offer.png";
 import cartIcon from "../../assets/images/cart.png";
 import history from "../../assets/images/history.png";
+import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import {
   collection,
   getDocs,
@@ -84,7 +85,7 @@ function Navbar() {
         <button
           className="nav-button "
           onClick={() => {
-            SelectSound.play();
+            // SelectSound.play();
             setTimeout(() => {
               navigate("/");
             }, 100);
@@ -102,10 +103,34 @@ function Navbar() {
           />
           {/* <img src={home} className="nav-icon" /> */}
         </button>
+
         <button
           className="nav-button"
           onClick={() => {
-            SelectSound.play();
+            // SelectSound.play();
+            setTimeout(() => {
+              navigate("/categories");
+            }, 100);
+          }}
+        >
+          {/* <img src={offer} className="nav-icon" /> */}
+          <LunchDiningIcon
+            sx={{
+              background: path == "/categories" ? "#740e8e" : "",
+              color: path == "/categories" ? "#fff" : "#16121e",
+              borderRadius: path == "/categories" ? "50%" : "0%",
+              padding: 1,
+              fontSize: 40,
+              boxShadow: path == "/categories" ? "0px 5px 20px 2px #470d56 " : "",
+            }}
+          />
+        </button>
+
+
+        <button
+          className="nav-button"
+          onClick={() => {
+            // SelectSound.play();
             setTimeout(() => {
               navigate("/offers");
             }, 100);
@@ -127,7 +152,7 @@ function Navbar() {
         <button
           className="nav-button"
           onClick={() => {
-            SelectSound.play();
+            // SelectSound.play();
             setTimeout(() => {
               navigate("/order-status");
             }, 100);
@@ -148,7 +173,7 @@ function Navbar() {
           </CustomBadge>
         </button>
 
-        <button
+        {/* <button
           className="nav-button"
           onClick={() => {
             SelectSound.play();
@@ -169,7 +194,7 @@ function Navbar() {
               }}
             />
           </CustomBadge>
-        </button>
+        </button> */}
       </div>
       <div className="mt-5"></div>
       <GeolocationComponent />
