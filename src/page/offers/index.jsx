@@ -61,7 +61,7 @@ function Offers() {
       <Navbar />
       {!loader ? (
         <div className="ease-in w-100 pb-5 mb-3">
-          {topRecArr.length ? (
+          {/* {topRecArr.length ? (
             <>
               <h5 className="d-flex mt-5 ms-3  glow-text" style={{}}>
                 New offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
@@ -80,7 +80,7 @@ function Offers() {
             </>
           ) : (
             <div> {""}</div>
-          )}
+          )} */}
           <div
             className={`horizontal-filter ${
               topRecArr.length == 0 ? " mt-5 pt-4" : ""

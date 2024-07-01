@@ -82,7 +82,7 @@
 }
 
 .filter-view.selected {
-  border-bottom: 5px solid #facd00;
+  border-bottom: 5px solid #d400f1;
   background-color: rgb(104, 104, 102);
   width: 200px;
   border-radius: 20px;
