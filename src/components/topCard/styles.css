@@ -35,7 +35,7 @@
 }
 
 .green-price {
-  color: #55f300;
+  color: #e278ff;
   font-size: 16px;
   font-weight: 600;
   overflow: hidden;
@@ -46,7 +46,7 @@
 
 .strict-text {
   text-decoration: line-through;
-  color: rgb(255, 140, 0);
+  color: #b4b4b4;
   font-size: 12px;
   margin-right: 10px;
 }

@@ -463,7 +463,7 @@ function Home() {
                   className="tract-text"
                   onClick={() => navigate("/order-status")}
                 >
-                  View now
+                  view order
                 </h5>
               </div>
 
