@@ -464,15 +464,15 @@ function Home() {
             </div>
           </div>
           {orderedFood?.length > 0 && (
-            <div className="track-card">
-              <div className="d-flex flex-column  ">
-                <h4 className="tract-text">Track Your Order</h4>
-                <h5
-                  className="tract-text"
-                  onClick={() => navigate("/order-status")}
-                >
-                  view order
-                </h5>
+            <div
+              className="track-card"
+              onClick={() => navigate("/order-status")}
+            >
+              <div className="d-flex flex-column w-75 ">
+                <h6 className="tract-text">Track Your Order</h6>
+                <p className="m-0 " >
+                  Click here to see the full details,
+                </p>
               </div>
 
               <Lottie

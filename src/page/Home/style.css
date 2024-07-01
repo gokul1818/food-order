@@ -356,13 +356,14 @@ padding-bottom: 15%;
   position: relative; /* To enable positioning of the pseudo-element */
   background-color: #f2f2f2 !important;
   margin: 25px 6%;
-  padding: 15px;
   border-radius: 5px !important;
-  padding-top: 25px;
   border:1px solid #28112e;
   color: #f2f2f2;
+  height: 100px;
+  align-items: center;
+  padding: 0px 10px;
+  justify-content: space-around;
   background: linear-gradient(  333deg, #232223 0%,#28112e, #4f0464 );
-  padding-bottom: 25px;
   /* clip-path: polygon(49% 0, 100% 0%, 100% 100%, 0% 100%); */
   overflow: hidden; /* To ensure the pseudo-element is clipped correctly */
 }
