@@ -60,7 +60,7 @@ function OrderStatus() {
       <div className="ease-in mb-5 pb-3  ">
         {orderedFood.length > 0 && (
           <h2 className="mt-5 d-flex flex-column justify-content-center align-items-center">
-          Order Status
+            Recent Orders
           </h2>
         )}
         {orderedFood.length > 0 ? (

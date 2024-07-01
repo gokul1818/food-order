@@ -32,7 +32,7 @@ function Tracker({
     } else if (status === 3) {
       const updatedStages = [...orderStatusStages.slice(0, 1), ...cancel];
       setCurrentOrderStatusIndex(currentOrderStatusIndex + 1);
-      
+
       setOrderStatusStages(updatedStages);
     }
   };
@@ -62,7 +62,6 @@ function Tracker({
     return () => clearInterval(interval);
   }, [orderItem?.orderTime]);
 
-
   useEffect(() => {
     const docRef = doc(db, "bookingData", hotelId);
     console.log(docRef);
@@ -87,22 +86,22 @@ function Tracker({
         orderStatus: status,
       });
 
-         // Update the local tables data to set booked to false based on orderId
-         const updatedTables = tables.map((table) => ({
-          ...table,
-          chairs: table.chairs.map((chair) =>
-            chair.orderId === orderId
-              ? { ...chair, booked: false, orderId: null }
-              : chair
-          ),
-        }));
-        setTables(updatedTables);
-        console.log(updatedTables);
-        // Update the Firestore document with the new tables data
-        const bookingDataDocRef = doc(db, "bookingData", hotelId);
-        await updateDoc(bookingDataDocRef, {
-          tablesBooked: updatedTables,
-        });
+      // Update the local tables data to set booked to false based on orderId
+      const updatedTables = tables.map((table) => ({
+        ...table,
+        chairs: table.chairs.map((chair) =>
+          chair.orderId === orderId
+            ? { ...chair, booked: false, orderId: null }
+            : chair
+        ),
+      }));
+      setTables(updatedTables);
+      console.log(updatedTables);
+      // Update the Firestore document with the new tables data
+      const bookingDataDocRef = doc(db, "bookingData", hotelId);
+      await updateDoc(bookingDataDocRef, {
+        tablesBooked: updatedTables,
+      });
     } catch (e) {
       console.error("Error updating order status: ", e);
     }
@@ -131,10 +130,11 @@ function Tracker({
   return (
     <div className="tracker">
       <div className="d-flex justify-content-between ">
-        <h5 className="order-dishName-label fs-5 mb-3">
+        <h5 className="order-dishName-label fs-6 m-0">
           Order ID : {orderItem?.orderID}
         </h5>
       </div>
+
       <h6 className="order-arrived-label mb-3">
         {remainingTime.minutes === 0 && remainingTime.seconds === 0
           ? ""
@@ -145,7 +145,15 @@ function Tracker({
               </>
             )}
       </h6>
-
+      <div className="d-flex justify-content-between">
+        <p className=" order-dishName-label fs-6  ">
+          {"Total Price *(inc all GST)"}
+        </p>
+        <p className="order-dishName-label fs-6 fw-bold ">
+          {" "}
+          ₹{orderItem?.totalPrice}
+        </p>
+      </div>
       {orderItem.cartItems
         .slice(0, viewMore ? orderItem.cartItems.length : 1)
         .map((item, index) => (
@@ -163,60 +171,58 @@ function Tracker({
             </div>
           </div>
         ))}
-      {orderItem.cartItems.length > 1 && (
+
+      {/* {
         <NormalBtn
           btnlabel={viewMore ? "View Less" : "View More"}
           className={"view-more-btn me-0 ms-auto"}
           onClick={() => setViewMore(!viewMore)}
         />
-      )}
-      <div className="d-flex justify-content-between">
-        <p className="Arrives-label mt-2">Track Order </p>
-        <div className="d-flex align-items-center">
-          {orderItem?.paymentMethod !== "cash" && (
-            <img src={checkIcon} style={{ width: "18px", height: "18px" }} />
-          )}
-          <p
-            className="order-dishName-label fw-bold px-2 py-1 mb-0"
-            style={{
-              color: orderItem?.paymentMethod == "cash" ? "#fff" : "#00BA00",
-              // background: "#000",
-              borderRadius: "10px",
-            }}
-          >
-            {orderItem?.paymentMethod == "cash" ? "cash" : "UPI"}
-          </p>
-        </div>
-      </div>
-      {orderStatusStages.map((stage, index) => (
-        <div key={index} className="tracker-item">
-          <div className="dot-and-connector">
-            <div
-              className={`dot ${index <= currentStage ? "active" : ""}`}
-            ></div>
-            <span className="stage">{stage}</span>
-          </div>
-          {index < orderStatusStages.length - 1 && (
-            <div
-              className="connector"
-              style={{
-                backgroundColor: index < currentStage ? "#ffffff" : "grey",
-              }}
-            ></div>
-          )}
-        </div>
-      ))}
-      {viewMoreDetails && (
+      } */}
+
+      {orderItem.cartItems.length > 1 && viewMoreDetails && (
         <>
-          <div className="d-flex justify-content-between  mt-4">
-            <p className=" order-dishName-label fs-6  ">
-              {"Total Price *(inc all GST)"}
-            </p>
-            <p className="order-dishName-label fs-6 fw-bold ">
-              {" "}
-              ₹{orderItem?.totalPrice}
-            </p>
+          <div className="d-flex justify-content-between">
+            <p className="Arrives-label mt-2">Track Order </p>
+            <div className="d-flex align-items-center">
+              {orderItem?.paymentMethod !== "cash" && (
+                <img
+                  src={checkIcon}
+                  style={{ width: "18px", height: "18px" }}
+                />
+              )}
+              <p
+                className="order-dishName-label fw-bold px-2 py-1 mb-0"
+                style={{
+                  color:
+                    orderItem?.paymentMethod == "cash" ? "#fff" : "#00BA00",
+                  // background: "#000",
+                  borderRadius: "10px",
+                }}
+              >
+                {orderItem?.paymentMethod == "cash" ? "cash" : "UPI"}
+              </p>
+            </div>
           </div>
+          {orderStatusStages.map((stage, index) => (
+            <div key={index} className="tracker-item">
+              <div className="dot-and-connector">
+                <div
+                  className={`dot ${index <= currentStage ? "active" : ""}`}
+                ></div>
+                <span className="stage">{stage}</span>
+              </div>
+              {index < orderStatusStages.length - 1 && (
+                <div
+                  className="connector"
+                  style={{
+                    backgroundColor: index < currentStage ? "#ffffff" : "grey",
+                  }}
+                ></div>
+              )}
+            </div>
+          ))}
+
           {orderStatusStages[orderStatusStages.length - 1] == "Reached Table" &&
             currentStage !== 2 && (
               <NormalBtn
@@ -227,17 +233,18 @@ function Tracker({
             )}
         </>
       )}
-      <div className="d-flex justify-content-center mt-4">
-        <div
-          className="viewMore-btn "
-          onClick={() => setViewMoreDetails(!viewMoreDetails)}
-        >
-          {!viewMoreDetails ? (
-            <FaAngleDown color="white" />
-          ) : (
-            <FaAngleUp color="white" />
-          )}
-        </div>
+      <div
+        className="viewMore-btn d-flex justify-content-center mt-4"
+        onClick={() => {
+          setViewMoreDetails(!viewMoreDetails);
+          setViewMore(!viewMore);
+        }}
+      >
+        {!viewMoreDetails ? (
+          <FaAngleDown color="white" />
+        ) : (
+          <FaAngleUp color="white" />
+        )}
       </div>
     </div>
   );
