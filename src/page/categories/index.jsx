@@ -125,7 +125,7 @@ function Categories() {
     <div>
       <Navbar />
       <div className="ease-in">
-        <div className="sticky-top pt-2">
+        <div className=" pt-2">
           <div className=" d-flex justify-content-center align-items-center mt-3 ">
             <div className="search-container">
               <i className="search-icon fas fa-search"></i>

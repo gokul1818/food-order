@@ -196,7 +196,6 @@ function Navbar() {
           </CustomBadge>
         </button> */}
       </div>
-      <div className="mt-5"></div>
       <GeolocationComponent />
     </>
   );

@@ -32,7 +32,7 @@ import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { OfferCard } from "../../components/offerCard";
 import { TopCard } from "../../components/topCard";
-import timer from "../../assets/timer.json";
+import timer from "../../assets/orderTime.json";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#00BA00",
@@ -71,6 +71,8 @@ function Home() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [orderedFood, setOrderedFood] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loader, setLoader] = useState(false);
+
   const [selectedList, setSelectedList] = useState();
   const [selectedFoodList, setSelectedFoodList] = useState(null);
   const [foodList, setFoodList] = useState([]);
@@ -244,13 +246,11 @@ function Home() {
   );
 
   return (
-    <div>
+    <div className="home-container">
       <Navbar />
-      <div className="ease-in">
-        <div className="head">
-          <div className="mt-5">
-            <p className="nav-label mb-0">Delicious food for you </p>
-          </div>
+     {!loader ? <div className="ease-in">
+        <div className="head mt-3">
+          <p className="nav-label mb-0">Delicious food for you </p>
 
           <button
             onClick={() => {
@@ -258,7 +258,7 @@ function Home() {
                 navigate("/cart");
               }, 100);
             }}
-            style={{ background: "transparent", borderColor: "transparent" }}
+            style={{ background: "transparent", borderColor: "transparent" , marginTop:"10px"}}
           >
             <CustomBadge badgeContent={cart?.length}>
               <ShoppingCartSharpIcon
@@ -271,7 +271,7 @@ function Home() {
             </CustomBadge>
           </button>
         </div>
-        <div className="sticky-top pt-2">
+        <div className=" pt-2">
           <div className=" d-flex justify-content-center align-items-center mt-3 ">
             <div className="search-container">
               <i className="search-icon fas fa-search"></i>
@@ -412,8 +412,8 @@ function Home() {
         )}
 
         {/* ----------------- TOP OFFERS ----------------- */}
-        <h5 className="d-flex mt-3 ms-3  glow-text" style={{}}>
-          New offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+        <h5 className="d-flex mt-3   glow-text" style={{ marginLeft: "7%" }}>
+          special offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
         </h5>
         <div className="horizontal-scroll ">
           <div className="food-list">
@@ -428,14 +428,25 @@ function Home() {
               <TopCard key={offer.id} item={offer} />
             ))}
           </div>
-          {/* </Carousel> */}
+        </div>
+        <div className="horizontal-scroll ">
+          <div className="food-list">
+            {/* <Carousel
+            autoPlay={true}
+            interval={2000}
+            animation="slide"
+            indicators={false}
+            navButtonsAlwaysInvisible={true}
+          > */}
+            {offers.map((offer) => (
+              <TopCard key={offer.id} item={offer} />
+            ))}
+          </div>
         </div>
         {orderedFood?.length > 0 && (
           <div className="track-card">
-            <div className="d-flex flex-column mt-10 mb-10">
-              <h4 className="tract-text">
-                Track Your Order
-              </h4>
+            <div className="d-flex flex-column  ">
+              <h4 className="tract-text">Track Your Order</h4>
               <h5
                 className="tract-text"
                 onClick={() => navigate("/order-status")}
@@ -455,8 +466,10 @@ function Home() {
             />
           </div>
         )}
-      </div>
-      
+      </div> :
+      <>loader</>
+      }
+
       <Modal show={showModal} handleClose={() => setShowModal(false)}>
         <h2 className="modal-label">Login</h2>
         <input
