@@ -73,7 +73,8 @@ function Home() {
   const [orderedFood, setOrderedFood] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loader, setLoader] = useState(false);
-
+  const [combo, setCombo] = useState([]);
+  const [special, setSpecial] = useState([]);
   const [selectedList, setSelectedList] = useState();
   const [selectedFoodList, setSelectedFoodList] = useState(null);
   const [foodList, setFoodList] = useState([]);
@@ -175,6 +176,18 @@ function Home() {
           (offer) => offer.topRec === true
         );
         setOffers(topRecItems);
+
+        // Filter special offers
+        const specialOffers = topRecItems.filter(
+          (offer) => offer.type === "special"
+        );
+        // Filter combo offers
+        const comboOffers = topRecItems.filter(
+          (offer) => offer.type === "combo"
+        );
+
+        setSpecial(specialOffers);
+        setCombo(comboOffers);
       }
     );
     setTimeout(() => {
@@ -306,7 +319,7 @@ function Home() {
           {search.length == 0 ? (
             <>
               <p className="category-label-home text-center  mt-3">
-                 categories
+                categories
               </p>
               <div className="horizontal-scroll ">
                 <div className="food-list">
@@ -431,34 +444,28 @@ function Home() {
             </div>
           )}
 
+          {/* <Carousel
+            autoPlay={true}
+            interval={2000}
+            animation="slide"
+            indicators={false}
+            navButtonsAlwaysInvisible={true}
+          >
+          </Carousel> */}
           {/* ----------------- TOP OFFERS ----------------- */}
           <h5 className="d-flex mt-3   glow-text" style={{ marginLeft: "7%" }}>
             special offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
           </h5>
           <div className="horizontal-scroll ">
             <div className="food-list">
-              {/* <Carousel
-            autoPlay={true}
-            interval={2000}
-            animation="slide"
-            indicators={false}
-            navButtonsAlwaysInvisible={true}
-          > */}
-              {offers.map((offer) => (
+              {special.map((offer) => (
                 <TopCard key={offer.id} item={offer} />
               ))}
             </div>
           </div>
           <div className="horizontal-scroll ">
             <div className="food-list">
-              {/* <Carousel
-            autoPlay={true}
-            interval={2000}
-            animation="slide"
-            indicators={false}
-            navButtonsAlwaysInvisible={true}
-          > */}
-              {offers.map((offer) => (
+              {combo.map((offer) => (
                 <TopCard key={offer.id} item={offer} />
               ))}
             </div>
@@ -470,9 +477,7 @@ function Home() {
             >
               <div className="d-flex flex-column w-75 ">
                 <h6 className="tract-text">Track Your Order</h6>
-                <p className="m-0 " >
-                  Click here to see the full details,
-                </p>
+                <p className="m-0 ">Click here to see the full details,</p>
               </div>
 
               <Lottie
