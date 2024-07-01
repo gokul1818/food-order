@@ -334,41 +334,41 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 45%;
+  width: 35%;
   height: 30px;
-  background-color: #facd00;
+  background-color: #740e8e;
   display: flex;
   align-items: center;
   z-index: 20;
-  clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 92% 89%, 84% 99%, 76% 89%, 68% 100%, 59% 89%, 51% 100%, 43% 89%, 36% 100%, 28% 90%, 19% 100%, 9% 90%, 0 100%, 0 90%, 0 15%);
 }
 .trend-type-hz {
   font-size: 12px;
   margin-left: 10px;
   margin-bottom: 0;
-  color: #000000;
+  color: #ffffff;
   font-weight: 600;
 }
 .trend-tag {
   position: absolute;
   top: 0;
   left: 0;
-  min-width: 120px;
+  min-width: 60px;
   height: 40px;
-  background-color: #facd00;
+  background-color: #740e8e;
   display: flex;
   align-items: center;
   z-index: 20;
-  clip-path: polygon(0 0, 88% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 92% 89%, 84% 99%, 76% 89%, 68% 100%, 59% 89%, 51% 100%, 43% 89%, 36% 100%, 28% 90%, 19% 100%, 9% 90%, 0 100%, 0 90%, 0 15%);
 }
 .trend-type {
   font-size: 12px;
   margin-left: 10px;
   margin-bottom: 0;
-  color: #000000;
+  color: #ffffff;
   font-weight: 600;
 }
 .text-strict {
   text-decoration: line-through;
-  color: red;
+  color: rgb(157, 18, 18);
 }

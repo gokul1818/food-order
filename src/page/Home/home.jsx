@@ -306,7 +306,7 @@ function Home() {
           {search.length == 0 ? (
             <>
               <p className="category-label-home text-center  mt-3">
-                Top categories
+                 categories
               </p>
               <div className="horizontal-scroll ">
                 <div className="food-list">

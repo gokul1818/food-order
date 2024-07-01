@@ -105,13 +105,13 @@ export const OfferCard = ({ item, type = 1, index }) => {
             <div className="trend-tag">
               <p className="trend-type">
                 {" "}
-                {item.type} {item?.offer}%
+              {item?.offer}% OFF
                 <br />
                 <div className="d-flex">
-                  <p className="text-strict mb-0">₹{item.price}</p>
+                  {/* <p className="text-strict mb-0">₹{item.price}</p> */}
 
-                  <p className=" ms-2 mb-0 " style={{ color: "green" }}>
-                    ₹{item.priceAfterOffer}
+                  <p className=" mb-0 " >
+                    ₹{item.priceAfterOffer} 
                   </p>
                 </div>
               </p>
@@ -172,7 +172,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
             <div className="trend-tag-hz">
               <p className="trend-type-hz">
                 {" "}
-                {item.type} {item?.offer}%
+                {item?.offer}% OFF
               </p>
             </div>
             {/* <div className="ribbon-container-hz">
