@@ -93,7 +93,7 @@ function Navbar() {
         >
           <HomeSharpIcon
             sx={{
-              background: path == "/" ? "#740e8e" : "",
+              background: path == "/" ? "#410d4f" : "",
               color: path == "/" ? "#fff" : "#16121e",
               borderRadius: path == "/" ? "50%" : "0%",
               padding: 1,
@@ -116,7 +116,7 @@ function Navbar() {
           {/* <img src={offer} className="nav-icon" /> */}
           <LunchDiningIcon
             sx={{
-              background: path == "/categories" ? "#740e8e" : "",
+              background: path == "/categories" ? "#410d4f" : "",
               color: path == "/categories" ? "#fff" : "#16121e",
               borderRadius: path == "/categories" ? "50%" : "0%",
               padding: 1,
@@ -139,7 +139,7 @@ function Navbar() {
           {/* <img src={offer} className="nav-icon" /> */}
           <FastfoodSharpIcon
             sx={{
-              background: path == "/offers" ? "#740e8e" : "",
+              background: path == "/offers" ? "#410d4f" : "",
               color: path == "/offers" ? "#fff" : "#16121e",
               borderRadius: path == "/offers" ? "50%" : "0%",
               padding: 1,
@@ -161,7 +161,7 @@ function Navbar() {
           <CustomBadge badgeContent={orderedFood}>
             <HistorySharpIcon
               sx={{
-                background: path == "/order-status" ? "#740e8e" : "",
+                background: path == "/order-status" ? "#410d4f" : "",
                 color: path == "/order-status" ? "#fff" : "#16121e",
                 borderRadius: "50%",
                 padding: 1,
@@ -185,7 +185,7 @@ function Navbar() {
           <CustomBadge badgeContent={cart?.length}>
             <ShoppingCartSharpIcon
               sx={{
-                background: path == "/cart" ? "#740e8e" : "",
+                background: path == "/cart" ? "#410d4f" : "",
                 color: path == "/cart" ? "#fff" : "#16121e",
                 borderRadius: "50%",
                 padding: 1,

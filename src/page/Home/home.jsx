@@ -160,6 +160,7 @@ function Home() {
       }
     );
 
+    setLoader(true);
     const unsubscribeOffers = onSnapshot(
       collection(db, "offers"),
       (querySnapshot) => {
@@ -176,10 +177,10 @@ function Home() {
         setOffers(topRecItems);
       }
     );
-
     setTimeout(() => {
       setLoader(false);
-    }, 250);
+    }, 1000);
+
     return () => {
       unsubscribe();
       unsubscribeOffers();
@@ -193,6 +194,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
+    setLoader(true);
+
     const unsubscribe = onSnapshot(
       collection(db, "foodList"),
       (querySnapshot) => {
@@ -205,7 +208,12 @@ function Home() {
       }
     );
 
-    return () => unsubscribe();
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000);
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const userPhoneNumber = localStorage.getItem("userPhoneNumber");
