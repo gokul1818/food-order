@@ -11,6 +11,7 @@ import {
   selectedCategory,
 } from "../../redux/reducers/cartSlice";
 import "./styles.css";
+import Loader from "../../components/loader";
 
 function Categories() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function Categories() {
   const [selectedList, setSelectedList] = useState();
   const [selectedFoodList, setSelectedFoodList] = useState(null);
   const [foodList, setFoodList] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const [addToCartBtnLabels, setAddToCartBtnLabels] = useState(
     Array(foodItems.length).fill("Add to Cart")
@@ -73,6 +75,7 @@ function Categories() {
   };
 
   useEffect(() => {
+    setLoader(true);
     const unsubscribe = onSnapshot(
       collection(db, "categories"),
       (querySnapshot) => {
@@ -92,17 +95,7 @@ function Categories() {
       }
     );
 
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem("userPhoneNumber") == null) {
-      setShowModal(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
+    const unsubscribeFoodList = onSnapshot(
       collection(db, "foodList"),
       (querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({
@@ -114,7 +107,19 @@ function Categories() {
       }
     );
 
-    return () => unsubscribe();
+    setTimeout(() => {
+      setLoader(false);
+    }, 250);
+    return () => {
+      unsubscribe();
+      unsubscribeFoodList();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("userPhoneNumber") == null) {
+      setShowModal(true);
+    }
   }, []);
 
   const filteredFoodList = foodList.filter(
@@ -124,60 +129,170 @@ function Categories() {
   return (
     <div>
       <Navbar />
-      <div className="ease-in">
-        <div className=" pt-2">
-          <div className=" d-flex justify-content-center align-items-center mt-3 ">
-            <div className="search-container">
-              <i className="search-icon fas fa-search"></i>
-              <input
-                type="text"
-                placeholder="What did you eat today ?"
-                className="search-input"
-                onChange={(e) => setSearch(e.target.value)}
-                value={search}
-              />
-            </div>
-          </div>
-        </div>
-        {search.length == 0 ? (
-          <>
-            <div className="horizontal-scroll  mt-3">
-              <div className="food-list">
-                {foodItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className={
-                      selectedList === item.name
-                        ? "food-item-selected"
-                        : "food-item"
-                    }
-                    onClick={() => handleFoodItemClick(item.name)}
-                  >
-                    <img className="food-item-img " src={item.imgSrc} />
-                    <p
-                      className={
-                        selectedList !== item.name ? "selected" : "unselected"
-                      }
-                    >
-                      {item.name}
-                    </p>
-                  </div>
-                ))}
+      {!loader ? (
+        <div className="ease-in">
+          <div className=" pt-2">
+            <div className=" d-flex justify-content-center align-items-center mt-3 ">
+              <div className="search-container">
+                <i className="search-icon fas fa-search"></i>
+                <input
+                  type="text"
+                  placeholder="What did you eat today ?"
+                  className="search-input"
+                  onChange={(e) => setSearch(e.target.value)}
+                  value={search}
+                />
               </div>
             </div>
-            <div className="horizontal-scroll ">
-              <div className="food-Data-list ">
+          </div>
+          {search.length == 0 ? (
+            <>
+              <div className="horizontal-scroll  mt-3">
+                <div className="food-list">
+                  {foodItems.map((item, index) => (
+                    <div
+                      key={index}
+                      className={
+                        selectedList === item.name
+                          ? "food-item-selected"
+                          : "food-item"
+                      }
+                      onClick={() => handleFoodItemClick(item.name)}
+                    >
+                      <img className="food-item-img " src={item.imgSrc} />
+                      <p
+                        className={
+                          selectedList !== item.name ? "selected" : "unselected"
+                        }
+                      >
+                        {item.name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="horizontal-scroll ">
+                <div className="food-Data-list ">
+                  {foodList
+                    .filter((item) => item?.category === selectedList)
+                    .map((item, index) => (
+                      <div
+                        key={index}
+                        className="food-data-item"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // SelectSound.play();
+                          setSelectedFoodList(index);
+                        }}
+                      >
+                        <div className="position-relative">
+                          <img
+                            className={`${
+                              selectedFoodList === index
+                                ? "selected-food-list-img"
+                                : "food-list-img"
+                            }  
+                          ${item.isSoldOut ? "soldOut" : ""}
+                          `}
+                            src={item?.img}
+                            alt="img"
+                          />
+                          <div
+                            className={`${
+                              selectedFoodList === index
+                                ? "selected-food-data-item-container"
+                                : "food-data-item-container"
+                            } 
+                            ${
+                              item.isSoldOut
+                                ? "food-data-item-container-sold"
+                                : ""
+                            }
+                          `}
+                          >
+                            <p
+                              className={
+                                selectedFoodList === index
+                                  ? "selected-food-list-dish-name"
+                                  : "food-list-dish-name"
+                              }
+                            >
+                              {item?.dishName?.length > 20 &&
+                              selectedFoodList !== index
+                                ? item?.dishName.slice(0, 20) + "..."
+                                : item?.dishName}
+                            </p>
+                            <p className="food-list-dish-price">
+                              ₹{item?.price}
+                            </p>
+                            {selectedFoodList == index && (
+                              <div className="d-flex justify-content-evenly my-3 w-100 ">
+                                {itemQuantity(item) === undefined ? (
+                                  <NormalBtn
+                                    btnlabel={
+                                      item.isSoldOut
+                                        ? "sold out"
+                                        : "Add To Cart "
+                                    }
+                                    className={"food-list-cart-btn"}
+                                    onClick={() => {
+                                      setTimeout(() => {
+                                        addToCart(item, index);
+                                      }, 500);
+                                    }}
+                                    disabled={item.isSoldOut}
+                                  />
+                                ) : (
+                                  <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
+                                    <NormalBtn
+                                      btnlabel={"-"}
+                                      className={"food-list-cart-btn"}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setTimeout(() => {
+                                          removeFromCart(item, index);
+                                        }, 500);
+                                      }}
+                                    />
+                                    <span className="food-list-quantity mx-3">
+                                      {/* {cart[index].quantity} */}
+                                      {itemQuantity(item)}
+                                    </span>
+                                    <NormalBtn
+                                      btnlabel={"+"}
+                                      className={"food-list-cart-btn"}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        setTimeout(() => {
+                                          addToCart(item, index);
+                                        }, 500);
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="horizontal-scroll">
+              <div className="food-Data-list  mb-5">
                 {foodList
-                  .filter((item) => item?.category === selectedList)
+                  .filter((item) =>
+                    item?.dishName
+                      ?.toLowerCase()
+                      .includes(search?.toLowerCase())
+                  )
                   .map((item, index) => (
                     <div
                       key={index}
                       className="food-data-item"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // SelectSound.play();
-                        setSelectedFoodList(index);
-                      }}
+                      onClick={() => setSelectedFoodList(index)}
                     >
                       <div className="position-relative">
                         <img
@@ -192,17 +307,11 @@ function Categories() {
                           alt="img"
                         />
                         <div
-                          className={`${
+                          className={
                             selectedFoodList === index
                               ? "selected-food-data-item-container"
                               : "food-data-item-container"
-                          } 
-                            ${
-                              item.isSoldOut
-                                ? "food-data-item-container-sold"
-                                : ""
-                            }
-                          `}
+                          }
                         >
                           <p
                             className={
@@ -211,18 +320,18 @@ function Categories() {
                                 : "food-list-dish-name"
                             }
                           >
-                            {item?.dishName?.length > 20 &&
+                            {item?.dishName.length > 20 &&
                             selectedFoodList !== index
                               ? item?.dishName.slice(0, 20) + "..."
                               : item?.dishName}
                           </p>
-                          <p className="food-list-dish-price">₹{item?.price}</p>
-                          {selectedFoodList == index && (
+                          <p className="food-list-dish-price">{item?.price}</p>
+                          {selectedFoodList === index && (
                             <div className="d-flex justify-content-evenly my-3 w-100 ">
                               {itemQuantity(item) === undefined ? (
                                 <NormalBtn
                                   btnlabel={
-                                    item.isSoldOut ? "sold out" : "Add To Cart "
+                                    item.isSoldOut ? "soldOut" : "Add To Cart "
                                   }
                                   className={"food-list-cart-btn"}
                                   onClick={() => {
@@ -237,8 +346,7 @@ function Categories() {
                                   <NormalBtn
                                     btnlabel={"-"}
                                     className={"food-list-cart-btn"}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
+                                    onClick={() => {
                                       setTimeout(() => {
                                         removeFromCart(item, index);
                                       }, 500);
@@ -251,8 +359,7 @@ function Categories() {
                                   <NormalBtn
                                     btnlabel={"+"}
                                     className={"food-list-cart-btn"}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
+                                    onClick={() => {
                                       setTimeout(() => {
                                         addToCart(item, index);
                                       }, 500);
@@ -268,103 +375,17 @@ function Categories() {
                   ))}
               </div>
             </div>
-          </>
-        ) : (
-          <div className="horizontal-scroll">
-            <div className="food-Data-list  mb-5">
-              {foodList
-                .filter((item) =>
-                  item?.dishName?.toLowerCase().includes(search?.toLowerCase())
-                )
-                .map((item, index) => (
-                  <div
-                    key={index}
-                    className="food-data-item"
-                    onClick={() => setSelectedFoodList(index)}
-                  >
-                    <div className="position-relative">
-                      <img
-                        className={`${
-                          selectedFoodList === index
-                            ? "selected-food-list-img"
-                            : "food-list-img"
-                        }  
-                          ${item.isSoldOut ? "soldOut" : ""}
-                          `}
-                        src={item?.img}
-                        alt="img"
-                      />
-                      <div
-                        className={
-                          selectedFoodList === index
-                            ? "selected-food-data-item-container"
-                            : "food-data-item-container"
-                        }
-                      >
-                        <p
-                          className={
-                            selectedFoodList === index
-                              ? "selected-food-list-dish-name"
-                              : "food-list-dish-name"
-                          }
-                        >
-                          {item?.dishName.length > 20 &&
-                          selectedFoodList !== index
-                            ? item?.dishName.slice(0, 20) + "..."
-                            : item?.dishName}
-                        </p>
-                        <p className="food-list-dish-price">{item?.price}</p>
-                        {selectedFoodList === index && (
-                          <div className="d-flex justify-content-evenly my-3 w-100 ">
-                            {itemQuantity(item) === undefined ? (
-                              <NormalBtn
-                                btnlabel={
-                                  item.isSoldOut ? "soldOut" : "Add To Cart "
-                                }
-                                className={"food-list-cart-btn"}
-                                onClick={() => {
-                                  setTimeout(() => {
-                                    addToCart(item, index);
-                                  }, 500);
-                                }}
-                                disabled={item.isSoldOut}
-                              />
-                            ) : (
-                              <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
-                                <NormalBtn
-                                  btnlabel={"-"}
-                                  className={"food-list-cart-btn"}
-                                  onClick={() => {
-                                    setTimeout(() => {
-                                      removeFromCart(item, index);
-                                    }, 500);
-                                  }}
-                                />
-                                <span className="food-list-quantity mx-3">
-                                  {/* {cart[index].quantity} */}
-                                  {itemQuantity(item)}
-                                </span>
-                                <NormalBtn
-                                  btnlabel={"+"}
-                                  className={"food-list-cart-btn"}
-                                  onClick={() => {
-                                    setTimeout(() => {
-                                      addToCart(item, index);
-                                    }, 500);
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className="d-flex align-items-center justify-content-center "
+          style={{ height: "100vh" }}
+        >
+          <Loader />
+        </div>
+      )}
+
       <Modal show={showModal} handleClose={() => setShowModal(false)}>
         <h2 className="modal-label">Login</h2>
         <input

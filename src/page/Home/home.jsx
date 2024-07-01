@@ -253,7 +253,7 @@ function Home() {
   return (
     <div className="home-container">
       <Navbar />
-      {loader ? (
+      {!loader ? (
         <div className="ease-in">
           <div className="head mt-3">
             <p className="nav-label mb-0">Delicious food for you </p>
