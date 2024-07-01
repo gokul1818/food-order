@@ -354,18 +354,15 @@ padding-bottom: 15%;
 .track-card {
   display: flex;
   position: relative; /* To enable positioning of the pseudo-element */
-  background-color: #f2f2f2 !important;
   margin: 25px 6%;
-  border-radius: 5px !important;
-  border:1px solid #28112e;
+  border-radius: 10px !important;
   color: #f2f2f2;
   height: 100px;
   align-items: center;
   padding: 0px 10px;
   justify-content: space-around;
-  background: linear-gradient(  333deg, #232223 0%,#28112e, #4f0464 );
-  /* clip-path: polygon(49% 0, 100% 0%, 100% 100%, 0% 100%); */
-  overflow: hidden; /* To ensure the pseudo-element is clipped correctly */
+  background: linear-gradient(  333deg, #232223 0%,#28112e, #20072c );
+  overflow: hidden; 
 }
 
 

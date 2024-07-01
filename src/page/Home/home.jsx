@@ -175,6 +175,7 @@ function Home() {
         const topRecItems = hotelOffers.filter(
           (offer) => offer.topRec === true
         );
+        console.log(topRecItems)
         setOffers(topRecItems);
 
         // Filter special offers
@@ -463,6 +464,9 @@ function Home() {
               ))}
             </div>
           </div>
+          <h5 className="d-flex mt-3   glow-text" style={{ marginLeft: "7%" }}>
+            combo offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+          </h5>
           <div className="horizontal-scroll ">
             <div className="food-list">
               {combo.map((offer) => (
