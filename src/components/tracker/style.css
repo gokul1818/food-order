@@ -111,9 +111,10 @@
   box-shadow: 0px 4px 10px 0px #000000a3;
 }
 .viewMore-btn {
-  background-color: #766262;
+  background-color: #16121e;
   color: rgb(0, 0, 0);
   height: 40px;
+  border: 1px solid #fff;
   width: 40px;
   padding: 0%;
   font-weight: 600;
@@ -124,6 +125,6 @@
   display: flex;
   position: absolute;
   bottom: -28px !important;
-  right: -20px;
+  right: 20px;
   margin: 2%;
 }

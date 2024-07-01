@@ -180,7 +180,7 @@ function Tracker({
         />
       } */}
 
-      {orderItem.cartItems.length > 1 && viewMoreDetails && (
+      {orderItem.cartItems.length > 0 && viewMoreDetails && (
         <>
           <div className="d-flex justify-content-between">
             <p className="Arrives-label mt-2">Track Order </p>
