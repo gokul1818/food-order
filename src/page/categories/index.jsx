@@ -131,6 +131,7 @@ function Categories() {
       <Navbar />
       {!loader ? (
         <div className="ease-in">
+          
           <div className=" pt-2">
             <div className=" d-flex justify-content-center align-items-center mt-3 ">
               <div className="search-container">

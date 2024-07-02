@@ -402,3 +402,13 @@ padding-bottom: 15%;
     width: "70%";
   }
 }
+
+
+.cart-logo-container{
+  position: fixed;
+  bottom: 12%;
+  right: 25px;
+  background-color: #551274;
+  border-radius: 50%;
+  z-index: 1000;
+}

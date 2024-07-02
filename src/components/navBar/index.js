@@ -1,35 +1,24 @@
-import { Badge, useScrollTrigger } from "@mui/material";
+import FastfoodSharpIcon from "@mui/icons-material/FastfoodSharp";
+import HistorySharpIcon from "@mui/icons-material/HistorySharp";
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import LunchDiningIcon from "@mui/icons-material/LunchDining";
+import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
+import { Badge } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { Howl } from "howler";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./style.css";
-import home from "../../assets/images/home.png";
-import offer from "../../assets/images/offer.png";
-import cartIcon from "../../assets/images/cart.png";
-import history from "../../assets/images/history.png";
-import LunchDiningIcon from '@mui/icons-material/LunchDining';
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import shineSound from "../../assets/effect/shine.mp3";
 import { db } from "../../firebaseConfig";
 import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 import GeolocationComponent from "../geolocation";
-import shineSound from "../../assets/effect/shine.mp3";
-import { Howl } from "howler";
-import HomeSharpIcon from "@mui/icons-material/HomeSharp";
-import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
-import HistorySharpIcon from "@mui/icons-material/HistorySharp";
-import FastfoodSharpIcon from "@mui/icons-material/FastfoodSharp";
-import LocalOfferSharpIcon from "@mui/icons-material/LocalOfferSharp";
+import "./style.css";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#00BA00",
-    color: "#fff", // Set your custom background color here
+    backgroundColor: "#fff",
+    color: "#000", // Set your custom background color here
   },
 }));
 
@@ -121,11 +110,11 @@ function Navbar() {
               borderRadius: path == "/categories" ? "50%" : "0%",
               padding: 1,
               fontSize: 40,
-              boxShadow: path == "/categories" ? "0px 5px 20px 2px #470d56 " : "",
+              boxShadow:
+                path == "/categories" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
         </button>
-
 
         <button
           className="nav-button"
@@ -196,6 +185,35 @@ function Navbar() {
           </CustomBadge>
         </button> */}
       </div>
+      {Boolean(path !== "/cart" ) && Boolean(path !== "/cart/checkout") ? 
+        <div className="cart-logo-container">
+          <button
+            onClick={() => {
+              setTimeout(() => {
+                navigate("/cart");
+              }, 100);
+            }}
+            style={{
+              background: "transparent",
+              borderColor: "transparent",
+              marginTop: "10px",
+            }}
+          >
+            <CustomBadge badgeContent={cart?.length}>
+              <ShoppingCartSharpIcon
+                sx={{
+                  color: "#fff",
+                  padding: 1,
+                  fontSize: 40,
+                }}
+              />
+            </CustomBadge>
+          </button>
+        </div>
+       : (
+        <></>
+      )}
+
       <GeolocationComponent />
     </>
   );

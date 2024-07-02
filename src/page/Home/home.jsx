@@ -36,8 +36,8 @@ import timer from "../../assets/orderTime.json";
 import Loader from "../../components/loader";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#00BA00",
-    color: "#fff", // Set your custom background color here
+    backgroundColor: "#fff",
+    color: "#000", // Set your custom background color here
   },
 }));
 function Home() {
@@ -175,7 +175,7 @@ function Home() {
         const topRecItems = hotelOffers.filter(
           (offer) => offer.topRec === true
         );
-        console.log(topRecItems)
+        console.log(topRecItems);
         setOffers(topRecItems);
 
         // Filter special offers
@@ -276,32 +276,33 @@ function Home() {
     <div className="home-container">
       <Navbar />
       {!loader ? (
-        <div className="ease-in">
+        <div className="ease-in position-relative">
           <div className="head mt-3">
             <p className="nav-label mb-0">Delicious food for you </p>
-
-            <button
-              onClick={() => {
-                setTimeout(() => {
-                  navigate("/cart");
-                }, 100);
-              }}
-              style={{
-                background: "transparent",
-                borderColor: "transparent",
-                marginTop: "10px",
-              }}
-            >
-              <CustomBadge badgeContent={cart?.length}>
-                <ShoppingCartSharpIcon
-                  sx={{
-                    color: "#fff",
-                    padding: 1,
-                    fontSize: 40,
-                  }}
-                />
-              </CustomBadge>
-            </button>
+            {/* <div className="cart-logo-container">
+              <button
+                onClick={() => {
+                  setTimeout(() => {
+                    navigate("/cart");
+                  }, 100);
+                }}
+                style={{
+                  background: "transparent",
+                  borderColor: "transparent",
+                  marginTop: "10px",
+                }}
+              >
+                <CustomBadge  badgeContent={cart?.length}>
+                  <ShoppingCartSharpIcon
+                    sx={{
+                      color: "#fff",
+                      padding: 1,
+                      fontSize: 40,
+                    }}
+                  />
+                </CustomBadge>
+              </button>
+            </div> */}
           </div>
           <div className=" pt-2">
             <div className=" d-flex justify-content-center align-items-center mt-3 ">

@@ -70,7 +70,7 @@ export const TopCard = ({ item, type = 1, index }) => {
   }, []);
 
   return (
-    <div className="card">
+    <div className="top-card">
       <div
         className="d-flex flex-column"
         style={{ width: "800px" }}
