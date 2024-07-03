@@ -185,7 +185,9 @@ function Navbar() {
           </CustomBadge>
         </button> */}
       </div>
-      {Boolean(path !== "/cart" ) && Boolean(path !== "/cart/checkout") ? 
+      {Boolean(path !== "/cart") &&
+      Boolean(path !== "/cart/checkout") &&
+      cart?.length ? (
         <div className="cart-logo-container">
           <button
             onClick={() => {
@@ -210,7 +212,7 @@ function Navbar() {
             </CustomBadge>
           </button>
         </div>
-       : (
+      ) : (
         <></>
       )}
 

@@ -455,9 +455,15 @@ function Home() {
           >
           </Carousel> */}
           {/* ----------------- TOP OFFERS ----------------- */}
-          <h5 className="d-flex mt-3   glow-text" style={{ marginLeft: "7%" }}>
-            special offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
-          </h5>
+          {special.length ? (
+            <h5
+              className="d-flex mt-3   glow-text"
+              style={{ marginLeft: "7%" }}
+            >
+              special offers{" "}
+              <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+            </h5>
+          ) : null}
           <div className="horizontal-scroll ">
             <div className="food-list">
               {special.map((offer) => (
@@ -465,9 +471,14 @@ function Home() {
               ))}
             </div>
           </div>
-          <h5 className="d-flex mt-3   glow-text" style={{ marginLeft: "7%" }}>
-            combo offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
-          </h5>
+          {combo.length ? (
+            <h5
+              className="d-flex mt-3   glow-text"
+              style={{ marginLeft: "7%" }}
+            >
+              combo offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+            </h5>
+          ) : null}
           <div className="horizontal-scroll ">
             <div className="food-list">
               {combo.map((offer) => (
@@ -496,6 +507,9 @@ function Home() {
               />
             </div>
           )}
+          <div className="mt-5">
+
+          </div>
         </div>
       ) : (
         <div
