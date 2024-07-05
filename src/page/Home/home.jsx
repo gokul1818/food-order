@@ -324,7 +324,7 @@ function Home() {
           {search.length == 0 ? (
             <>
           
-              <div className="horizontal-scroll ">
+              <div className="horizontal-scroll mt-2">
                 <div className="food-list">
                   {foodItems.map((item, index) => (
                     <div
