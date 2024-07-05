@@ -117,9 +117,9 @@ export const TopCard = ({ item, type = 1, index }) => {
 
       </div>
       <div className="image-view">
-        <img src={item.img} alt="img" className="image" />
+        <img src={item.img} alt="img" className="top-card-image" />
         {item.type === "combo" && (
-          <img src={item.img[1]} alt="img" className="image1" />
+          <img src={item.img[1]} alt="img" className="top-card-image1" />
         )}
       </div>
     </div>

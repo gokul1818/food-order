@@ -15,6 +15,7 @@ import { db } from "../../firebaseConfig";
 import { updateOrderLength } from "../../redux/reducers/ordersSlice";
 import GeolocationComponent from "../geolocation";
 import "./style.css";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#fff",
@@ -88,7 +89,11 @@ function Navbar() {
               fontSize: 40,
             }}
           />
-          <span className="nav-bottom-name">Home</span>
+          <span 
+                className="nav-bottom-name"
+                style={{
+                  color: path == "/categories" ? "#410d4f" : "#16121e",
+                }}>Home</span>
         </button>
 
         <button
@@ -100,14 +105,21 @@ function Navbar() {
             }, 100);
           }}
         >
-          <LunchDiningIcon
+          <RestaurantMenuIcon
             sx={{
               color: path == "/categories" ? "#410d4f" : "#16121e",
               padding: 1,
               fontSize: 40,
             }}
           />
-          <span className="nav-bottom-name">menu</span>
+          <span
+            className="nav-bottom-name"
+            style={{
+              color: path == "/categories" ? "#410d4f" : "#16121e",
+            }}
+          >
+            menu
+          </span>
         </button>
 
         <button
@@ -127,7 +139,11 @@ function Navbar() {
               fontSize: 40,
             }}
           />
-          <span className="nav-bottom-name">offers</span>
+          <span 
+                className="nav-bottom-name"
+                style={{
+                  color: path == "/categories" ? "#410d4f" : "#16121e",
+                }}>offers</span>
         </button>
 
         <button
@@ -148,7 +164,12 @@ function Navbar() {
               }}
             />
           </CustomBadge>
-          <span className="nav-bottom-name">orders</span>
+          <span 
+          
+          className="nav-bottom-name"
+          style={{
+            color: path == "/categories" ? "#410d4f" : "#16121e",
+          }}>orders</span>
         </button>
       </div>
       {Boolean(path !== "/cart") &&

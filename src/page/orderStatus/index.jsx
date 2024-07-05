@@ -60,7 +60,7 @@ function OrderStatus() {
       <div className="ease-in mb-5 pb-3  ">
         {orderedFood.length > 0 && (
           <h2 className="mt-5 d-flex flex-column justify-content-center align-items-center">
-            Recent Orders
+         My Orders
           </h2>
         )}
         {orderedFood.length > 0 ? (
@@ -83,7 +83,7 @@ function OrderStatus() {
               height={300}
               width={300}
             />
-            <p className="no-cart-list mt-3"> No Orders To Track</p>
+            <p className="no-cart-list mt-3"> No Orders </p>
             <div>
               <NormalBtn
                 btnlabel="Start To Order"

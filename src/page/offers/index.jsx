@@ -17,11 +17,7 @@ function Offers() {
   const hotelId = useSelector((state) => state.auth.hotelId);
 
   const handleFilterClick = (filter) => {
-    if (selectedFilter === filter) {
-      setSelectedFilter("");
-    } else {
-      setSelectedFilter(filter);
-    }
+    setSelectedFilter(filter);
   };
 
   useEffect(() => {
@@ -61,31 +57,7 @@ function Offers() {
       <Navbar />
       {!loader ? (
         <div className="ease-in w-100 pb-5 mb-3">
-          {/* {topRecArr.length ? (
-            <>
-              <h5 className="d-flex mt-5 ms-3  glow-text" style={{}}>
-                New offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
-              </h5>
-
-              <div className="horizontal-view">
-                {topRecArr.map((offer, index) => (
-                  <OfferCard
-                    key={offer.id}
-                    item={offer}
-                    index={index}
-                    type={2}
-                  />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div> {""}</div>
-          )} */}
-          <div
-            className={`horizontal-filter ${
-              topRecArr.length == 0 ? " mt-5 pt-4" : ""
-            } `}
-          >
+          <div  className="d-flex mt-3 justify-content-center">
             {filterData.map((filter, index) => (
               <div
                 key={index}

@@ -105,14 +105,12 @@ export const OfferCard = ({ item, type = 1, index }) => {
             <div className="trend-tag">
               <p className="trend-type">
                 {" "}
-              {item?.offer}% OFF
+                {item?.offer}% OFF
                 <br />
                 <div className="d-flex">
                   {/* <p className="text-strict mb-0">₹{item.price}</p> */}
 
-                  <p className=" mb-0 " >
-                    ₹{item.priceAfterOffer} 
-                  </p>
+                  <p className=" mb-0 ">₹{item.priceAfterOffer}</p>
                 </div>
               </p>
             </div>
@@ -124,7 +122,15 @@ export const OfferCard = ({ item, type = 1, index }) => {
                     ? item.dishName.join(" + ")
                     : item.dishName}
                 </p>
-                <p className="name">₹ {item?.priceAfterOffer}</p>
+
+                <p className="name d-flex align-items-center justify-content-center">
+                  {" "}
+                  <p className="name mb-0 me-2 " style={{fontWeight:300 , color:"#e54b4b"}}>
+                    {" "}
+                    <del>₹{item?.price}</del>
+                  </p>
+                  ₹{item?.priceAfterOffer}
+                </p>
               </div>
               <div className="btn-container ">
                 {itemQuantity(item) > 0 ? (
@@ -170,10 +176,7 @@ export const OfferCard = ({ item, type = 1, index }) => {
               <p className="name-hz">₹ {item?.priceAfterOffer}</p>
             </div>
             <div className="trend-tag-hz">
-              <p className="trend-type-hz">
-                {" "}
-                {item?.offer}% OFF
-              </p>
+              <p className="trend-type-hz"> {item?.offer}% OFF</p>
             </div>
             {/* <div className="ribbon-container-hz">
               <p className="type">{item?.type}</p>

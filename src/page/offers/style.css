@@ -66,10 +66,10 @@
 
 .filter-view {
   display: block;
-  margin-right: 10px;
-  background-color: beige;
+  margin:  10px;
+  background-color: #eeeeee;
   width: 200px;
-  border-radius: 20px;
+  border-radius: 10px;
   height: 40px;
   padding: 5px;
   display: flex;
@@ -82,10 +82,10 @@
 }
 
 .filter-view.selected {
-  border-bottom: 5px solid #d400f1;
-  background-color: rgb(104, 104, 102);
+  border-bottom: 5px solid #410D4F;
+  background-color: #00000090;
   width: 200px;
-  border-radius: 20px;
+  border-radius: 10px;
   height: 40px;
   padding: 5px;
   display: flex;
