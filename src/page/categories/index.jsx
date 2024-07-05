@@ -1,9 +1,11 @@
 import { collection, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/loader";
 import Modal from "../../components/modal/modal";
 import Navbar from "../../components/navBar";
 import NormalBtn from "../../components/normalButton";
+import StarRating from "../../components/starRating";
 import { db } from "../../firebaseConfig";
 import {
   addCartItem,
@@ -11,8 +13,6 @@ import {
   selectedCategory,
 } from "../../redux/reducers/cartSlice";
 import "./styles.css";
-import Loader from "../../components/loader";
-
 function Categories() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
@@ -42,6 +42,7 @@ function Categories() {
   const handleFoodItemClick = (index) => {
     setSelectedList(index);
     dispatch(selectedCategory(index));
+    setSelectedFoodList(null);
   };
 
   const addToCart = (item, index) => {
@@ -131,7 +132,6 @@ function Categories() {
       <Navbar />
       {!loader ? (
         <div className="ease-in">
-          
           <div className=" pt-2">
             <div className=" d-flex justify-content-center align-items-center mt-3 ">
               <div className="search-container">
@@ -223,7 +223,8 @@ function Categories() {
                                 ? item?.dishName.slice(0, 20) + "..."
                                 : item?.dishName}
                             </p>
-                            <p className="food-list-dish-price">
+                            <StarRating rating={2} />
+                            <p className="food-list-dish-price mt-1">
                               ₹{item?.price}
                             </p>
                             {selectedFoodList == index && (

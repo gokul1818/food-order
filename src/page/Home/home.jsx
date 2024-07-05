@@ -34,12 +34,15 @@ import { OfferCard } from "../../components/offerCard";
 import { TopCard } from "../../components/topCard";
 import timer from "../../assets/orderTime.json";
 import Loader from "../../components/loader";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarRating from "../../components/starRating";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#fff",
     color: "#000", // Set your custom background color here
   },
 }));
+
 function Home() {
   // const handleSubmit = async (e) => {
   //   try {
@@ -394,6 +397,8 @@ function Home() {
                               ? item?.dishName.slice(0, 20) + "..."
                               : item?.dishName}
                           </p>
+                          {<StarRating rating={3}/>}
+
                           <p className="food-list-dish-price">{item?.price}</p>
                           {selectedFoodList === index && (
                             <div className="d-flex justify-content-evenly my-3 w-100 ">
