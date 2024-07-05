@@ -72,7 +72,7 @@ function Navbar() {
     <>
       <div className="button-container fixed-bottom">
         <button
-          className="nav-button "
+          className="nav-button  "
           onClick={() => {
             // SelectSound.play();
             setTimeout(() => {
@@ -82,15 +82,13 @@ function Navbar() {
         >
           <HomeSharpIcon
             sx={{
-              background: path == "/" ? "#410d4f" : "",
-              color: path == "/" ? "#fff" : "#16121e",
-              borderRadius: path == "/" ? "50%" : "0%",
+              color: path == "/" ? "#410d4f" : "#16121e",
               padding: 1,
+              paddingBottom: 0,
               fontSize: 40,
-              boxShadow: path == "/" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
-          {/* <img src={home} className="nav-icon" /> */}
+          <span className="nav-bottom-name">Home</span>
         </button>
 
         <button
@@ -102,18 +100,14 @@ function Navbar() {
             }, 100);
           }}
         >
-          {/* <img src={offer} className="nav-icon" /> */}
           <LunchDiningIcon
             sx={{
-              background: path == "/categories" ? "#410d4f" : "",
-              color: path == "/categories" ? "#fff" : "#16121e",
-              borderRadius: path == "/categories" ? "50%" : "0%",
+              color: path == "/categories" ? "#410d4f" : "#16121e",
               padding: 1,
               fontSize: 40,
-              boxShadow:
-                path == "/categories" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
+          <span className="nav-bottom-name">menu</span>
         </button>
 
         <button
@@ -128,14 +122,12 @@ function Navbar() {
           {/* <img src={offer} className="nav-icon" /> */}
           <FastfoodSharpIcon
             sx={{
-              background: path == "/offers" ? "#410d4f" : "",
-              color: path == "/offers" ? "#fff" : "#16121e",
-              borderRadius: path == "/offers" ? "50%" : "0%",
+              color: path == "/offers" ? "#410d4f" : "#16121e",
               padding: 1,
               fontSize: 40,
-              boxShadow: path == "/offers" ? "0px 5px 20px 2px #470d56 " : "",
             }}
           />
+          <span className="nav-bottom-name">offers</span>
         </button>
 
         <button
@@ -150,40 +142,14 @@ function Navbar() {
           <CustomBadge badgeContent={orderedFood}>
             <HistorySharpIcon
               sx={{
-                background: path == "/order-status" ? "#410d4f" : "",
-                color: path == "/order-status" ? "#fff" : "#16121e",
-                borderRadius: "50%",
+                color: path == "/order-status" ? "#410d4f" : "#16121e",
                 padding: 1,
                 fontSize: 40,
-                boxShadow:
-                  path == "/order-status" ? "0px 5px 20px 2px #470d56 " : "",
               }}
             />
           </CustomBadge>
+          <span className="nav-bottom-name">orders</span>
         </button>
-
-        {/* <button
-          className="nav-button"
-          onClick={() => {
-            SelectSound.play();
-            setTimeout(() => {
-              navigate("/cart");
-            }, 100);
-          }}
-        >
-          <CustomBadge badgeContent={cart?.length}>
-            <ShoppingCartSharpIcon
-              sx={{
-                background: path == "/cart" ? "#410d4f" : "",
-                color: path == "/cart" ? "#fff" : "#16121e",
-                borderRadius: "50%",
-                padding: 1,
-                fontSize: 40,
-                boxShadow: path == "/cart" ? "0px 5px 20px 2px #470d56 " : "",
-              }}
-            />
-          </CustomBadge>
-        </button> */}
       </div>
       {Boolean(path !== "/cart") &&
       Boolean(path !== "/cart/checkout") &&

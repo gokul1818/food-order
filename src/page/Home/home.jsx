@@ -323,9 +323,7 @@ function Home() {
           </div>
           {search.length == 0 ? (
             <>
-              <p className="category-label-home text-center  mt-3">
-                categories
-              </p>
+          
               <div className="horizontal-scroll ">
                 <div className="food-list">
                   {foodItems.map((item, index) => (
