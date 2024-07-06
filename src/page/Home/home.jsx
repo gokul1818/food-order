@@ -289,9 +289,10 @@ function Home() {
       <Navbar />
       {!loader ? (
         <div className="ease-in position-relative">
-          <div className="head mt-3">
+          <div className="head">
             <p className="nav-label mb-0">{hotelData.title}</p>
             <p className="nav-label  fw-light mb-0">{hotelData?.subTitle  } </p>
+            <div className="head-buttom"></div>
           </div>
           <div className=" pt-2">
             <div className=" d-flex justify-content-center align-items-center mt-3 ">

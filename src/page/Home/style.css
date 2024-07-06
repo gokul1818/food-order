@@ -1,15 +1,13 @@
-
 .ease-in {
   opacity: 0; /* Initially set opacity to 0 */
   animation: fadeIn 1s ease forwards;
 }
-.home-container{
-/* height: 80vh; */
-padding-bottom: 15%;
+.home-container {
+  /* height: 80vh; */
+  padding-bottom: 15%;
 }
 .nav-label {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: white;
+  color: black;
   font-size: 30px;
   font-weight: bolder;
   width: 80%;
@@ -346,12 +344,25 @@ padding-bottom: 15%;
 }
 
 .head {
-  display: block;
-  flex-direction: row;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  justify-content: space-between;
-
+  background-color: #ffffff;
+  justify-content: end;
+  height: 140px;
+}
+.head-buttom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  background-color: #16121e;
+  justify-content: center;
+  height: 30px;
+  margin: 0px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
 }
 .track-card {
   display: flex;
@@ -363,11 +374,9 @@ padding-bottom: 15%;
   align-items: center;
   padding: 0px 10px;
   justify-content: space-around;
-  background: linear-gradient(  333deg, #232223 0%,#28112e, #20072c );
-  overflow: hidden; 
+  background: linear-gradient(333deg, #232223 0%, #28112e, #20072c);
+  overflow: hidden;
 }
-
-
 
 .tract-text {
   color: #ffffff;
@@ -405,8 +414,7 @@ padding-bottom: 15%;
   }
 }
 
-
-.cart-logo-container{
+.cart-logo-container {
   position: fixed;
   bottom: 12%;
   right: 25px;
