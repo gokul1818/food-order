@@ -7,9 +7,9 @@
   padding-bottom: 15%;
 }
 .nav-label {
-  color: black;
+  color: #ffffff;
   font-size: 30px;
-  font-weight: bolder;
+  font-weight: 600;
   width: 80%;
   margin-left: 7%;
 }
@@ -351,6 +351,8 @@
   background-color: #ffffff;
   justify-content: end;
   height: 140px;
+   background-size: 100% 140px;
+  background-image: url("https://img.freepik.com/free-photo/pre-prepared-food-showcasing-ready-eat-delicious-meals-go_23-2151431678.jpg?t=st=1720254341~exp=1720257941~hmac=f6bf25d6f80c54851da6d3a4c0b0ab760c9e46bf9abf4bfec250bdfaf310e490&w=740");
 }
 .head-buttom {
   display: flex;
@@ -359,7 +361,7 @@
   align-items: flex-start;
   background-color: #16121e;
   justify-content: center;
-  height: 30px;
+  height: 20px;
   margin: 0px;
   border-top-left-radius: 100px;
   border-top-right-radius: 100px;

@@ -291,7 +291,7 @@ function Home() {
         <div className="ease-in position-relative">
           <div className="head">
             <p className="nav-label mb-0">{hotelData.title}</p>
-            <p className="nav-label  fw-light mb-0">{hotelData?.subTitle  } </p>
+            <p className="nav-label  fw-light mb-2">{hotelData?.subTitle  } </p>
             <div className="head-buttom"></div>
           </div>
           <div className=" pt-2">
