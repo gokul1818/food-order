@@ -90,7 +90,6 @@ function App() {
           (data) => data?.hotelId === hotelId
         );
         let hotelOrdersListLength = hotelOrdersList.length - 1;
-        console.log(hotelOrdersList[hotelOrdersListLength]?.orderStatus);
         if (hotelOrdersList[hotelOrdersListLength]?.orderStatus === 1) {
           dispatch(updateNewOrder(false));
           dispatch(updateLastOrder(hotelOrdersList[hotelOrdersListLength]));

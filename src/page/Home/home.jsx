@@ -1,23 +1,18 @@
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
-import { Howl } from "howler";
-import Lottie from "react-lottie";
-import Carousel from "react-material-ui-carousel";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import { Badge } from "@mui/material";
+import { styled } from "@mui/system";
+import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import Lottie from "react-lottie";
 import { useDispatch, useSelector } from "react-redux";
-import clickSound from "../../assets/effect/clickSound.mp3";
-import shineSound from "../../assets/effect/shine.mp3";
-import popSound from "../../assets/effect/sweep.mp3";
-import trashSound from "../../assets/effect/trash.mp3";
-import tractIcon from "../../assets/images/track-icon.png";
+import { useLocation, useNavigate } from "react-router-dom";
+import timer from "../../assets/orderTime.json";
+import Loader from "../../components/loader";
 import Modal from "../../components/modal/modal";
 import Navbar from "../../components/navBar";
 import NormalBtn from "../../components/normalButton";
+import StarRating from "../../components/starRating";
+import { TopCard } from "../../components/topCard";
 import { db } from "../../firebaseConfig";
 import {
   addCartItem,
@@ -25,17 +20,6 @@ import {
   selectedCategory,
 } from "../../redux/reducers/cartSlice";
 import "./style.css";
-import { styled } from "@mui/system";
-import { Badge, useScrollTrigger } from "@mui/material";
-import NewReleasesIcon from "@mui/icons-material/NewReleases";
-import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
-import { useLocation, useNavigate } from "react-router-dom";
-import { OfferCard } from "../../components/offerCard";
-import { TopCard } from "../../components/topCard";
-import timer from "../../assets/orderTime.json";
-import Loader from "../../components/loader";
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import StarRating from "../../components/starRating";
 const CustomBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#fff",
@@ -68,7 +52,6 @@ function Home() {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart.cart);
   const hotelId = useSelector((state) => state.auth.hotelId);
-
   const locationMatch = useSelector((state) => state.auth.locationMatch);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
@@ -82,6 +65,7 @@ function Home() {
   const [selectedFoodList, setSelectedFoodList] = useState(null);
   const [foodList, setFoodList] = useState([]);
   const [offers, setOffers] = useState([]);
+  const [hotelData, setHotelData] = useState([]);
   const [addToCartBtnLabels, setAddToCartBtnLabels] = useState(
     Array(foodItems.length).fill("Add to Cart")
   );
@@ -271,6 +255,31 @@ function Home() {
     return () => unsubscribe();
   }, [userPhoneNumber]);
 
+  useEffect(() => {
+    // Reference to the specific hotel document
+    const hotelDocRef = doc(db, "hotels", hotelId);
+
+    const unsubscribe = onSnapshot(hotelDocRef, (doc) => {
+      if (doc.exists()) {
+        // Hotel document found
+        const hotelData = {
+          id: doc.id,
+          ...doc.data(),
+        };
+        setHotelData(hotelData);
+        console.log("Hotel Data:", hotelData);
+        // Further processing with hotelData
+      } else {
+        // Hotel document doesn't exist
+        console.log("Hotel document not found!");
+        // Handle this case as per your application's requirements
+      }
+    });
+
+    // Cleanup function to unsubscribe from the snapshot listener
+    return () => unsubscribe();
+  }, [hotelId]);
+
   const filteredFoodList = foodList.filter(
     (food) => food.category === selectedFoodList?.name
   );
@@ -281,31 +290,8 @@ function Home() {
       {!loader ? (
         <div className="ease-in position-relative">
           <div className="head mt-3">
-            <p className="nav-label mb-0">Delicious food for you </p>
-            {/* <div className="cart-logo-container">
-              <button
-                onClick={() => {
-                  setTimeout(() => {
-                    navigate("/cart");
-                  }, 100);
-                }}
-                style={{
-                  background: "transparent",
-                  borderColor: "transparent",
-                  marginTop: "10px",
-                }}
-              >
-                <CustomBadge  badgeContent={cart?.length}>
-                  <ShoppingCartSharpIcon
-                    sx={{
-                      color: "#fff",
-                      padding: 1,
-                      fontSize: 40,
-                    }}
-                  />
-                </CustomBadge>
-              </button>
-            </div> */}
+            <p className="nav-label mb-0">{hotelData.title}</p>
+            <p className="nav-label  fw-light mb-0">{hotelData?.subTitle  } </p>
           </div>
           <div className=" pt-2">
             <div className=" d-flex justify-content-center align-items-center mt-3 ">
@@ -323,7 +309,6 @@ function Home() {
           </div>
           {search.length == 0 ? (
             <>
-          
               <div className="horizontal-scroll mt-2">
                 <div className="food-list">
                   {foodItems.map((item, index) => (
@@ -395,7 +380,7 @@ function Home() {
                               ? item?.dishName.slice(0, 20) + "..."
                               : item?.dishName}
                           </p>
-                          {<StarRating rating={3}/>}
+                          {<StarRating rating={3} />}
 
                           <p className="food-list-dish-price">{item?.price}</p>
                           {selectedFoodList === index && (
@@ -510,9 +495,7 @@ function Home() {
               />
             </div>
           )}
-          <div className="mt-5">
-
-          </div>
+          <div className="mt-5"></div>
         </div>
       ) : (
         <div

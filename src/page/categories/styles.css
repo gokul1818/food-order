@@ -1,11 +1,4 @@
-.nav-label {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-    font-size: 36px;
-    font-weight: bolder;
-    width: 70%;
-    margin-left: 7%;
-  }
+
   .sticky-top {
     position: sticky;
     top: 50px;
