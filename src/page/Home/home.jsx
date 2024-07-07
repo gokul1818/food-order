@@ -323,13 +323,13 @@ function Home() {
                       onClick={() => handleFoodItemClick(item.name)}
                     >
                       <img className="food-item-img" src={item.imgSrc} />
-                      <p
+                      {/* <p
                         className={
                           selectedList !== item.name ? "selected" : "unselected"
                         }
                       >
                         {item.name}
-                      </p>
+                      </p> */}
                     </div>
                   ))}
                 </div>
@@ -450,7 +450,6 @@ function Home() {
               style={{ marginLeft: "7%" }}
             >
               special offers{" "}
-              <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
             </h5>
           ) : null}
           <div className="horizontal-scroll ">
@@ -465,7 +464,7 @@ function Home() {
               className="d-flex mt-3   glow-text"
               style={{ marginLeft: "7%" }}
             >
-              combo offers <NewReleasesIcon sx={{ mx: 2, color: "#facd00" }} />
+              combo offers 
             </h5>
           ) : null}
           <div className="horizontal-scroll ">
