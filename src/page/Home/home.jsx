@@ -479,14 +479,11 @@ function Home() {
               className="track-card"
               onClick={() => navigate("/order-status")}
             >
-              <div className="d-flex flex-column w-75 text-container">
+              <div className="d-flex flex-column w-75 text-container" >
                 <h6 className="tract-text">Track Your Order</h6>
                 <p className="details-text m-0">See Your Order Details Here</p>
-                <div className="order-status-container">
-                  <p className=" order-status-text">Order Status</p>
-                </div>{" "}
-
               </div>
+                  <p className=" order-status-text">Order Status</p>
             </div>
           )}
 

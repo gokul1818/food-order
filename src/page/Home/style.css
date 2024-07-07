@@ -378,7 +378,7 @@
   margin: 25px 6%;
   border-radius: 10px !important;
   height: 130px;
-  background-color: #67008430;
+  background-color: #0d0d0d86;
   overflow: hidden;
 }
 
@@ -392,7 +392,7 @@
   background-image: url("../../assets/images/track.jpg");
   background-size: cover;
   background-position: center;
-  opacity: 0.3; 
+  opacity: 0.5; 
   z-index: 1;
   border-radius: 10px; 
 }
@@ -407,6 +407,8 @@
   color: #ffffff;
   font-family: 'Tapestry', cursive; 
   text-shadow: 2px 2px 5px #B10ADE; 
+  font-size: 20px;
+  font-weight: 600;
 }
 .details-text {
   color: #ffffff;
@@ -415,21 +417,20 @@
 }
 
 
-.order-status-container {
+
+
+.order-status-text {
+  color: #ffffff;
+  margin: 0;
   background-color: #a700f5;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   padding: 5px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 120px;
   position: absolute;
-}
-
-.order-status-text {
-  color: #ffffff;
-  margin: 0;
+  right: 0;
+  top: 10px;
+  z-index: 10;
 }
 
 .btn-hz {

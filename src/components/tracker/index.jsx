@@ -127,13 +127,24 @@ function Tracker({
       }
     }
   }, [remainingTime.minutes, remainingTime.seconds]);
+  const timestamp = orderItem?.orderTime;
+  const milliseconds =
+    timestamp.seconds * 1000 + Math.round(timestamp.nanoseconds / 1000000);
+  const dateObject = new Date(milliseconds);
+
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = dateObject.toLocaleDateString("en-US", options);
+
   return (
     <div className="tracker">
       <div className="d-flex justify-content-between ">
         <h5 className="order-dishName-label fs-6 m-0">
-          Order ID : {orderItem?.orderID}
+        Order ID : {orderItem?.orderID}
         </h5>
       </div>
+      <h5 className="order-dishName-label fs-6 m-0">
+         {formattedDate},
+      </h5>
 
       <h6 className="order-arrived-label mb-3">
         {remainingTime.minutes === 0 && remainingTime.seconds === 0
@@ -227,7 +238,7 @@ function Tracker({
             currentStage !== 2 && (
               <NormalBtn
                 btnlabel="Cancel Order"
-                className={"cancel-order-btn mt-3"}
+                className={"cancel-order-btn my-3"}
                 onClick={handleCancelOrder}
               />
             )}
