@@ -95,7 +95,7 @@ export const TopCard = ({ item, type = 1, index }) => {
               className={"food-btn-hz1"}
               onClick={() => removeFromCart(item, item.id)}
             />
-            <span className="food-list-quantity mx-3">
+            <span className="top-food-list-quantity mx-3">
               {itemQuantity(item)}
             </span>
             <NormalBtn

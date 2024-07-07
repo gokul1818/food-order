@@ -143,7 +143,7 @@
   text-overflow: ellipsis;
   white-space: normal;
 }
-.food-list-quantity {
+.top-food-list-quantity {
   position: absolute;
   bottom: 15px;
   left: 25px;
