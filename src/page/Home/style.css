@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Tapestry&display=swap');
+
 .ease-in {
   opacity: 0; /* Initially set opacity to 0 */
   animation: fadeIn 1s ease forwards;
@@ -368,22 +370,68 @@
   border-top-right-radius: 100px;
 }
 .track-card {
+  position: relative;
+  padding: 20px;
   display: flex;
-  position: relative; /* To enable positioning of the pseudo-element */
+  align-items: center;
+  justify-content: space-between;
   margin: 25px 6%;
   border-radius: 10px !important;
-  color: #f2f2f2;
-  height: 100px;
-  align-items: center;
-  padding: 0px 10px;
-  justify-content: space-around;
-  background: linear-gradient(333deg, #232223 0%, #28112e, #20072c);
+  height: 130px;
+  background-color: #67008430;
   overflow: hidden;
+}
+
+.track-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../../assets/images/track.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3; 
+  z-index: 1;
+  border-radius: 10px; 
+}
+
+.text-container {
+  position: relative;
+  z-index: 2;
+  color: white; /* Ensure text is readable */
 }
 
 .tract-text {
   color: #ffffff;
+  font-family: 'Tapestry', cursive; 
+  text-shadow: 2px 2px 5px #B10ADE; 
 }
+.details-text {
+  color: #ffffff;
+  font-family: 'Lexend Deca', sans-serif; 
+  text-shadow: 2px 2px 5px #a700f5; 
+}
+
+
+.order-status-container {
+  background-color: #a700f5;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  position: absolute;
+}
+
+.order-status-text {
+  color: #ffffff;
+  margin: 0;
+}
+
 .btn-hz {
   /* background-color: #110e19 !important; */
   outline: none !important;

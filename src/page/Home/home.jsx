@@ -291,7 +291,7 @@ function Home() {
         <div className="ease-in position-relative">
           <div className="head">
             <p className="nav-label mb-0">{hotelData.title}</p>
-            <p className="nav-label  fw-light mb-2">{hotelData?.subTitle  } </p>
+            <p className="nav-label  fw-light mb-2">{hotelData?.subTitle} </p>
             <div className="head-buttom"></div>
           </div>
           <div className=" pt-2">
@@ -464,7 +464,7 @@ function Home() {
               className="d-flex mt-3   glow-text"
               style={{ marginLeft: "7%" }}
             >
-              combo offers 
+              combo offers
             </h5>
           ) : null}
           <div className="horizontal-scroll ">
@@ -479,22 +479,17 @@ function Home() {
               className="track-card"
               onClick={() => navigate("/order-status")}
             >
-              <div className="d-flex flex-column w-75 ">
+              <div className="d-flex flex-column w-75 text-container">
                 <h6 className="tract-text">Track Your Order</h6>
-                <p className="m-0 ">Click here to see the full details,</p>
-              </div>
+                <p className="details-text m-0">See Your Order Details Here</p>
+                <div className="order-status-container">
+                  <p className=" order-status-text">Order Status</p>
+                </div>{" "}
 
-              <Lottie
-                options={{
-                  animationData: timer,
-                  loop: true,
-                  autoplay: true,
-                }}
-                height={100}
-                width={100}
-              />
+              </div>
             </div>
           )}
+
           <div className="mt-5"></div>
         </div>
       ) : (
