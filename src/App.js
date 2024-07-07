@@ -22,6 +22,7 @@ import {
 } from "./redux/reducers/ordersSlice.js";
 import { isMobile } from "react-device-detect";
 import Categories from "./page/categories/index.jsx";
+
 const navigator_info = window.navigator;
 const screen_info = window.screen;
 let uid = navigator_info.mimeTypes.length;

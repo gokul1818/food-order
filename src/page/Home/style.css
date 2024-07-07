@@ -348,11 +348,10 @@
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
-  background-color: #ffffff;
   justify-content: end;
   height: 180px;
   background-color: rgba(255, 255, 255, 0.5);
-   background-size: 100% 180px;
+  background-size: 100% 180px;
   background-image: url("https://img.freepik.com/free-photo/pre-prepared-food-showcasing-ready-eat-delicious-meals-go_23-2151431678.jpg?t=st=1720254341~exp=1720257941~hmac=f6bf25d6f80c54851da6d3a4c0b0ab760c9e46bf9abf4bfec250bdfaf310e490&w=740");
 }
 
