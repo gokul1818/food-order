@@ -94,69 +94,67 @@ export const OfferCard = ({ item, type = 1, index }) => {
   return (
     <div>
       {Boolean(isColumn) ? (
-        <div className="body">
-          <div className="card-view">
-            <div className="image-view">
-              <img src={item.img} alt="img" className="card-image" />
-              {item.type === "combo" && (
-                <img src={item.img[1]} alt="img" className="card-image1" />
-              )}
-            </div>
-            <div className="trend-tag">
-              <p className="trend-type">
-                {" "}
-                {item?.offer}% OFF
-                <br />
-                <div className="d-flex">
-                  {/* <p className="text-strict mb-0">₹{item.price}</p> */}
+        <div className="offer-card-view">
+          <div className="image-view">
+            <img src={item.img} alt="img" className="card-image" />
+          </div>
+          <div className="trend-tag">
+            <p className="trend-type">
+              {" "}
+              {item?.offer}% OFF
+              <br />
+              <div className="d-flex">
+                {/* <p className="text-strict mb-0">₹{item.price}</p> */}
 
-                  <p className=" mb-0 ">₹{item.priceAfterOffer}</p>
-                </div>
+                <p className=" mb-0 ">₹{item.priceAfterOffer}</p>
+              </div>
+            </p>
+          </div>
+          <div className="view-details my-3 ">
+            <div className="offer-name-view">
+              <p className="name">
+                {" "}
+                {Array.isArray(item?.dishName)
+                  ? item.dishName.join(" + ")
+                  : item.dishName}
+              </p>
+
+              <p className="name-price mb-0 d-flex align-items-start justify-content-center">
+                {" "}
+                <p
+                  className="name-price  me-2 "
+                  style={{ fontWeight: 300, color: "#e54b4b" }}
+                >
+                  {" "}
+                  <del>₹{item?.price}</del>
+                </p>
+                ₹{item?.priceAfterOffer}
               </p>
             </div>
-            <div className="view-details my-3 ">
-              <div className="name-view">
-                <p className="name">
-                  {" "}
-                  {Array.isArray(item?.dishName)
-                    ? item.dishName.join(" + ")
-                    : item.dishName}
-                </p>
-
-                <p className="name d-flex align-items-center justify-content-center">
-                  {" "}
-                  <p className="name mb-0 me-2 " style={{fontWeight:300 , color:"#e54b4b"}}>
-                    {" "}
-                    <del>₹{item?.price}</del>
-                  </p>
-                  ₹{item?.priceAfterOffer}
-                </p>
-              </div>
-              <div className="btn-container ">
-                {itemQuantity(item) > 0 ? (
-                  <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
-                    <NormalBtn
-                      btnlabel={"-"}
-                      className={"food-increase-btn-hz"}
-                      onClick={() => removeFromCart(item, item.id)}
-                    />
-                    <span className="food-list-quantity mx-3">
-                      {itemQuantity(item)}
-                    </span>
-                    <NormalBtn
-                      btnlabel={"+"}
-                      className={"food-increase-btn-hz"}
-                      onClick={() => addToCart(item, item.id)}
-                    />
-                  </div>
-                ) : (
+            <div className="btn-container ">
+              {itemQuantity(item) > 0 ? (
+                <div className="d-flex align-items-center justify-content-evenly w-100 animation-ease-in">
                   <NormalBtn
-                    btnlabel={"Add to cart"}
-                    className={"food-list-btn"}
+                    btnlabel={"-"}
+                    className={"food-increase-btn-hz"}
+                    onClick={() => removeFromCart(item, item.id)}
+                  />
+                  <span className="food-list-quantity mx-3">
+                    {itemQuantity(item)}
+                  </span>
+                  <NormalBtn
+                    btnlabel={"+"}
+                    className={"food-increase-btn-hz"}
                     onClick={() => addToCart(item, item.id)}
                   />
-                )}
-              </div>
+                </div>
+              ) : (
+                <NormalBtn
+                  btnlabel={"Add to cart"}
+                  className={"food-list-btn"}
+                  onClick={() => addToCart(item, item.id)}
+                />
+              )}
             </div>
           </div>
         </div>

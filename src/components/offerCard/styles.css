@@ -4,10 +4,10 @@
   justify-content: space-between;
 }
 
-.card-view {
+.offer-card-view {
   background-color: #ffffff2e;
   display: flex;
-  min-height: 150px;
+  height: auto;
   position: relative;
   border-radius: 6px;
   transition: 0.3s ease-in-out;
@@ -90,16 +90,39 @@
   white-space: normal;
 }
 
+.name-view {
+  color: #000000;
+  font-size: 30px;
+  font-weight: 400;
+  overflow: hidden;
+  max-height: 108px;
+  min-height: 78px;
+  width: 100%;
+  font-family: "Niconne", cursive;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  margin-bottom: 5px;
+}
 .name {
   color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   overflow: hidden;
   text-align: center;
   height: auto;
+  font-size: 20px;
   white-space: normal;
+  margin-bottom: 0;
+  font-family: sans-serif;
 }
-
+.name-price {
+  color: #ffffff;
+  font-weight: 400;
+  overflow: hidden;
+  text-align: center;
+  font-size: 16px;
+  white-space: normal;
+  font-family: sans-serif;
+}
 .food-list-btn {
   background-color: #410d4f !important;
   outline: none !important;
@@ -340,7 +363,24 @@
   display: flex;
   align-items: center;
   z-index: 20;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 96.19%, 93.96% 90.38%, 85.28% 100%, 75.92% 90.38%, 66.17% 99.86%, 56.74% 90.17%, 47.64% 99.03%, 39.45% 90.25%, 29% 100%, 19.25% 90.38%, 10.37% 99.86%, 0% 90.15%, 0% 100%, 0% 15%);
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 96.19%,
+    93.96% 90.38%,
+    85.28% 100%,
+    75.92% 90.38%,
+    66.17% 99.86%,
+    56.74% 90.17%,
+    47.64% 99.03%,
+    39.45% 90.25%,
+    29% 100%,
+    19.25% 90.38%,
+    10.37% 99.86%,
+    0% 90.15%,
+    0% 100%,
+    0% 15%
+  );
 }
 .trend-type-hz {
   font-size: 12px;
@@ -359,7 +399,24 @@
   display: flex;
   align-items: center;
   z-index: 20;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 96.19%, 93.96% 90.38%, 85.28% 100%, 75.92% 90.38%, 66.17% 99.86%, 56.74% 90.17%, 47.64% 99.03%, 39.45% 90.25%, 29% 100%, 19.25% 90.38%, 10.37% 99.86%, 0% 90.15%, 0% 100%, 0% 15%);
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 96.19%,
+    93.96% 90.38%,
+    85.28% 100%,
+    75.92% 90.38%,
+    66.17% 99.86%,
+    56.74% 90.17%,
+    47.64% 99.03%,
+    39.45% 90.25%,
+    29% 100%,
+    19.25% 90.38%,
+    10.37% 99.86%,
+    0% 90.15%,
+    0% 100%,
+    0% 15%
+  );
 }
 .trend-type {
   font-size: 12px;
