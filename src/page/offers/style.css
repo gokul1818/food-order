@@ -1,8 +1,7 @@
 .glow-text {
   color: #fff;
   text-shadow: 0px 5px 20px #B10ADE; 
-  animation: glow 1s infinite alternate;
-   font-family: "Nosifer", sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 
